@@ -50,3 +50,6 @@ apps/mobile/.expo/
 .playwright-mcp/
 cap/
 /*.png
+
+# admin uploads (local filesystem storage)
+apps/web/public/uploads/

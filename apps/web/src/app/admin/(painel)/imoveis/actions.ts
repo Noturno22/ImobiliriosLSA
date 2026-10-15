@@ -14,6 +14,7 @@ import {
 import { propertyCreateSchema } from "@serrote/validation";
 import type { PrismaClient } from "@serrote/database";
 import { auth } from "@/auth";
+import { saveUploadedImages } from "@/lib/uploads";
 
 export interface PropertyFormState {
   error?: string;
@@ -86,10 +87,16 @@ export async function saveProperty(
   }
 
   const id = str(formData.get("id"));
-  const mediaUrls = str(formData.get("mediaUrls"))
+  const textUrls = str(formData.get("mediaUrls"))
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+
+  const files = formData
+    .getAll("files")
+    .filter((entry): entry is File => entry instanceof File && entry.size > 0);
+  const { urls: uploadedUrls } = await saveUploadedImages(files);
+  const mediaUrls = [...uploadedUrls, ...textUrls];
 
   const parsed = propertyCreateSchema.safeParse({
     title: str(formData.get("title")),

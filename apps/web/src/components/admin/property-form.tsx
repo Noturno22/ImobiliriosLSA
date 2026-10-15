@@ -303,6 +303,24 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
           placeholder={"https://…/foto-1.jpg\nhttps://…/foto-2.jpg"}
           className="mt-3 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 font-mono text-xs text-ink outline-none focus:border-orange"
         />
+
+        <div className="mt-5 border-t border-line pt-4">
+          <label htmlFor="files" className={labelClass}>
+            Enviar ficheiros
+          </label>
+          <p className="mt-1 text-xs text-ink-muted">
+            As imagens enviadas ficam antes das indicadas acima. Máx. 5 MB cada; aceitamos JPG,
+            PNG, WEBP e AVIF.
+          </p>
+          <input
+            id="files"
+            name="files"
+            type="file"
+            multiple
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            className="mt-3 block w-full cursor-pointer rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink file:mr-3 file:cursor-pointer file:rounded-control file:border-0 file:bg-orange file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
+          />
+        </div>
       </section>
 
       <div className="flex items-center gap-3">
