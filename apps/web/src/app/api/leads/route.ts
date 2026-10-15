@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import type { RequestType } from "@serrote/domain";
+import { RequestType } from "@serrote/domain";
 import { leadCreateSchema } from "@serrote/validation";
 import { requestTypeLabels } from "@/lib/labels";
 import { buildLeadMessage } from "@/lib/site";
@@ -63,7 +63,7 @@ export async function POST(request: Request) {
   try {
     const { getPrisma } = await import("@serrote/database");
     const prisma = await getPrisma();
-    await prisma.lead.create({
+    const lead = await prisma.lead.create({
       data: {
         name: data.name,
         phone: data.phone,
@@ -74,6 +74,20 @@ export async function POST(request: Request) {
         consent: true,
       },
     });
+
+    // A "viewing" request also opens an appointment for the team to manage.
+    if (data.requestType === RequestType.VIEWING && data.propertyId) {
+      await prisma.appointment.create({
+        data: {
+          propertyId: data.propertyId,
+          leadId: lead.id,
+          requestedAt: new Date(),
+          status: "REQUESTED",
+          notes: data.message ?? null,
+        },
+      });
+    }
+
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error("[leads] failed to persist lead:", error);

@@ -1,5 +1,6 @@
 import { AMENITIES } from "@serrote/domain";
 import type {
+  AppointmentStatus,
   LeadSource,
   LeadStatus,
   PropertyStatus,
@@ -62,6 +63,14 @@ export const leadStatusLabels: Record<LeadStatus, string> = {
   VISIT_SCHEDULED: "Visita marcada",
   WON: "Ganho",
   LOST: "Perdido",
+};
+
+export const appointmentStatusLabels: Record<AppointmentStatus, string> = {
+  REQUESTED: "Pedido",
+  CONFIRMED: "Confirmada",
+  COMPLETED: "Realizada",
+  CANCELLED: "Cancelada",
+  NO_SHOW: "Não compareceu",
 };
 
 export const leadSourceLabels: Record<LeadSource, string> = {

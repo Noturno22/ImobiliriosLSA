@@ -36,7 +36,7 @@ export default async function AdminDashboardPage() {
     { label: "Rascunhos", value: drafts, href: "/admin/imoveis" },
     { label: "Leads no total", value: totalLeads, href: "/admin/leads" },
     { label: "Leads novos", value: newLeads, href: "/admin/leads" },
-    { label: "Visitas pedidas", value: pendingAppointments, href: "/admin/leads" },
+    { label: "Visitas pedidas", value: pendingAppointments, href: "/admin/marcacoes" },
   ];
 
   return (
