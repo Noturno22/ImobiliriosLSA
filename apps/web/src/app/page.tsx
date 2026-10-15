@@ -6,6 +6,10 @@ import { SiteFooter } from "@/components/site-footer";
 import { SearchPanel } from "@/components/search-panel";
 import { PropertyCarousel, type CarouselItem } from "@/components/property-carousel";
 import { RotatingImage } from "@/components/rotating-image";
+import { AdBanners } from "@/components/ad-banners";
+import { VideoGallery } from "@/components/video-gallery";
+import { YouTubeChannelSection } from "@/components/youtube-channel";
+import { getHomeContent } from "@/lib/content";
 import { DEMO_FEATURED } from "@/lib/featured-demo";
 import { formatArea, transactionLabels } from "@/lib/labels";
 import { getFeaturedProperties } from "@/lib/properties";
@@ -99,6 +103,7 @@ function toCarouselItem(property: PropertySummary): CarouselItem {
 
 export default async function HomePage() {
   const featured = await getFeaturedProperties(8);
+  const content = await getHomeContent();
   const isDemo = featured.length < 3;
   const carouselItems: CarouselItem[] = isDemo ? DEMO_FEATURED : featured.map(toCarouselItem);
   const wa = whatsappLink("Olá! Gostaria de solicitar uma consultoria imobiliária.");
@@ -219,6 +224,8 @@ export default async function HomePage() {
         )}
       </section>
 
+        <AdBanners ads={content.ads} />
+
         {/* Why Serrote */}
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-card border border-line bg-canvas shadow-card">
@@ -286,6 +293,10 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        <VideoGallery videos={content.videos} channelUrl={content.youtube.url} />
+
+        <YouTubeChannelSection channel={content.youtube} />
 
         {/* Services */}
         <section aria-labelledby="servicos" className="border-y border-line bg-canvas-soft">
