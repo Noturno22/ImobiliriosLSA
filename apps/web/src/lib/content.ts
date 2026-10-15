@@ -30,6 +30,8 @@ export type VideoItem = {
   title: string;
   description?: string;
   durationLabel?: string;
+  /** Card aspect: "vertical" for Shorts (9:16), "horizontal" for regular videos (16:9). */
+  orientation?: "horizontal" | "vertical";
 };
 
 export type YouTubeChannel = {
@@ -78,11 +80,46 @@ const ADS: AdBanner[] = [
 ];
 
 /*
- * Video gallery. Add the real videos by copying their YouTube id, e.g.:
- *   { id: "v1", order: 1, active: true, youtubeId: "dQw4w9WgXcQ", title: "…" }
- * While empty, the section shows a tasteful empty state instead of an embed.
+ * Video gallery. Add a video by copying the id from its URL, e.g. for
+ * https://www.youtube.com/shorts/rFBPGPCokaM the id is "rFBPGPCokaM".
+ * Titles are normalised from the source (hashtags, prices and phone numbers
+ * removed) — edit freely. While the list is empty the section shows a tasteful
+ * empty state instead of an embed.
  */
-const VIDEOS: VideoItem[] = [];
+const VIDEOS: VideoItem[] = [
+  {
+    id: "v1",
+    order: 1,
+    active: true,
+    youtubeId: "rFBPGPCokaM",
+    orientation: "vertical",
+    title: "Vivenda V3 no Condomínio Real — Talatona, Luanda",
+  },
+  {
+    id: "v2",
+    order: 2,
+    active: true,
+    youtubeId: "XHnFB2CLon4",
+    orientation: "vertical",
+    title: "Vivenda T4 no Condomínio das Finanças — Lubango",
+  },
+  {
+    id: "v3",
+    order: 3,
+    active: true,
+    youtubeId: "OPXt5RoigDs",
+    orientation: "vertical",
+    title: "Vivenda T4 junto ao Estádio Tundavala — Lubango",
+  },
+  {
+    id: "v4",
+    order: 4,
+    active: true,
+    youtubeId: "c49GJbE_jL8",
+    orientation: "vertical",
+    title: "Moradia T6 de luxo na Mapunda — Lubango",
+  },
+];
 
 const YOUTUBE: YouTubeChannel = {
   name: "Serrote Imobiliária",

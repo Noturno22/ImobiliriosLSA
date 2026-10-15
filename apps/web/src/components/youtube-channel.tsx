@@ -1,11 +1,12 @@
 import type { YouTubeChannel } from "@/lib/content";
 
 /**
- * YouTube channel area. The subscribe action only appears once a real channel
- * URL is configured (NEXT_PUBLIC_YOUTUBE_CHANNEL_URL); otherwise the band shows
- * a neutral "in preparation" state rather than linking somewhere unverified.
+ * YouTube channel area. Renders only once a real channel URL is configured
+ * (NEXT_PUBLIC_YOUTUBE_CHANNEL_URL) — never links to an unverified channel.
  */
 export function YouTubeChannelSection({ channel }: { channel: YouTubeChannel }) {
+  if (!channel.url) return null;
+
   return (
     <section aria-labelledby="canal-youtube" className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
       <div className="overflow-hidden rounded-card bg-navy-deep shadow-card">
@@ -37,18 +38,14 @@ export function YouTubeChannelSection({ channel }: { channel: YouTubeChannel }) 
           </div>
 
           <div className="flex flex-wrap gap-3">
-            {channel.url ? (
-              <a
-                href={channel.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex h-11 items-center gap-2 rounded-full bg-[#ff0000] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#d90000]"
-              >
-                Subscrever canal
-              </a>
-            ) : (
-              <span className="text-sm text-white/60">Canal em preparação.</span>
-            )}
+            <a
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center gap-2 rounded-full bg-[#ff0000] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#d90000]"
+            >
+              Subscrever canal
+            </a>
           </div>
         </div>
       </div>

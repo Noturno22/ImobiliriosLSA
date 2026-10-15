@@ -52,7 +52,7 @@ export function VideoGallery({
             )}
           </div>
         ) : (
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
             {videos.map((video) => (
               <VideoCard
                 key={video.id}
@@ -77,9 +77,11 @@ function VideoCard({
   playing: boolean;
   onPlay: () => void;
 }) {
+  const vertical = video.orientation === "vertical";
+
   return (
     <article className="overflow-hidden rounded-card border border-line bg-canvas shadow-card">
-      <div className="relative aspect-video bg-navy-deep">
+      <div className={`relative bg-navy-deep ${vertical ? "aspect-[9/16]" : "aspect-video"}`}>
         {playing ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}?autoplay=1&rel=0`}
