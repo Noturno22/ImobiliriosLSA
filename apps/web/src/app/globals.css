@@ -1,0 +1,123 @@
+@import "tailwindcss";
+@import "@serrote/design-tokens/tokens.css";
+
+/*
+ * Make Tailwind's `dark:` variant follow the explicit [data-theme] attribute
+ * (set by the ThemeToggle) instead of the OS `prefers-color-scheme` media
+ * query. This keeps `dark:` utilities in sync with the design tokens.
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+/*
+ * Map design tokens into Tailwind's theme so utilities like `bg-canvas`,
+ * `text-ink`, `bg-orange`, `rounded-card` and `shadow-card` exist.
+ * `@theme inline` keeps the values as references, so the [data-theme="dark"]
+ * overrides in tokens.css continue to take effect.
+ */
+@theme inline {
+  --color-navy: var(--sr-navy);
+  --color-navy-deep: var(--sr-navy-deep);
+  --color-navy-soft: var(--sr-navy-soft);
+  --color-orange: var(--sr-orange);
+  --color-orange-hover: var(--sr-orange-hover);
+  --color-orange-soft: var(--sr-orange-soft);
+  --color-mist: var(--sr-mist);
+  --color-cream: var(--sr-cream);
+
+  --color-canvas: var(--sr-surface);
+  --color-canvas-soft: var(--sr-surface-soft);
+  --color-canvas-muted: var(--sr-surface-muted);
+
+  --color-ink: var(--sr-text-primary);
+  --color-ink-muted: var(--sr-text-secondary);
+  --color-ink-subtle: var(--sr-text-muted);
+
+  --color-line: var(--sr-border);
+  --color-line-strong: var(--sr-border-strong);
+
+  --color-success: var(--sr-success);
+  --color-warning: var(--sr-warning);
+  --color-danger: var(--sr-danger);
+  --color-info: var(--sr-info);
+
+  --radius-card: var(--sr-radius-card);
+  --radius-control: var(--sr-radius-control);
+  --radius-pill: var(--sr-radius-pill);
+
+  --shadow-card: var(--sr-shadow-card);
+  --shadow-elevated: var(--sr-shadow-elevated);
+
+  --font-sans: var(--font-sans), "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--font-display), "Manrope", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-size: 17px;
+  }
+
+  body {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    line-height: 1.6;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-orange);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/*
+ * In dark mode brand-navy text (headings, logo wordmark, outline buttons) must
+ * flip to the light foreground colour. Elements that intentionally keep a light
+ * background — e.g. the white CTA button — opt out via `bg-white`.
+ */
+[data-theme="dark"] .text-navy:not(.bg-white) {
+  color: var(--sr-text-primary);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .text-navy:not(.bg-white) {
+    color: var(--sr-text-primary);
+  }
+}
+
+@keyframes sr-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.sr-card-in {
+  animation: sr-card-in 700ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sr-card-in {
+    animation-duration: 1ms !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,12 @@
+Fotografias (placeholders) - substituir por fotografia propria antes do lancamento.
+
+hero.jpg      -> https://unsplash.com/photos/photo-1789758489701-be1542283d7c  (Unsplash License)
+city.jpg      -> https://unsplash.com/photos/photo-1786801769576-901fc70445d9  (Unsplash License)
+interior.jpg  -> https://unsplash.com/photos/photo-1779903726785-7cf25bed78f7  (Unsplash License)
+
+prop-1.jpg    -> https://unsplash.com/photos/photo-1706164971299-cfa23ec76083  (Unsplash License)
+prop-2.jpg    -> https://unsplash.com/photos/photo-1565363887715-8884629e09ee  (Unsplash License)
+prop-3.jpg    -> https://unsplash.com/photos/photo-1766848834872-fa8158c94a5d  (Unsplash License)
+
+Unsplash License: livre para uso comercial e sem obrigacao de atribuicao.
+Fonte consultada em 2026-10-14.

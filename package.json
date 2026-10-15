@@ -1,0 +1,35 @@
+{
+  "name": "serrote-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Serrote Imobiliária — cinematic real estate platform (web + API + Expo).",
+  "packageManager": "pnpm@10.34.4",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json,css}\"",
+    "db:generate": "pnpm --filter @serrote/database db:generate",
+    "db:migrate": "pnpm --filter @serrote/database db:migrate",
+    "db:seed": "pnpm --filter @serrote/database db:seed"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3",
+    "turbo": "^2.5.0",
+    "typescript": "^5.6.3"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "prisma",
+      "esbuild",
+      "unrs-resolver"
+    ]
+  }
+}

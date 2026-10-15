@@ -1,0 +1,104 @@
+/*
+ * Serrote Imobiliária — design tokens as CSS custom properties.
+ *
+ * All variables are prefixed `--sr-` so the Tailwind theme layer (globals.css)
+ * can map them into Tailwind's `--color-*` namespace without collisions, which
+ * keeps dark-theme overrides working under `@theme inline`.
+ *
+ * Light theme on :root. Dark theme under [data-theme="dark"] and, unless a
+ * theme is explicitly set, under prefers-color-scheme.
+ */
+
+:root {
+  /* brand */
+  --sr-navy: #20334b;
+  --sr-navy-deep: #17283b;
+  --sr-navy-soft: #2b425c;
+  --sr-orange: #ff690d;
+  --sr-orange-hover: #e85e08;
+  --sr-orange-soft: #ffe9da;
+  --sr-mist: #9dc5d4;
+  --sr-cream: #faf6ee;
+
+  /* surfaces */
+  --sr-surface: #ffffff;
+  --sr-surface-soft: #f7f8fa;
+  --sr-surface-muted: #eff3f7;
+
+  /* text */
+  --sr-text-primary: #24364c;
+  --sr-text-secondary: #667386;
+  --sr-text-muted: #8a94a3;
+  --sr-text-inverse: #ffffff;
+
+  /* borders */
+  --sr-border: #e4e9ef;
+  --sr-border-strong: #cbd5e1;
+
+  /* states */
+  --sr-success: #1e7a4b;
+  --sr-warning: #b45309;
+  --sr-danger: #c0392b;
+  --sr-info: #1d6fa5;
+
+  /* radii */
+  --sr-radius-sm: 8px;
+  --sr-radius-control: 12px;
+  --sr-radius-card: 16px;
+  --sr-radius-pill: 999px;
+
+  /* shadow */
+  --sr-shadow-card: 0 8px 28px rgba(25, 43, 63, 0.08);
+  --sr-shadow-elevated: 0 18px 48px rgba(25, 43, 63, 0.14);
+
+  /* motion */
+  --sr-motion-fast: 150ms;
+  --sr-motion-base: 240ms;
+  --sr-motion-slow: 400ms;
+  --sr-ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* hero image */
+  --sr-hero-image: url('/photos/hero-a.gif');
+}
+
+[data-theme="dark"] {
+  --sr-surface: #0b0d0f;
+  --sr-surface-soft: #14181d;
+  --sr-surface-muted: #1b222b;
+  --sr-text-primary: #ffffff;
+  --sr-text-secondary: #e2e8f0;
+  --sr-text-muted: #cbd5e1;
+  --sr-text-inverse: #0b0d0f;
+  --sr-border: #334155;
+  --sr-border-strong: #475569;
+  --sr-navy: #1e293b;
+  --sr-shadow-card: 0 8px 28px rgba(0, 0, 0, 0.5);
+  --sr-shadow-elevated: 0 18px 48px rgba(0, 0, 0, 0.6);
+  --sr-hero-image: url('/photos/hero-a.gif');
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --sr-surface: #0b0d0f;
+    --sr-surface-soft: #14181d;
+    --sr-surface-muted: #1b222b;
+    --sr-text-primary: #ffffff;
+    --sr-text-secondary: #e2e8f0;
+    --sr-text-muted: #cbd5e1;
+    --sr-text-inverse: #0b0d0f;
+    --sr-border: #334155;
+    --sr-border-strong: #475569;
+    --sr-navy: #1e293b;
+    --sr-shadow-card: 0 8px 28px rgba(0, 0, 0, 0.5);
+    --sr-shadow-elevated: 0 18px 48px rgba(0, 0, 0, 0.6);
+    --sr-hero-image: url('/photos/hero-a.gif');
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sr-motion-fast: 0ms;
+    --sr-motion-base: 0ms;
+    --sr-motion-slow: 0ms;
+  }
+}

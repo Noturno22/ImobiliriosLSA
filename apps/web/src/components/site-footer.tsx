@@ -1,0 +1,84 @@
+import Image from "next/image";
+import Link from "next/link";
+import { NAV_LINKS, site, whatsappLink } from "@/lib/site";
+
+export function SiteFooter() {
+  const wa = whatsappLink("Olá! Gostaria de falar com a Serrote Imobiliária.");
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="mt-24 border-t border-line bg-canvas-soft">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
+        <div className="md:col-span-2">
+          <div className="flex items-center gap-3">
+            <Image
+              src="/brand/logo-mark.png"
+              alt=""
+              width={1391}
+              height={984}
+              className="h-11 w-auto"
+            />
+            <p className="font-display text-xl font-extrabold tracking-tight text-navy dark:text-ink">
+              Serrote Imobiliária
+            </p>
+          </div>
+          <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">
+            {site.tagline} Casas, apartamentos e terrenos em Angola — compra, venda,
+            arrendamento e consultoria imobiliária.
+          </p>
+          {wa ? (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-5 inline-flex items-center gap-2 rounded-control bg-orange px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+            >
+              Falar no WhatsApp
+            </a>
+          ) : (
+            <p className="mt-5 text-xs text-ink-subtle">
+              Contacto por WhatsApp disponível após configuração do número oficial.
+            </p>
+          )}
+        </div>
+
+        <div>
+          <h2 className="text-sm font-semibold text-ink">Navegação</h2>
+          <ul className="mt-4 space-y-2.5">
+            {NAV_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href} className="text-sm text-ink-muted hover:text-ink">
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 className="text-sm font-semibold text-ink">Serviços</h2>
+          <ul className="mt-4 space-y-2.5 text-sm text-ink-muted">
+            <li>Compra e venda</li>
+            <li>Arrendamento</li>
+            <li>Gestão imobiliária</li>
+            <li>Consultoria imobiliária</li>
+          </ul>
+        </div>
+      </div>
+
+      <div className="border-t border-line">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-ink-subtle sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <p>© {year} Serrote Imobiliária. Todos os direitos reservados.</p>
+          <div className="flex gap-5">
+            <Link href="/politica-de-privacidade" className="hover:text-ink">
+              Política de Privacidade
+            </Link>
+            <Link href="/termos" className="hover:text-ink">
+              Termos de Utilização
+            </Link>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

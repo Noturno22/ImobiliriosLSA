@@ -1,0 +1,52 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+dist/
+build/
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+
+# env / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# os / editors
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+# test / coverage
+coverage/
+playwright-report/
+test-results/
+
+# database (local dev artifacts)
+*.db
+*.sqlite
+*.sqlite3
+prisma/migrations/dev.db*
+.data/
+
+# expo
+.expo/
+apps/mobile/.expo/
+
+# local tooling / captured artifacts
+.omo/
+.playwright-mcp/
+cap/
+/*.png
