@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { formatMoney } from "@serrote/domain";
 import { propertyTypeLabels, statusLabels, transactionLabels } from "@/lib/labels";
 
@@ -23,6 +24,12 @@ export default async function AdminPropertiesPage() {
           <h1 className="font-display text-2xl font-extrabold tracking-tight text-navy">Imóveis</h1>
           <p className="mt-1 text-sm text-ink-muted">{properties.length} registos.</p>
         </div>
+        <Link
+          href="/admin/imoveis/novo"
+          className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+        >
+          Novo imóvel
+        </Link>
       </div>
 
       {properties.length === 0 ? (
@@ -47,7 +54,12 @@ export default async function AdminPropertiesPage() {
                 <tr key={property.id} className="align-top">
                   <td className="px-4 py-3 font-mono text-xs text-ink-muted">{property.reference}</td>
                   <td className="px-4 py-3">
-                    <span className="font-medium text-ink">{property.title}</span>
+                    <Link
+                      href={`/admin/imoveis/${property.id}`}
+                      className="font-medium text-ink hover:text-orange"
+                    >
+                      {property.title}
+                    </Link>
                     {property.featured ? (
                       <span className="ml-2 rounded-full bg-orange/10 px-2 py-0.5 text-[11px] font-semibold text-orange">
                         Destaque
