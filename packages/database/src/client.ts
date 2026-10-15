@@ -72,6 +72,10 @@ async function createPglitePrisma(): Promise<PrismaClient> {
     }
   }
 
+  // Provision the initial administrator (no-op without ADMIN_EMAIL/ADMIN_PASSWORD).
+  const { ensurePgliteAdminUser } = await import("./admin-bootstrap");
+  await ensurePgliteAdminUser(client);
+
   // The adapter ships its own copy of the driver-adapter-utils types; the
   // interfaces are structurally identical but not nominally assignable, so we
   // align it with the client's expected adapter type.

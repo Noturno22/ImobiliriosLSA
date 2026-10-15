@@ -23,11 +23,11 @@
   "dependencies": {
     "@electric-sql/pglite": "^0.5.10",
     "@prisma/client": "^6.2.1",
+    "bcryptjs": "^2.4.3",
     "pglite-prisma-adapter": "^0.6.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
-    "bcryptjs": "^2.4.3",
     "prisma": "^6.2.1",
     "tsx": "^4.19.2"
   }

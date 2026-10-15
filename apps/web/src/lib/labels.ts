@@ -1,5 +1,12 @@
 import { AMENITIES } from "@serrote/domain";
-import type { PropertyStatus, PropertyType, RequestType, TransactionType } from "@serrote/domain";
+import type {
+  LeadSource,
+  LeadStatus,
+  PropertyStatus,
+  PropertyType,
+  RequestType,
+  TransactionType,
+} from "@serrote/domain";
 
 /** Portuguese (pt-PT) labels. Centralised so future i18n can replace them. */
 export const transactionLabels: Record<TransactionType, string> = {
@@ -47,3 +54,21 @@ export function formatArea(areaM2: number | null | undefined): string | null {
   if (!areaM2) return null;
   return `${new Intl.NumberFormat("pt-AO", { maximumFractionDigits: 0 }).format(areaM2)} m²`;
 }
+
+export const leadStatusLabels: Record<LeadStatus, string> = {
+  NEW: "Novo",
+  CONTACTED: "Contactado",
+  QUALIFIED: "Qualificado",
+  VISIT_SCHEDULED: "Visita marcada",
+  WON: "Ganho",
+  LOST: "Perdido",
+};
+
+export const leadSourceLabels: Record<LeadSource, string> = {
+  WEBSITE: "Website",
+  MOBILE_APP: "Aplicação móvel",
+  WHATSAPP: "WhatsApp",
+  PHONE: "Telefone",
+  EMAIL: "Email",
+  WALK_IN: "Presencial",
+};
