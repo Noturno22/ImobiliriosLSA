@@ -1,0 +1,13 @@
+.git
+node_modules
+**/node_modules
+.next
+**/.next
+.turbo
+**/.turbo
+.data
+cap
+UI
+.playwright-mcp
+.omo
+*.log

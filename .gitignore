@@ -53,3 +53,5 @@ cap/
 
 # admin uploads (local filesystem storage)
 apps/web/public/uploads/
+
+.vercel/
