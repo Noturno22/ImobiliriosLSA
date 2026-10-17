@@ -29,7 +29,9 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const property = await getPropertyBySlug(slug);
-  if (!property) return { title: "Imóvel não encontrado" };
+  // The root `loading.tsx` streams the shell, so a missing slug is delivered
+  // with HTTP 200. Keep the correct title and mark it noindex explicitly.
+  if (!property) return { title: "Imóvel não encontrado", robots: { index: false, follow: false } };
 
   const description = property.description.replace(/\s+/g, " ").trim().slice(0, 155);
   const image = property.mainImageUrl ?? undefined;
@@ -177,7 +179,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <main id="conteudo" className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <nav aria-label="Navegação estrutural" className="text-xs text-ink-muted">
           <ol className="flex flex-wrap items-center gap-1.5">
             <li>

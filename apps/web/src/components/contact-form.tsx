@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { todayISO } from "@/lib/dates";
 
 const REQUEST_TYPE_LABELS: Record<string, string> = {
   GENERAL: "Informação geral",
@@ -19,6 +20,7 @@ type Status = "idle" | "loading" | "success" | "error";
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [requestType, setRequestType] = useState<string>("GENERAL");
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -29,8 +31,10 @@ export function ContactForm() {
       name: String(fd.get("name") ?? "").trim(),
       phone: String(fd.get("phone") ?? "").trim(),
       email: String(fd.get("email") ?? "").trim() || undefined,
-      requestType: String(fd.get("requestType") ?? "GENERAL"),
+      requestType,
       message: String(fd.get("message") ?? "").trim() || undefined,
+      preferredDate: String(fd.get("preferredDate") ?? "").trim() || undefined,
+      preferredTime: String(fd.get("preferredTime") ?? "").trim() || undefined,
       consent: fd.get("consent") === "on",
       company: String(fd.get("sr_hp") ?? ""),
     };
@@ -123,7 +127,12 @@ export function ContactForm() {
 
         <label className={labelClass}>
           Tipo de pedido
-          <select name="requestType" defaultValue="GENERAL" className={fieldClass}>
+          <select
+            name="requestType"
+            value={requestType}
+            onChange={(event) => setRequestType(event.target.value)}
+            className={fieldClass}
+          >
             {Object.entries(REQUEST_TYPE_LABELS).map(([value, label]) => (
               <option key={value} value={value}>
                 {label}
@@ -131,6 +140,19 @@ export function ContactForm() {
             ))}
           </select>
         </label>
+
+        {requestType === "VIEWING" && (
+          <div className="grid gap-4 sm:col-span-2 sm:grid-cols-2">
+            <label className={labelClass}>
+              Data da visita (opcional)
+              <input type="date" name="preferredDate" min={todayISO()} className={fieldClass} />
+            </label>
+            <label className={labelClass}>
+              Hora pretendida (opcional)
+              <input type="time" name="preferredTime" step={1800} className={fieldClass} />
+            </label>
+          </div>
+        )}
 
         <label className={`${labelClass} sm:col-span-2`}>
           Mensagem (opcional)

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { formatMoney, type PropertySummary } from "@serrote/domain";
 import { SiteHeader } from "@/components/site-header";
+import { HeroVideo } from "@/components/hero-video";
 import { SiteFooter } from "@/components/site-footer";
 import { SearchPanel } from "@/components/search-panel";
 import { PropertyCarousel, type CarouselItem } from "@/components/property-carousel";
@@ -58,21 +59,25 @@ function IconConsulting() {
 
 const SERVICES = [
   {
+    id: "compra-e-venda",
     title: "Compra e venda",
     description: "Acompanhamento completo na aquisição e venda do seu imóvel, com avaliação e negociação.",
     icon: <IconHome />,
   },
   {
+    id: "arrendamento",
     title: "Arrendamento",
     description: "Encontre o imóvel certo para arrendar ou confie-nos a gestão do seu património.",
     icon: <IconKey />,
   },
   {
+    id: "gestao-imobiliaria",
     title: "Gestão imobiliária",
     description: "Administração de rendas, manutenção e contratos para proprietários e investidores.",
     icon: <IconBuilding />,
   },
   {
+    id: "consultoria",
     title: "Consultoria imobiliária",
     description: "Análise de mercado, avaliação de terrenos e apoio à decisão de investimento em Angola.",
     icon: <IconConsulting />,
@@ -112,22 +117,10 @@ export default async function HomePage() {
     <>
       <SiteHeader overlay />
 
-      <main>
+      <main id="conteudo">
         {/* Hero */}
         <section className="relative isolate overflow-hidden bg-cream dark:bg-navy-deep">
-          <video
-            aria-hidden
-            className="absolute inset-0 size-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            poster="/photos/hero.jpg"
-          >
-            <source src="/photos/hero-a.webm" type="video/webm" />
-            <source src="/photos/hero-a.mp4" type="video/mp4" />
-          </video>
+          <HeroVideo />
           <div
             aria-hidden
             className="absolute inset-0 bg-[linear-gradient(to_right,rgba(250,246,238,0.94)_0%,rgba(250,246,238,0.72)_34%,rgba(250,246,238,0)_62%)] dark:bg-[linear-gradient(to_right,rgba(11,13,15,0.94)_0%,rgba(11,13,15,0.72)_34%,rgba(11,13,15,0)_62%)]"
@@ -191,8 +184,8 @@ export default async function HomePage() {
                   Imóveis em <span className="text-orange">Destaque</span>
                 </h2>
                 <p className="mt-2 text-sm text-ink-muted sm:text-base">
-                  Selecionamos para você os melhores imóveis, com localização privilegiada e tudo o
-                  conforto que você merece.
+                  Selecionamos para si os melhores imóveis, com localização privilegiada e todo o
+                  conforto que merece.
                 </p>
               </div>
               <Link
@@ -244,7 +237,7 @@ export default async function HomePage() {
               </div>
               <div className="p-8 sm:p-10 lg:p-12">
                 <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange">
-                  Por quê escolher a Serrote?
+                  Por que escolher a Serrote?
                 </p>
                 <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
                   O seu sonho,
@@ -322,17 +315,39 @@ export default async function HomePage() {
             </div>
 
             <div className="grid gap-5 sm:grid-cols-2">
-              {SERVICES.map((service) => (
-                <div
-                  key={service.title}
-                  className="rounded-card border border-line bg-canvas p-6 shadow-card transition-shadow hover:shadow-elevated"
+              {SERVICES.map((service, index) => (
+                <Link
+                  key={service.id}
+                  href={`/servicos#${service.id}`}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-canvas p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-orange/40 hover:shadow-elevated"
                 >
-                  <span className="grid size-12 place-items-center rounded-control bg-orange-soft text-orange">
+                  <span
+                    aria-hidden
+                    className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-orange transition-transform duration-300 group-hover:scale-x-100"
+                  />
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute right-3 -top-3 font-display text-6xl font-extrabold leading-none text-ink/5 transition-colors duration-300 group-hover:text-orange/10"
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="grid size-12 place-items-center rounded-control border border-orange/15 bg-orange-soft text-orange transition-colors duration-300 group-hover:border-orange group-hover:bg-orange group-hover:text-white">
                     {service.icon}
                   </span>
-                  <h3 className="mt-4 font-display text-lg font-bold text-navy">{service.title}</h3>
+                  <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-navy">
+                    {service.title}
+                  </h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{service.description}</p>
-                </div>
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-ink-muted transition-colors duration-300 group-hover:text-orange">
+                    Saber mais
+                    <span
+                      aria-hidden
+                      className="transition-transform duration-300 group-hover:translate-x-1"
+                    >
+                      →
+                    </span>
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
@@ -354,7 +369,7 @@ export default async function HomePage() {
               </div>
               <div className="bg-orange p-8 text-white sm:p-10 lg:p-12">
                 <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-                  Vamos encontrar o seu próximo imóvel?
+                  Pronto para dar o próximo passo?
                 </h2>
                 <p className="mt-3 text-sm text-white/85 sm:text-base">
                   Fale com a nossa equipa e receba apoio personalizado — sem compromisso.

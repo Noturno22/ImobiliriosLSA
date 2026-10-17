@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -39,6 +40,30 @@ function buildQuery(input: PropertySearchInput, overrides: Partial<PropertySearc
   }
   const qs = search.toString();
   return qs ? `?${qs}` : "/imoveis";
+}
+
+function FilterChip({
+  href,
+  active,
+  children,
+}: {
+  href: string;
+  active: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-current={active ? "true" : undefined}
+      className={`inline-flex h-9 items-center rounded-pill border px-4 text-sm font-semibold transition-colors ${
+        active
+          ? "border-orange bg-orange text-white"
+          : "border-line bg-canvas text-ink hover:border-orange hover:text-orange"
+      }`}
+    >
+      {children}
+    </Link>
+  );
 }
 
 type Param = string | string[] | undefined;
@@ -90,7 +115,7 @@ export default async function ImoveisPage({
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main id="conteudo" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Imóveis</p>
         <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
           Encontre o seu próximo imóvel
@@ -100,84 +125,112 @@ export default async function ImoveisPage({
           que pode partilhar ou guardar a pesquisa.
         </p>
 
-        <form action="/imoveis" method="get" role="search" aria-label="Filtrar imóveis"
-          className="mt-7 rounded-card border border-line bg-canvas p-4 shadow-card sm:p-5">
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Operação</span>
-              <select name="transactionType" defaultValue={input.transactionType ?? ""} className={selectClass}>
-                <option value="">Comprar ou arrendar</option>
-                {(Object.keys(transactionLabels) as TransactionType[]).map((t) => (
-                  <option key={t} value={t}>{transactionLabels[t]}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Tipo de imóvel</span>
-              <select name="propertyType" defaultValue={input.propertyType ?? ""} className={selectClass}>
-                <option value="">Qualquer tipo</option>
-                {(Object.keys(propertyTypeLabels) as PropertyType[]).map((t) => (
-                  <option key={t} value={t}>{propertyTypeLabels[t]}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Província</span>
-              <select name="province" defaultValue={input.province ?? ""} className={selectClass}>
-                <option value="">Todas as províncias</option>
-                {PROVINCES.map((p) => (
-                  <option key={p.slug} value={p.name}>{p.name}</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Quartos (mín.)</span>
-              <select name="bedrooms" defaultValue={input.bedrooms ?? ""} className={selectClass}>
-                <option value="">Qualquer</option>
-                {[1, 2, 3, 4, 5].map((n) => (
-                  <option key={n} value={n}>{n}+</option>
-                ))}
-              </select>
-            </label>
-
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Preço mínimo (Kz)</span>
-              <input
-                type="number" name="minPrice" min={0} step={100000} inputMode="numeric"
-                defaultValue={input.minPrice ?? ""} placeholder="0" className={selectClass}
-              />
-            </label>
-
-            <label className="flex flex-col gap-1.5">
-              <span className="text-xs font-semibold text-ink-muted">Preço máximo (Kz)</span>
-              <input
-                type="number" name="maxPrice" min={0} step={100000} inputMode="numeric"
-                defaultValue={input.maxPrice ?? ""} placeholder="Sem limite" className={selectClass}
-              />
-            </label>
-          </div>
-
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <button
-              type="submit"
-              className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+        <div className="mt-7 rounded-card border border-line bg-canvas p-4 shadow-card sm:p-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">Operação</span>
+            <FilterChip
+              href={buildQuery(input, { transactionType: undefined, page: undefined })}
+              active={!input.transactionType}
             >
-              <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="11" cy="11" r="7" />
-                <path d="M20 20l-3.2-3.2" strokeLinecap="round" />
-              </svg>
-              Pesquisar imóveis
-            </button>
-            {hasFilters && (
-              <Link href="/imoveis" className="text-sm font-semibold text-ink-muted hover:text-ink">
-                Limpar filtros
-              </Link>
-            )}
+              Todos
+            </FilterChip>
+            {(Object.keys(transactionLabels) as TransactionType[]).map((t) => (
+              <FilterChip
+                key={t}
+                href={buildQuery(input, { transactionType: t, page: undefined })}
+                active={input.transactionType === t}
+              >
+                {transactionLabels[t]}
+              </FilterChip>
+            ))}
           </div>
-        </form>
+
+          <div className="mt-4 flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">Quartos</span>
+            <FilterChip
+              href={buildQuery(input, { bedrooms: undefined, page: undefined })}
+              active={input.bedrooms == null}
+            >
+              Qualquer
+            </FilterChip>
+            {[1, 2, 3, 4, 5].map((n) => (
+              <FilterChip
+                key={n}
+                href={buildQuery(input, { bedrooms: n, page: undefined })}
+                active={input.bedrooms === n}
+              >
+                {n}+
+              </FilterChip>
+            ))}
+          </div>
+
+          <form
+            action="/imoveis"
+            method="get"
+            role="search"
+            aria-label="Filtrar imóveis"
+            className="mt-5 border-t border-line pt-5"
+          >
+            <input type="hidden" name="transactionType" value={input.transactionType ?? ""} />
+            <input type="hidden" name="bedrooms" value={input.bedrooms ?? ""} />
+
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+              <label className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-ink-muted">Tipo de imóvel</span>
+                <select name="propertyType" defaultValue={input.propertyType ?? ""} className={selectClass}>
+                  <option value="">Qualquer tipo</option>
+                  {(Object.keys(propertyTypeLabels) as PropertyType[]).map((t) => (
+                    <option key={t} value={t}>{propertyTypeLabels[t]}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-ink-muted">Província</span>
+                <select name="province" defaultValue={input.province ?? ""} className={selectClass}>
+                  <option value="">Todas as províncias</option>
+                  {PROVINCES.map((p) => (
+                    <option key={p.slug} value={p.name}>{p.name}</option>
+                  ))}
+                </select>
+              </label>
+
+              <label className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-ink-muted">Preço mínimo (Kz)</span>
+                <input
+                  type="number" name="minPrice" min={0} step={100000} inputMode="numeric"
+                  defaultValue={input.minPrice ?? ""} placeholder="0" className={selectClass}
+                />
+              </label>
+
+              <label className="flex flex-col gap-1.5">
+                <span className="text-xs font-semibold text-ink-muted">Preço máximo (Kz)</span>
+                <input
+                  type="number" name="maxPrice" min={0} step={100000} inputMode="numeric"
+                  defaultValue={input.maxPrice ?? ""} placeholder="Sem limite" className={selectClass}
+                />
+              </label>
+            </div>
+
+            <div className="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                type="submit"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+              >
+                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M20 20l-3.2-3.2" strokeLinecap="round" />
+                </svg>
+                Pesquisar imóveis
+              </button>
+              {hasFilters && (
+                <Link href="/imoveis" className="text-sm font-semibold text-ink-muted hover:text-ink">
+                  Limpar filtros
+                </Link>
+              )}
+            </div>
+          </form>
+        </div>
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
           <p aria-live="polite" className="text-sm text-ink-muted">

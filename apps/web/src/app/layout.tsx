@@ -19,7 +19,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Serrote Imobiliária — A chave para sua nova história",
+    default: "Serrote Imobiliária — A chave para a sua nova história",
     template: "%s | Serrote Imobiliária",
   },
   description:
@@ -34,7 +34,6 @@ export const metadata: Metadata = {
       "Casas, apartamentos e terrenos num só lugar. Compra, venda, arrendamento e consultoria imobiliária em Angola.",
     url: siteUrl,
   },
-  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {

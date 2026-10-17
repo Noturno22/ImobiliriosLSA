@@ -17,10 +17,10 @@ export default function ContactoPage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+      <main id="conteudo" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Contacto</p>
         <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
-          Vamos encontrar o seu próximo imóvel
+          Fale com a Serrote Imobiliária
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
           Preencha o formulário ou fale connosco directamente. Respondemos aos pedidos assim que

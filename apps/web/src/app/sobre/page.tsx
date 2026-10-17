@@ -36,7 +36,7 @@ export default function SobrePage() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main id="conteudo">
         <section className="border-b border-line bg-canvas-soft">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
             <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">
@@ -119,7 +119,7 @@ export default function SobrePage() {
             <div className="overflow-hidden rounded-card bg-navy px-6 py-12 text-white sm:px-12">
               <div className="mx-auto max-w-2xl text-center">
                 <p className="font-display text-xl font-bold text-white/90 sm:text-2xl">
-                  “A chave para sua nova história.”
+                  “A chave para a sua nova história.”
                 </p>
                 <div className="mt-7">
                   <Link

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { RequestType } from "@serrote/domain";
-import { leadCreateSchema } from "@serrote/validation";
+import { leadCreateSchema, parsePreferredDateTime } from "@serrote/validation";
 import { requestTypeLabels } from "@/lib/labels";
 import { buildLeadMessage } from "@/lib/site";
 import { sendWhatsAppNotification } from "@/lib/whatsapp-notify";
@@ -36,18 +36,48 @@ export async function POST(request: Request) {
 
   const data = parsed.data;
 
+  // The client sends a preferred slot as separate date + time; anchor it to
+  // Angola (UTC+1) so the team sees the moment the customer actually wants.
+  const preferredAt = parsePreferredDateTime(data.preferredDate, data.preferredTime);
+  const preferredLabel =
+    preferredAt === null
+      ? undefined
+      : new Intl.DateTimeFormat("pt-PT", {
+          dateStyle: "full",
+          timeStyle: "short",
+          timeZone: "Africa/Luanda",
+        }).format(preferredAt);
+
+  // Resolve the property before notifying so the WhatsApp alert carries a
+  // reference/title the team recognises instead of an internal UUID.
+  const url = process.env.DATABASE_URL;
+  let property: { reference: string; title: string } | null = null;
+  if (url?.trim() && data.propertyId) {
+    try {
+      const { getPrisma } = await import("@serrote/database");
+      const prisma = await getPrisma();
+      property = await prisma.property.findUnique({
+        where: { id: data.propertyId },
+        select: { reference: true, title: true },
+      });
+    } catch (error) {
+      console.error("[leads] failed to resolve the property for notification:", error);
+    }
+  }
+
   // Deliver straight to the company WhatsApp so the lead is never lost.
   const message = buildLeadMessage({
     name: data.name,
     phone: data.phone,
     email: data.email,
     requestLabel: requestTypeLabels[data.requestType as RequestType] ?? "Informação geral",
-    propertyRef: data.propertyId ?? undefined,
+    propertyTitle: property?.title,
+    propertyRef: property?.reference ?? data.propertyId ?? undefined,
+    preferred: preferredLabel,
     message: data.message,
   });
   const notified = await sendWhatsAppNotification(message);
 
-  const url = process.env.DATABASE_URL;
   if (!url?.trim()) {
     if (notified) return NextResponse.json({ ok: true });
     return NextResponse.json(
@@ -81,7 +111,7 @@ export async function POST(request: Request) {
         data: {
           propertyId: data.propertyId,
           leadId: lead.id,
-          requestedAt: new Date(),
+          requestedAt: preferredAt ?? new Date(),
           status: "REQUESTED",
           notes: data.message ?? null,
         },

@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto grid max-w-3xl place-items-center px-4 py-24 text-center sm:px-6">
+      <main id="conteudo" className="mx-auto grid max-w-3xl place-items-center px-4 py-24 text-center sm:px-6">
         <p className="font-display text-6xl font-extrabold text-orange">404</p>
         <h1 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-navy dark:text-ink">
           Página não encontrada

@@ -82,8 +82,11 @@ export default async function AdminAppointmentsPage() {
                       </>
                     ) : null}
                   </p>
+                  <p className="text-xs font-semibold text-orange">
+                    Visita pretendida: {formatDateTime(appointment.requestedAt)}
+                  </p>
                   <p className="text-xs text-ink-subtle">
-                    Pedido em {formatDateTime(appointment.requestedAt)}
+                    Pedido em {formatDateTime(appointment.createdAt)}
                   </p>
                   <p className="text-sm text-ink-muted">
                     Imóvel:{" "}

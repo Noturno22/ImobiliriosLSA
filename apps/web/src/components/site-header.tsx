@@ -56,6 +56,13 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
           : "sticky top-0 z-50 border-b border-line bg-canvas/95 backdrop-blur"
       }
     >
+      <a
+        href="#conteudo"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:inline-flex focus:h-11 focus:items-center focus:rounded-control focus:border focus:border-line focus:bg-canvas focus:px-4 focus:text-sm focus:font-semibold focus:text-ink"
+      >
+        Saltar para o conteúdo
+      </a>
+
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-3" aria-label="Serrote Imobiliária — início">
           <Image
@@ -70,8 +77,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             <span className="font-display text-lg font-extrabold tracking-tight text-navy sm:text-2xl">
               SERROTE IMOBILIÁRIA
             </span>
-            <span className="mt-0.5 hidden text-xs font-medium tracking-[0.18em] text-ink-muted sm:block sm:text-sm">
-              A chave para sua nova história
+            <span className="mt-0.5 hidden text-[0.65rem] font-medium tracking-[0.16em] text-ink-muted sm:block">
+              A chave para a sua nova história
             </span>
           </span>
         </Link>

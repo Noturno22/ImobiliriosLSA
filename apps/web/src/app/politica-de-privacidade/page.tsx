@@ -13,7 +13,7 @@ export default function PrivacidadePage() {
   return (
     <>
       <SiteHeader />
-      <main className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
+      <main id="conteudo" className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
         <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Legal</p>
         <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink">
           Política de Privacidade
@@ -38,7 +38,7 @@ export default function PrivacidadePage() {
           <p>
             Enquanto esta política não está publicada, o formulário de contacto recolhe apenas o
             que é necessário para responder ao seu pedido: nome, telefone, email opcional, tipo
-            de pedido e mensagem opcional, acrescodo do seu consentimento explícito.
+            de pedido e mensagem opcional, acrescido do seu consentimento explícito.
           </p>
           <p>
             Esses dados são usados exclusivamente para responder ao contacto e não são partilhados

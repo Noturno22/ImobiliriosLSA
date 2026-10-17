@@ -67,7 +67,7 @@ export default function ServicosPage() {
   return (
     <>
       <SiteHeader />
-      <main>
+      <main id="conteudo">
         <section className="border-b border-line bg-canvas-soft">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
             <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">
@@ -166,7 +166,7 @@ export default function ServicosPage() {
           <div className="overflow-hidden rounded-card bg-navy px-6 py-12 text-white sm:px-12">
             <div className="mx-auto max-w-2xl text-center">
               <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
-                Vamos encontrar o seu próximo imóvel?
+                Quer avançar sem compromissos?
               </h2>
               <p className="mt-3 text-sm text-white/80 sm:text-base">
                 Fale com a nossa equipa e receba apoio personalizado — sem compromisso.

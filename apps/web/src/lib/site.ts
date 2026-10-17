@@ -5,7 +5,7 @@
 
 export const site = {
   name: "Serrote Imobiliária",
-  tagline: "A chave para sua nova história.",
+  tagline: "A chave para a sua nova história.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || null,
 } as const;
@@ -34,6 +34,7 @@ export function buildLeadMessage(fields: {
   requestLabel: string;
   propertyTitle?: string;
   propertyRef?: string;
+  preferred?: string;
   message?: string;
 }): string {
   const lines = [
@@ -44,6 +45,7 @@ export function buildLeadMessage(fields: {
   ];
   if (fields.email) lines.push(`• Email: ${fields.email}`);
   lines.push(`• Motivo: ${fields.requestLabel}`);
+  if (fields.preferred) lines.push(`• Visita pretendida: ${fields.preferred}`);
   if (fields.propertyTitle || fields.propertyRef) {
     const title = fields.propertyTitle ?? "Imóvel";
     const ref = fields.propertyRef ? ` (Ref. ${fields.propertyRef})` : "";

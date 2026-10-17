@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { todayISO } from "@/lib/dates";
 
 const REQUEST_OPTIONS: { value: string; label: string }[] = [
   { value: "PROPERTY_INFO", label: "Quero saber mais sobre este imóvel" },
@@ -30,6 +31,7 @@ export function PropertyLeadForm({
 }) {
   const [status, setStatus] = useState<Status>("idle");
   const [error, setError] = useState<string | null>(null);
+  const [requestType, setRequestType] = useState<string>(defaultRequestType);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -40,9 +42,11 @@ export function PropertyLeadForm({
       name: String(fd.get("name") ?? "").trim(),
       phone: String(fd.get("phone") ?? "").trim(),
       email: String(fd.get("email") ?? "").trim() || undefined,
-      requestType: String(fd.get("requestType") ?? defaultRequestType),
+      requestType,
       propertyId,
       message: String(fd.get("message") ?? "").trim() || undefined,
+      preferredDate: String(fd.get("preferredDate") ?? "").trim() || undefined,
+      preferredTime: String(fd.get("preferredTime") ?? "").trim() || undefined,
       consent: fd.get("consent") === "on",
       company: String(fd.get("sr_hp") ?? ""),
     };
@@ -114,7 +118,12 @@ export function PropertyLeadForm({
 
         <label className={labelClass}>
           Motivo do contacto
-          <select name="requestType" defaultValue={defaultRequestType} className={fieldClass}>
+          <select
+            name="requestType"
+            value={requestType}
+            onChange={(event) => setRequestType(event.target.value)}
+            className={fieldClass}
+          >
             {REQUEST_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
@@ -122,6 +131,24 @@ export function PropertyLeadForm({
             ))}
           </select>
         </label>
+
+        {requestType === "VIEWING" && (
+          <div className="grid gap-4 sm:col-span-2 sm:grid-cols-2">
+            <label className={labelClass}>
+              Data da visita (opcional)
+              <input
+                type="date"
+                name="preferredDate"
+                min={todayISO()}
+                className={fieldClass}
+              />
+            </label>
+            <label className={labelClass}>
+              Hora pretendida (opcional)
+              <input type="time" name="preferredTime" step={1800} className={fieldClass} />
+            </label>
+          </div>
+        )}
 
         <label className={`${labelClass} sm:col-span-2`}>
           Mensagem (opcional)
