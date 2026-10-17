@@ -6,6 +6,7 @@ import type {
   PropertyStatus,
   PropertyType,
   RequestType,
+  Role,
   TransactionType,
 } from "@serrote/domain";
 
@@ -80,4 +81,12 @@ export const leadSourceLabels: Record<LeadSource, string> = {
   PHONE: "Telefone",
   EMAIL: "Email",
   WALK_IN: "Presencial",
+};
+
+export const roleLabels: Record<Role, string> = {
+  SUPER_ADMIN: "Super Admin",
+  ADMIN: "Administrador",
+  PROPERTY_MANAGER: "Gestor de imóveis",
+  AGENT: "Agente",
+  EDITOR: "Editor",
 };
