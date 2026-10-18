@@ -51,12 +51,12 @@ export function HeroHeadline({ slides }: { slides: HeroSlide[] }) {
       aria-live="off"
       className={`transition-opacity duration-500 ease-in-out ${visible ? "opacity-100" : "opacity-0"}`}
     >
-      <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl lg:text-6xl">
+      <h1 className="mt-5 font-display text-3xl font-extrabold leading-[1.08] tracking-tight text-navy sm:text-4xl lg:text-5xl">
         {slide.lead}
         <br />
         <span className="text-orange">{slide.accent}</span>
       </h1>
-      <p className="mt-5 max-w-md text-base leading-relaxed text-ink sm:text-lg">
+      <p className="mt-4 max-w-md text-sm leading-relaxed text-ink sm:text-base">
         {slide.lines.map((line, i) => (
           <span key={line}>
             {i > 0 && <br className="hidden sm:inline" />}
