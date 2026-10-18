@@ -97,26 +97,28 @@ function Stat({ icon, children }: { icon: React.ReactNode; children: React.React
 function Card({ item }: { item: CarouselItem }) {
   return (
     <article className="sr-card-in group relative w-[320px] overflow-hidden rounded-[18px] border border-line/60 bg-canvas/85 shadow-elevated ring-1 ring-line/40 backdrop-blur-xl transition-transform duration-300 sm:w-[400px]">
-      <div className="relative aspect-[16/10] overflow-hidden bg-canvas-muted">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={item.image}
-          alt=""
-          loading="lazy"
-          className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.08]"
-        />
-        {/* vidrado — diagonal glass sheen across the photo */}
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.16)_20%,rgba(255,255,255,0)_46%)] dark:bg-[linear-gradient(118deg,rgba(0,0,0,0.35)_0%,rgba(0,0,0,0.15)_20%,rgba(0,0,0,0)_46%)] mix-blend-screen"
-        />
-        {/* vidrado — glossy inner edge + soft bottom shading */}
-        <span aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/40 dark:ring-white/10" />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,rgba(23,40,59,0.28),rgba(23,40,59,0))] dark:bg-[linear-gradient(to_top,rgba(0,0,0,0.5),rgba(0,0,0,0))]"
-        />
-        <span className="absolute bottom-0 left-5 translate-y-1/2 rounded-pill bg-orange px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
+      <div className="relative">
+        <div className="relative aspect-[16/10] overflow-hidden bg-canvas-muted">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={item.image}
+            alt=""
+            loading="lazy"
+            className="size-full object-cover transition-transform duration-700 group-hover:scale-[1.08]"
+          />
+          {/* vidrado — diagonal glass sheen across the photo */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(118deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.16)_20%,rgba(255,255,255,0)_46%)] dark:bg-[linear-gradient(118deg,rgba(0,0,0,0.35)_0%,rgba(0,0,0,0.15)_20%,rgba(0,0,0,0)_46%)] mix-blend-screen"
+          />
+          {/* vidrado — glossy inner edge + soft bottom shading */}
+          <span aria-hidden className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/40 dark:ring-white/10" />
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,rgba(23,40,59,0.28),rgba(23,40,59,0))] dark:bg-[linear-gradient(to_top,rgba(0,0,0,0.5),rgba(0,0,0,0))]"
+          />
+        </div>
+        <span className="absolute bottom-0 left-5 z-10 translate-y-1/2 rounded-pill bg-orange px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
           {item.badge}
         </span>
       </div>
