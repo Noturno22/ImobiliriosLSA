@@ -166,7 +166,7 @@ const SAMPLES: Sample[] = [
     lotAreaM2: null,
     amenities: ["security"],
     featured: true,
-    images: ["/photos/prop-1.jpg", "/photos/prop-3.jpg"],
+    images: ["/photos/interior.jpg", "/photos/prop-1.jpg"],
   },
 ];
 
