@@ -109,7 +109,7 @@ function toCarouselItem(property: PropertySummary): CarouselItem {
 export default async function HomePage() {
   const featured = await getFeaturedProperties(8);
   const content = await getHomeContent();
-  const isDemo = featured.length < 3;
+  const isDemo = featured.length === 0;
   const carouselItems: CarouselItem[] = isDemo ? DEMO_FEATURED : featured.map(toCarouselItem);
   const wa = whatsappLink("Olá! Gostaria de solicitar uma consultoria imobiliária.");
 
