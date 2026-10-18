@@ -16,9 +16,9 @@ export function SiteFooter() {
               alt=""
               width={1391}
               height={984}
-              className="h-11 w-auto"
+              className="h-14 w-auto sm:h-20"
             />
-            <p className="font-display text-xl font-extrabold tracking-tight text-navy dark:text-ink">
+            <p className="font-display text-2xl font-extrabold tracking-tight text-navy dark:text-ink">
               Serrote Imobiliária
             </p>
           </div>
