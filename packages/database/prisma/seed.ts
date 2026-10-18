@@ -16,6 +16,25 @@ function toMinor(amountMajor: number): bigint {
   return BigInt(Math.round(amountMajor * 100));
 }
 
+const SAMPLE_MEDIA: Record<string, { url: string; alt: string }[]> = {
+  "SRT-000001": [
+    { url: "/photos/prop-1.jpg", alt: "Moradia T4 com piscina — Talatona" },
+    { url: "/photos/interior.jpg", alt: "Interior da moradia em Talatona" },
+  ],
+  "SRT-000002": [
+    { url: "/photos/prop-2.jpg", alt: "Apartamento T3 mobilado — Miramar" },
+    { url: "/photos/interior.jpg", alt: "Sala do apartamento em Miramar" },
+  ],
+  "SRT-000003": [
+    { url: "/photos/prop-3.jpg", alt: "Apartamento T2 — Kilamba" },
+    { url: "/photos/interior.jpg", alt: "Interior do apartamento no Kilamba" },
+  ],
+  "SRT-000004": [
+    { url: "/photos/prop-4.jpg", alt: "Terreno em Viana" },
+    { url: "/photos/city.jpg", alt: "Vista da zona em Viana" },
+  ],
+};
+
 async function main() {
   const prisma = await getPrisma();
   const email = process.env.ADMIN_EMAIL ?? "admin@serrote.local";
@@ -43,7 +62,7 @@ async function main() {
     ] as const;
 
     for (const s of samples) {
-      await prisma.property.upsert({
+      const property = await prisma.property.upsert({
         where: { reference: s.ref },
         update: {},
         create: {
@@ -68,6 +87,20 @@ async function main() {
           publishedAt: new Date(),
         },
       });
+
+      const existingMedia = await prisma.propertyMedia.count({
+        where: { propertyId: property.id },
+      });
+      if (existingMedia === 0) {
+        await prisma.propertyMedia.createMany({
+          data: (SAMPLE_MEDIA[s.ref] ?? []).map((media, displayOrder) => ({
+            propertyId: property.id,
+            url: media.url,
+            alt: media.alt,
+            displayOrder,
+          })),
+        });
+      }
     }
     console.log(`✔ ${samples.length} imóveis de amostra (AMOSTRA) inseridos.`);
   } else {
