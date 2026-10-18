@@ -66,6 +66,25 @@
     line-height: 1.6;
   }
 
+  /*
+   * Native <select> popups are painted by the OS/browser, not by our CSS, so
+   * they ignore the dark theme unless the colour scheme is advertised. Setting
+   * `color-scheme` (plus explicit option colours) keeps the option list
+   * readable in both themes.
+   */
+  select {
+    color-scheme: light;
+  }
+
+  select option {
+    background-color: var(--color-canvas);
+    color: var(--color-ink);
+  }
+
+  [data-theme="dark"] select {
+    color-scheme: dark;
+  }
+
   :focus-visible {
     outline: 2px solid var(--color-orange);
     outline-offset: 2px;
@@ -85,6 +104,10 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) .text-navy:not(.bg-white) {
     color: var(--sr-text-primary);
+  }
+
+  :root:not([data-theme="light"]) select {
+    color-scheme: dark;
   }
 }
 

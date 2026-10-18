@@ -7,6 +7,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SearchPanel } from "@/components/search-panel";
 import { PropertyCarousel, type CarouselItem } from "@/components/property-carousel";
 import { RotatingImage } from "@/components/rotating-image";
+import { HeroHeadline, type HeroSlide } from "@/components/hero-headline";
 import { AdBanners } from "@/components/ad-banners";
 import { VideoGallery } from "@/components/video-gallery";
 import { YouTubeChannelSection } from "@/components/youtube-channel";
@@ -90,6 +91,49 @@ const HIGHLIGHTS = [
   "Acompanhamento personalizado",
 ];
 
+/**
+ * Hero copy variants. The first entry is the canonical heading in the served
+ * HTML; the rest rotate in on the client (see HeroHeadline).
+ */
+const HERO_SLIDES: HeroSlide[] = [
+  {
+    lead: "Mais que imóveis,",
+    accent: "entregamos confiança.",
+    lines: [
+      "Encontre o imóvel ideal para o seu futuro.",
+      "Casas, apartamentos, terrenos e muito mais.",
+      "Tudo em um só lugar.",
+    ],
+  },
+  {
+    lead: "O seu próximo endereço",
+    accent: "começa aqui.",
+    lines: [
+      "Compra, venda e arrendamento com apoio local.",
+      "Tratamos da avaliação, negociação e documentação.",
+      "Do primeiro contacto à entrega das chaves.",
+    ],
+  },
+  {
+    lead: "Investir em Angola",
+    accent: "com quem conhece o terreno.",
+    lines: [
+      "Oportunidades selecionadas em Luanda e nas províncias.",
+      "Análise de mercado e de retorno antes de decidir.",
+      "Gestão do seu património a longo prazo.",
+    ],
+  },
+  {
+    lead: "Procuramos por si",
+    accent: "o lar certo.",
+    lines: [
+      "Imóveis verificados, com visitas acompanhadas.",
+      "Sem pressa e sem surpresas no processo.",
+      "Fale connosco e encontre o seu lugar.",
+    ],
+  },
+];
+
 function toCarouselItem(property: PropertySummary): CarouselItem {
   return {
     id: property.id,
@@ -132,16 +176,7 @@ export default async function HomePage() {
                 <p aria-hidden className="invisible text-xs font-bold uppercase tracking-[0.26em] text-orange">
                   Bem-vindo à Serrote Imobiliária
                 </p>
-                <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl lg:text-6xl">
-                  Mais que imóveis,
-                  <br />
-                  <span className="text-orange">entregamos confiança.</span>
-                </h1>
-                <p className="mt-5 max-w-md text-base leading-relaxed text-ink sm:text-lg">
-                  Encontre o imóvel ideal para o seu futuro.
-                  <br className="hidden sm:inline" /> Casas, apartamentos, terrenos e muito mais.
-                  <br className="hidden sm:inline" /> Tudo em um só lugar.
-                </p>
+                <HeroHeadline slides={HERO_SLIDES} />
                 <div className="mt-7 flex items-center gap-3">
                   <Link
                     href="/imoveis"
