@@ -60,13 +60,31 @@ export async function getFeaturedProperties(limit = 6): Promise<PropertySummary[
   try {
     const { getPrisma } = await import("@serrote/database");
     const prisma = await getPrisma();
-    const rows = await prisma.property.findMany({
-      where: { status: "PUBLISHED", featured: true },
-      orderBy: [{ publishedAt: "desc" }],
-      take: limit,
-      include: { media: MEDIA_INCLUDE },
-    });
-    return (rows as unknown as RawProperty[]).map(toSummary);
+    const [featuredRows, remainingRows] = await Promise.all([
+      prisma.property.findMany({
+        where: { status: "PUBLISHED", featured: true },
+        orderBy: [{ publishedAt: "desc" }],
+        take: limit,
+        include: { media: MEDIA_INCLUDE },
+      }),
+      prisma.property.findMany({
+        where: { status: "PUBLISHED", featured: false },
+        orderBy: [{ publishedAt: "desc" }],
+        take: limit,
+        include: { media: MEDIA_INCLUDE },
+      }),
+    ]);
+
+    const seen = new Set<string>();
+    const rows: RawProperty[] = [];
+    for (const row of [...featuredRows, ...remainingRows] as unknown as RawProperty[]) {
+      if (seen.has(row.id)) continue;
+      seen.add(row.id);
+      rows.push(row);
+      if (rows.length >= limit) break;
+    }
+
+    return rows.map(toSummary);
   } catch (error) {
     console.error("[properties] failed to load featured properties:", error);
     return [];

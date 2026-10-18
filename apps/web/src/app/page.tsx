@@ -151,7 +151,7 @@ function toCarouselItem(property: PropertySummary): CarouselItem {
 }
 
 export default async function HomePage() {
-  const featured = await getFeaturedProperties(8);
+  const featured = await getFeaturedProperties(10);
   const content = await getHomeContent();
   const isDemo = featured.length === 0;
   const carouselItems: CarouselItem[] = isDemo ? DEMO_FEATURED : featured.map(toCarouselItem);
