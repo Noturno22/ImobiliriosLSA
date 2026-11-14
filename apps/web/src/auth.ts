@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import { loginSchema } from "@serrote/validation";
-import type { Role } from "@serrote/domain";
+import { loginSchema } from "@regis/validation";
+import type { Role } from "@regis/domain";
 
 /**
  * Auth.js (NextAuth v5) configuration for the administrative area.
@@ -26,7 +26,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         const parsed = loginSchema.safeParse(credentials);
         if (!parsed.success) return null;
 
-        const { getPrisma } = await import("@serrote/database");
+        const { getPrisma } = await import("@regis/database");
         const prisma = await getPrisma();
         const user = await prisma.user.findUnique({ where: { email: parsed.data.email } });
         if (!user || !user.active || !user.passwordHash) return null;

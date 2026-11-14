@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
-  "display": "Serrote base tsconfig",
+  "display": "Regis base tsconfig",
   "compilerOptions": {
     "target": "ES2022",
     "lib": ["ES2022"],

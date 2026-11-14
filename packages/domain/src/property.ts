@@ -20,7 +20,7 @@ export interface PropertyMedia {
 
 export interface Property {
   id: string;
-  /** Public reference shown to customers, e.g. "SRT-000123". */
+  /** Public reference shown to customers, e.g. "RGS-000123". */
   reference: string;
   slug: string;
   title: string;

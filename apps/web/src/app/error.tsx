@@ -6,7 +6,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   return (
     <main className="mx-auto grid min-h-dvh max-w-2xl place-items-center px-4 py-24 text-center sm:px-6">
       <div>
-        <p className="font-display text-6xl font-extrabold text-orange">Erro</p>
+        <p className="font-display text-6xl font-extrabold text-accent">Erro</p>
         <h1 className="mt-4 font-display text-2xl font-extrabold tracking-tight text-navy dark:text-ink">
           Algo não correu como esperado
         </h1>
@@ -18,13 +18,13 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
           <button
             type="button"
             onClick={() => reset()}
-            className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+            className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
           >
             Tentar novamente
           </button>
           <Link
             href="/"
-            className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-orange hover:text-orange"
+            className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
           >
             Voltar ao início
           </Link>

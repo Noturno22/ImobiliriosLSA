@@ -1,5 +1,5 @@
 {
-  "name": "@serrote/validation",
+  "name": "@regis/validation",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "files": ["src"],
   "dependencies": {
-    "@serrote/domain": "workspace:*",
+    "@regis/domain": "workspace:*",
     "zod": "^3.23.8"
   }
 }

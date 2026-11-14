@@ -88,7 +88,7 @@ function ArrowIcon({ className }: { className?: string }) {
 function Stat({ icon, children }: { icon: React.ReactNode; children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-ink-muted">
-      <span aria-hidden className="text-orange">{icon}</span>
+      <span aria-hidden className="text-accent">{icon}</span>
       {children}
     </span>
   );
@@ -118,7 +118,7 @@ function Card({ item }: { item: CarouselItem }) {
             className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-[linear-gradient(to_top,rgba(23,40,59,0.28),rgba(23,40,59,0))] dark:bg-[linear-gradient(to_top,rgba(0,0,0,0.5),rgba(0,0,0,0))]"
           />
         </div>
-        <span className="absolute bottom-0 left-5 z-10 translate-y-1/2 rounded-pill bg-orange px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
+        <span className="absolute bottom-0 left-5 z-10 translate-y-1/2 rounded-pill bg-accent px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
           {item.badge}
         </span>
       </div>
@@ -131,7 +131,7 @@ function Card({ item }: { item: CarouselItem }) {
           {item.title}
         </h3>
         <p className="mt-1 flex items-center gap-1.5 text-sm text-ink-muted">
-          <span className="text-orange">
+          <span className="text-accent">
             <PinIcon />
           </span>
           {item.location}
@@ -230,7 +230,7 @@ function QuickView({ item, onClose }: { item: CarouselItem; onClose: () => void 
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(23,40,59,0.35),rgba(23,40,59,0))]"
           />
-          <span className="absolute left-5 top-5 rounded-pill bg-orange px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
+          <span className="absolute left-5 top-5 rounded-pill bg-accent px-3.5 py-1.5 text-xs font-bold uppercase tracking-wide text-white shadow-md">
             {item.badge}
           </span>
         </div>
@@ -241,7 +241,7 @@ function QuickView({ item, onClose }: { item: CarouselItem; onClose: () => void 
           </p>
           <h2 className="mt-1.5 text-xl font-semibold leading-snug text-ink">{item.title}</h2>
           <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ink-muted">
-            <span className="text-orange">
+            <span className="text-accent">
               <PinIcon />
             </span>
             {item.location}
@@ -261,7 +261,7 @@ function QuickView({ item, onClose }: { item: CarouselItem; onClose: () => void 
           <div className="mt-auto flex flex-col gap-3 pt-6 sm:flex-row">
             <Link
               href={item.href}
-              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-pill bg-orange px-5 py-3 text-sm font-semibold text-white shadow-card transition-colors hover:bg-orange-hover"
+              className="group inline-flex flex-1 items-center justify-center gap-2 rounded-pill bg-accent px-5 py-3 text-sm font-semibold text-white shadow-card transition-colors hover:bg-accent-hover"
             >
               Ver imóvel completo
               <ArrowIcon className="size-4 transition-transform group-hover:translate-x-0.5" />
@@ -271,7 +271,7 @@ function QuickView({ item, onClose }: { item: CarouselItem; onClose: () => void 
                 href={wa}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex flex-1 items-center justify-center gap-2 rounded-pill border border-line px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-orange hover:text-orange"
+                className="inline-flex flex-1 items-center justify-center gap-2 rounded-pill border border-line px-5 py-3 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
               >
                 Falar por WhatsApp
               </a>
@@ -283,7 +283,7 @@ function QuickView({ item, onClose }: { item: CarouselItem; onClose: () => void 
           type="button"
           onClick={onClose}
           aria-label="Fechar"
-          className="absolute right-4 top-4 grid size-9 place-items-center rounded-full border border-line bg-canvas/90 text-ink shadow-card backdrop-blur transition-colors hover:border-orange hover:text-orange"
+          className="absolute right-4 top-4 grid size-9 place-items-center rounded-full border border-line bg-canvas/90 text-ink shadow-card backdrop-blur transition-colors hover:border-accent hover:text-accent"
         >
           <CloseIcon />
         </button>
@@ -319,11 +319,11 @@ export function PropertyCarousel({ items }: { items: CarouselItem[] }) {
     >
       <Skyline
         idSuffix="l"
-        className="pointer-events-none absolute bottom-2 left-0 h-[210px] w-[190px] text-mist opacity-40"
+        className="pointer-events-none absolute bottom-2 left-0 h-[210px] w-[190px] text-gold opacity-40"
       />
       <Skyline
         idSuffix="r"
-        className="pointer-events-none absolute bottom-2 right-0 h-[230px] w-[200px] -scale-x-100 text-mist opacity-40"
+        className="pointer-events-none absolute bottom-2 right-0 h-[230px] w-[200px] -scale-x-100 text-gold opacity-40"
       />
 
       <div className="relative mx-auto h-[460px] max-w-[1320px] sm:h-[520px]" style={{ perspective: "1600px" }}>
@@ -347,7 +347,7 @@ export function PropertyCarousel({ items }: { items: CarouselItem[] }) {
                 aria-label={`Ver detalhes: ${item.title}`}
                 className="block cursor-pointer text-left group focus-visible:outline-none"
               >
-                <span className="block rounded-[16px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange">
+                <span className="block rounded-[16px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent">
                   <Card item={item} />
                 </span>
               </button>
@@ -364,7 +364,7 @@ export function PropertyCarousel({ items }: { items: CarouselItem[] }) {
         type="button"
         onClick={() => go(-1)}
         aria-label="Cartão anterior"
-        className="absolute left-4 top-1/2 z-50 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-canvas text-ink shadow-card transition-colors hover:border-orange hover:text-orange sm:left-8"
+        className="absolute left-4 top-1/2 z-50 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-canvas text-ink shadow-card transition-colors hover:border-accent hover:text-accent sm:left-8"
       >
         <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
           <path d="M15 6l-6 6 6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -375,7 +375,7 @@ export function PropertyCarousel({ items }: { items: CarouselItem[] }) {
         type="button"
         onClick={() => go(1)}
         aria-label="Cartão seguinte"
-        className="absolute right-4 top-1/2 z-50 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-canvas text-ink shadow-card transition-colors hover:border-orange hover:text-orange sm:right-8"
+        className="absolute right-4 top-1/2 z-50 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-line bg-canvas text-ink shadow-card transition-colors hover:border-accent hover:text-accent sm:right-8"
       >
         <ArrowIcon className="size-5" />
       </button>

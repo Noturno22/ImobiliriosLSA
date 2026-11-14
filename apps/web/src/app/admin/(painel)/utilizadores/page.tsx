@@ -4,7 +4,7 @@ import { roleLabels } from "@/lib/labels";
 export const dynamic = "force-dynamic";
 
 export default async function AdminUsersPage() {
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const users = await prisma.user.findMany({ orderBy: { createdAt: "desc" } });
@@ -20,7 +20,7 @@ export default async function AdminUsersPage() {
         </div>
         <Link
           href="/admin/utilizadores/novo"
-          className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+          className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
         >
           Nova conta
         </Link>
@@ -48,7 +48,7 @@ export default async function AdminUsersPage() {
                   <td className="px-4 py-3">
                     <Link
                       href={`/admin/utilizadores/${user.id}`}
-                      className="font-medium text-ink hover:text-orange"
+                      className="font-medium text-ink hover:text-accent"
                     >
                       {user.name}
                     </Link>

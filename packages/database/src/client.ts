@@ -16,7 +16,7 @@ import { PGLITE_DDL } from "./pglite-ddl";
  * not be used in production.
  */
 const globalForPrisma = globalThis as unknown as {
-  __serrotePrisma?: Promise<PrismaClient>;
+  __regisPrisma?: Promise<PrismaClient>;
 };
 
 function prismaLog(): ("warn" | "error")[] {
@@ -46,7 +46,7 @@ export function resolvePgliteDir(): string {
   if (fromEnv) return isAbsolute(fromEnv) ? fromEnv : resolve(root, fromEnv);
 
   const url = (process.env.DATABASE_URL ?? "").trim();
-  const rel = url.replace(/^pglite:\/\/?/, "").replace(/^\/+/, "") || ".data/serrote";
+  const rel = url.replace(/^pglite:\/\/?/, "").replace(/^\/+/, "") || ".data/regis";
   return resolve(root, rel);
 }
 
@@ -91,8 +91,8 @@ function createPrisma(): Promise<PrismaClient> {
 
 /** Returns a ready-to-use PrismaClient, initialising PGlite on first call. */
 export function getPrisma(): Promise<PrismaClient> {
-  if (!globalForPrisma.__serrotePrisma) {
-    globalForPrisma.__serrotePrisma = createPrisma();
+  if (!globalForPrisma.__regisPrisma) {
+    globalForPrisma.__regisPrisma = createPrisma();
   }
-  return globalForPrisma.__serrotePrisma;
+  return globalForPrisma.__regisPrisma;
 }

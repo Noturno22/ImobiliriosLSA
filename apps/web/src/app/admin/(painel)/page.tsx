@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMoney } from "@serrote/domain";
+import { formatMoney } from "@regis/domain";
 import { leadStatusLabels, statusLabels, transactionLabels } from "@/lib/labels";
 
 export const dynamic = "force-dynamic";
@@ -13,7 +13,7 @@ function formatDateTime(date: Date): string {
 }
 
 export default async function AdminDashboardPage() {
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const [published, drafts, totalLeads, newLeads, pendingAppointments, recentLeads, recentProperties] =
@@ -53,7 +53,7 @@ export default async function AdminDashboardPage() {
           <Link
             key={stat.label}
             href={stat.href}
-            className="rounded-card border border-line bg-canvas p-4 transition-colors hover:border-orange"
+            className="rounded-card border border-line bg-canvas p-4 transition-colors hover:border-accent"
           >
             <span className="block font-display text-3xl font-extrabold text-navy">{stat.value}</span>
             <span className="mt-1 block text-xs text-ink-muted">{stat.label}</span>
@@ -65,7 +65,7 @@ export default async function AdminDashboardPage() {
         <section className="rounded-card border border-line bg-canvas p-5">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg font-bold text-navy">Leads recentes</h2>
-            <Link href="/admin/leads" className="text-sm font-semibold text-orange hover:underline">
+            <Link href="/admin/leads" className="text-sm font-semibold text-accent hover:underline">
               Ver todos
             </Link>
           </div>
@@ -97,7 +97,7 @@ export default async function AdminDashboardPage() {
         <section className="rounded-card border border-line bg-canvas p-5">
           <div className="flex items-center justify-between">
             <h2 className="font-display text-lg font-bold text-navy">Imóveis recentes</h2>
-            <Link href="/admin/imoveis" className="text-sm font-semibold text-orange hover:underline">
+            <Link href="/admin/imoveis" className="text-sm font-semibold text-accent hover:underline">
               Ver todos
             </Link>
           </div>

@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import "@serrote/design-tokens/tokens.css";
+@import "@regis/design-tokens/tokens.css";
 
 /*
  * Make Tailwind's `dark:` variant follow the explicit [data-theme] attribute
@@ -10,7 +10,7 @@
 
 /*
  * Map design tokens into Tailwind's theme so utilities like `bg-canvas`,
- * `text-ink`, `bg-orange`, `rounded-card` and `shadow-card` exist.
+ * `text-ink`, `bg-accent`, `rounded-card` and `shadow-card` exist.
  * `@theme inline` keeps the values as references, so the [data-theme="dark"]
  * overrides in tokens.css continue to take effect.
  */
@@ -18,10 +18,12 @@
   --color-navy: var(--sr-navy);
   --color-navy-deep: var(--sr-navy-deep);
   --color-navy-soft: var(--sr-navy-soft);
-  --color-orange: var(--sr-orange);
-  --color-orange-hover: var(--sr-orange-hover);
-  --color-orange-soft: var(--sr-orange-soft);
-  --color-mist: var(--sr-mist);
+  --color-accent: var(--sr-accent);
+  --color-accent-hover: var(--sr-accent-hover);
+  --color-accent-soft: var(--sr-accent-soft);
+  --color-gold: var(--sr-gold);
+  --color-gold-hover: var(--sr-gold-hover);
+  --color-gold-soft: var(--sr-gold-soft);
   --color-cream: var(--sr-cream);
 
   --color-canvas: var(--sr-surface);
@@ -86,7 +88,7 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-orange);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
     border-radius: 4px;
   }

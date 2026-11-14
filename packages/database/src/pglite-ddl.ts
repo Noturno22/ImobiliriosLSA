@@ -1,5 +1,5 @@
 // AUTO-GENERATED from prisma/schema.prisma via `prisma migrate diff`.
-// Regenerate: pnpm --filter @serrote/database db:pglite:ddl
+// Regenerate: pnpm --filter @regis/database db:pglite:ddl
 // Applied automatically when a pglite:// database is created for local dev.
 
 export const PGLITE_DDL = `-- CreateSchema

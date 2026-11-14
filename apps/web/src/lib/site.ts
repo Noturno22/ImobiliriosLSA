@@ -4,8 +4,8 @@
  */
 
 export const site = {
-  name: "Serrote Imobiliária",
-  tagline: "A chave para a sua nova história.",
+  name: "Regis Properties",
+  tagline: "A Chave do Seu Futuro.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
   whatsappNumber: process.env.NEXT_PUBLIC_WHATSAPP_NUMBER?.trim() || null,
 } as const;
@@ -38,7 +38,7 @@ export function buildLeadMessage(fields: {
   message?: string;
 }): string {
   const lines = [
-    "Olá Serrote Imobiliária! Gostaria de enviar um pedido:",
+    "Olá Regis Properties! Gostaria de enviar um pedido:",
     "",
     `• Nome: ${fields.name}`,
     `• Telefone: ${fields.phone}`,

@@ -4,11 +4,11 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
   transpilePackages: [
-    "@serrote/design-tokens",
-    "@serrote/domain",
-    "@serrote/validation",
-    "@serrote/api-client",
-    "@serrote/database",
+    "@regis/design-tokens",
+    "@regis/domain",
+    "@regis/validation",
+    "@regis/api-client",
+    "@regis/database",
   ],
   serverExternalPackages: ["@electric-sql/pglite", "pglite-prisma-adapter"],
   experimental: {

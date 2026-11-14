@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { LeadStatus, Permission, hasPermission } from "@serrote/domain";
+import { LeadStatus, Permission, hasPermission } from "@regis/domain";
 import { auth, signOut } from "@/auth";
 
 export async function doSignOut(): Promise<void> {
@@ -26,7 +26,7 @@ export async function updateLeadStatus(formData: FormData): Promise<void> {
   const validStatuses = Object.values(LeadStatus) as string[];
   if (!id || !validStatuses.includes(status)) return;
 
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   await prisma.lead.update({

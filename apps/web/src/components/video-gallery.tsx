@@ -21,12 +21,12 @@ export function VideoGallery({
     <section aria-labelledby="videos" className="border-y border-line bg-canvas-soft">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <header className="max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange">Vídeos</p>
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Vídeos</p>
           <h2
             id="videos"
             className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl"
           >
-            Veja os imóveis <span className="text-orange">em vídeo</span>
+            Veja os imóveis <span className="text-accent">em vídeo</span>
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-ink-muted sm:text-base">
             Tours, dicas e apresentações em vídeo para conhecer cada detalhe antes da visita.
@@ -45,7 +45,7 @@ export function VideoGallery({
                 href={channelUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-5 inline-flex h-11 items-center rounded-full bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                className="mt-5 inline-flex h-11 items-center rounded-full bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
               >
                 Visitar o canal
               </a>
@@ -105,7 +105,7 @@ function VideoCard({
               className="size-full object-cover transition duration-500 group-hover:scale-[1.03]"
             />
             <span aria-hidden className="absolute inset-0 grid place-items-center">
-              <span className="grid size-14 place-items-center rounded-full bg-orange text-white shadow-elevated transition-transform duration-200 group-hover:scale-110">
+              <span className="grid size-14 place-items-center rounded-full bg-accent text-white shadow-elevated transition-transform duration-200 group-hover:scale-110">
                 <svg viewBox="0 0 24 24" className="size-6 translate-x-[2px]" fill="currentColor">
                   <path d="M8 5v14l11-7z" />
                 </svg>

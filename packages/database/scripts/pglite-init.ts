@@ -2,7 +2,7 @@
  * Initialises the embedded PGlite database for local development:
  * creates the data directory, applies the schema and seeds sample inventory.
  *
- *   pnpm --filter @serrote/database db:pglite:init
+ *   pnpm --filter @regis/database db:pglite:init
  */
 import { getPrisma, isPgliteDatabase, resolvePgliteDir } from "../src/index";
 

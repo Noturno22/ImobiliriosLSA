@@ -17,19 +17,19 @@ function toMinor(amountMajor: number): bigint {
 }
 
 const SAMPLE_MEDIA: Record<string, { url: string; alt: string }[]> = {
-  "SRT-000001": [
+  "RGS-000001": [
     { url: "/photos/prop-1.jpg", alt: "Moradia T4 com piscina — Talatona" },
     { url: "/photos/interior.jpg", alt: "Interior da moradia em Talatona" },
   ],
-  "SRT-000002": [
+  "RGS-000002": [
     { url: "/photos/prop-2.jpg", alt: "Apartamento T3 mobilado — Miramar" },
     { url: "/photos/interior.jpg", alt: "Sala do apartamento em Miramar" },
   ],
-  "SRT-000003": [
+  "RGS-000003": [
     { url: "/photos/prop-3.jpg", alt: "Apartamento T2 — Kilamba" },
     { url: "/photos/interior.jpg", alt: "Interior do apartamento no Kilamba" },
   ],
-  "SRT-000004": [
+  "RGS-000004": [
     { url: "/photos/prop-4.jpg", alt: "Terreno em Viana" },
     { url: "/photos/city.jpg", alt: "Vista da zona em Viana" },
   ],
@@ -37,7 +37,7 @@ const SAMPLE_MEDIA: Record<string, { url: string; alt: string }[]> = {
 
 async function main() {
   const prisma = await getPrisma();
-  const email = process.env.ADMIN_EMAIL ?? "admin@serrote.local";
+  const email = process.env.ADMIN_EMAIL ?? "admin@regis.local";
   const password = process.env.ADMIN_PASSWORD ?? "ChangeMe123!";
   const passwordHash = await bcrypt.hash(password, 10);
 
@@ -46,7 +46,7 @@ async function main() {
     update: {},
     create: {
       email,
-      name: process.env.ADMIN_NAME ?? "Administrador Serrote",
+      name: process.env.ADMIN_NAME ?? "Administrador Regis",
       role: Role.SUPER_ADMIN,
       passwordHash,
     },
@@ -55,10 +55,10 @@ async function main() {
 
   if (process.env.SEED_SAMPLE_DATA === "true") {
     const samples = [
-      { ref: "SRT-000001", title: "Moradia T4 com piscina — Talatona (AMOSTRA)", type: PropertyType.VILLA, tx: TransactionType.SALE, price: 185_000_000, beds: 4, baths: 4, area: 420, muni: "Talatona", hood: "Bairro Jardim" },
-      { ref: "SRT-000002", title: "Apartamento T3 mobilado — Miramar (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.SALE, price: 95_000_000, beds: 3, baths: 2, area: 165, muni: "Luanda", hood: "Miramar" },
-      { ref: "SRT-000003", title: "Apartamento T2 para arrendar — Kilamba (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.RENT, price: 450_000, beds: 2, baths: 1, area: 92, muni: "Kilamba Kiaxi", hood: "Kilamba" },
-      { ref: "SRT-000004", title: "Terreno 1.200 m² — Viana (AMOSTRA)", type: PropertyType.LAND, tx: TransactionType.SALE, price: 28_000_000, beds: null, baths: null, area: null, muni: "Viana", hood: "Zango" },
+      { ref: "RGS-000001", title: "Moradia T4 com piscina — Talatona (AMOSTRA)", type: PropertyType.VILLA, tx: TransactionType.SALE, price: 185_000_000, beds: 4, baths: 4, area: 420, muni: "Talatona", hood: "Bairro Jardim" },
+      { ref: "RGS-000002", title: "Apartamento T3 mobilado — Miramar (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.SALE, price: 95_000_000, beds: 3, baths: 2, area: 165, muni: "Luanda", hood: "Miramar" },
+      { ref: "RGS-000003", title: "Apartamento T2 para arrendar — Kilamba (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.RENT, price: 450_000, beds: 2, baths: 1, area: 92, muni: "Kilamba Kiaxi", hood: "Kilamba" },
+      { ref: "RGS-000004", title: "Terreno 1.200 m² — Viana (AMOSTRA)", type: PropertyType.LAND, tx: TransactionType.SALE, price: 28_000_000, beds: null, baths: null, area: null, muni: "Viana", hood: "Zango" },
     ] as const;
 
     for (const s of samples) {
@@ -70,7 +70,7 @@ async function main() {
           slug: s.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
           title: s.title,
           description:
-            "[AMOSTRA] Registo de desenvolvimento para validar a interface. Não representa um imóvel real da Serrote Imobiliária.",
+            "[AMOSTRA] Registo de desenvolvimento para validar a interface. Não representa um imóvel real da Regis Properties.",
           transactionType: s.tx,
           propertyType: s.type,
           status: PropertyStatus.PUBLISHED,
@@ -83,7 +83,7 @@ async function main() {
           bathrooms: s.baths,
           areaM2: s.area,
           amenities: ["garage", "security"],
-          featured: s.ref === "SRT-000001" || s.ref === "SRT-000002",
+          featured: s.ref === "RGS-000001" || s.ref === "RGS-000002",
           publishedAt: new Date(),
         },
       });

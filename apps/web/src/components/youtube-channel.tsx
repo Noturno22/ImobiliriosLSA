@@ -18,7 +18,7 @@ export function YouTubeChannelSection({ channel }: { channel: YouTubeChannel }) 
           </span>
 
           <div>
-            <p className="text-xs font-bold uppercase tracking-[0.2em] text-mist">Canal do YouTube</p>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-gold">Canal do YouTube</p>
             <h2
               id="canal-youtube"
               className="mt-2 font-display text-2xl font-extrabold tracking-tight text-white sm:text-3xl"
@@ -31,7 +31,7 @@ export function YouTubeChannelSection({ channel }: { channel: YouTubeChannel }) 
               </p>
             )}
             {channel.subscriberLabel && (
-              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-mist">
+              <p className="mt-2 text-xs font-semibold uppercase tracking-wide text-gold">
                 {channel.subscriberLabel}
               </p>
             )}

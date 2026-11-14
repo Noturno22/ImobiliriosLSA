@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMoney } from "@serrote/domain";
+import { formatMoney } from "@regis/domain";
 import { propertyTypeLabels, statusLabels, transactionLabels } from "@/lib/labels";
 
 export const dynamic = "force-dynamic";
@@ -9,7 +9,7 @@ function money(minor: bigint, currency: "AOA" | "USD" | "EUR"): string {
 }
 
 export default async function AdminPropertiesPage() {
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const properties = await prisma.property.findMany({
@@ -26,7 +26,7 @@ export default async function AdminPropertiesPage() {
         </div>
         <Link
           href="/admin/imoveis/novo"
-          className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+          className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
         >
           Novo imóvel
         </Link>
@@ -56,12 +56,12 @@ export default async function AdminPropertiesPage() {
                   <td className="px-4 py-3">
                     <Link
                       href={`/admin/imoveis/${property.id}`}
-                      className="font-medium text-ink hover:text-orange"
+                      className="font-medium text-ink hover:text-accent"
                     >
                       {property.title}
                     </Link>
                     {property.featured ? (
-                      <span className="ml-2 rounded-full bg-orange/10 px-2 py-0.5 text-[11px] font-semibold text-orange">
+                      <span className="ml-2 rounded-full bg-accent/10 px-2 py-0.5 text-[11px] font-semibold text-accent">
                         Destaque
                       </span>
                     ) : null}

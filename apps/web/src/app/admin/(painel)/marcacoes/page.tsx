@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { AppointmentStatus } from "@serrote/domain";
+import { AppointmentStatus } from "@regis/domain";
 import { updateAppointmentStatus } from "./actions";
 import { appointmentStatusLabels } from "@/lib/labels";
 
@@ -16,7 +16,7 @@ function formatDateTime(date: Date): string {
 const STATUS_VALUES = Object.values(AppointmentStatus);
 
 const statusTone: Record<AppointmentStatus, string> = {
-  REQUESTED: "bg-orange/10 text-orange",
+  REQUESTED: "bg-accent/10 text-accent",
   CONFIRMED: "bg-navy/10 text-navy",
   COMPLETED: "bg-emerald-500/10 text-emerald-600",
   CANCELLED: "bg-ink-subtle/10 text-ink-muted",
@@ -24,7 +24,7 @@ const statusTone: Record<AppointmentStatus, string> = {
 };
 
 export default async function AdminAppointmentsPage() {
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const appointments = await prisma.appointment.findMany({
@@ -70,19 +70,19 @@ export default async function AdminAppointmentsPage() {
                     </p>
                   </div>
                   <p className="text-sm text-ink-muted">
-                    <a href={`tel:${appointment.lead.phone}`} className="hover:text-orange">
+                    <a href={`tel:${appointment.lead.phone}`} className="hover:text-accent">
                       {appointment.lead.phone}
                     </a>
                     {appointment.lead.email ? (
                       <>
                         {" · "}
-                        <a href={`mailto:${appointment.lead.email}`} className="hover:text-orange">
+                        <a href={`mailto:${appointment.lead.email}`} className="hover:text-accent">
                           {appointment.lead.email}
                         </a>
                       </>
                     ) : null}
                   </p>
-                  <p className="text-xs font-semibold text-orange">
+                  <p className="text-xs font-semibold text-accent">
                     Visita pretendida: {formatDateTime(appointment.requestedAt)}
                   </p>
                   <p className="text-xs text-ink-subtle">
@@ -92,7 +92,7 @@ export default async function AdminAppointmentsPage() {
                     Imóvel:{" "}
                     <Link
                       href={`/admin/imoveis/${appointment.propertyId}`}
-                      className="hover:text-orange"
+                      className="hover:text-accent"
                     >
                       {appointment.property.reference} · {appointment.property.title}
                     </Link>
@@ -114,7 +114,7 @@ export default async function AdminAppointmentsPage() {
                       <input type="hidden" name="status" value={status} />
                       <button
                         type="submit"
-                        className="rounded-control border border-line-strong px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-orange hover:text-orange"
+                        className="rounded-control border border-line-strong px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-accent hover:text-accent"
                       >
                         {appointmentStatusLabels[status]}
                       </button>

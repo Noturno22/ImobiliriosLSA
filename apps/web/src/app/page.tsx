@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { formatMoney, type PropertySummary } from "@serrote/domain";
+import { formatMoney, type PropertySummary } from "@regis/domain";
 import { SiteHeader } from "@/components/site-header";
 import { HeroVideo } from "@/components/hero-video";
 import { SiteFooter } from "@/components/site-footer";
@@ -173,21 +173,21 @@ export default async function HomePage() {
           <div className="relative mx-auto max-w-7xl px-4 pb-36 pt-32 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between gap-10">
               <div className="max-w-2xl">
-                <p aria-hidden className="invisible text-xs font-bold uppercase tracking-[0.26em] text-orange">
-                  Bem-vindo à Serrote Imobiliária
+                <p aria-hidden className="invisible text-xs font-bold uppercase tracking-[0.26em] text-accent">
+                  Bem-vindo à Regis Properties
                 </p>
                 <HeroHeadline slides={HERO_SLIDES} />
                 <div className="mt-7 flex items-center gap-3">
                   <Link
                     href="/imoveis"
-                    className="grid size-12 shrink-0 place-items-center rounded-full bg-orange text-white shadow-elevated transition-colors hover:bg-orange-hover"
+                    className="grid size-12 shrink-0 place-items-center rounded-full bg-accent text-white shadow-elevated transition-colors hover:bg-accent-hover"
                     aria-label="Explorar imóveis"
                   >
                     <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                       <path d="M5 12h13M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                   </Link>
-                  <Link href="/imoveis" className="text-sm font-semibold text-navy hover:text-orange">
+                  <Link href="/imoveis" className="text-sm font-semibold text-navy hover:text-accent">
                     Explorar imóveis
                   </Link>
                 </div>
@@ -216,7 +216,7 @@ export default async function HomePage() {
             <div className="flex flex-wrap items-end justify-between gap-6">
               <div className="max-w-2xl">
                 <h2 id="destaques" className="font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
-                  Imóveis em <span className="text-orange">Destaque</span>
+                  Imóveis em <span className="text-accent">Destaque</span>
                 </h2>
                 <p className="mt-2 text-sm text-ink-muted sm:text-base">
                   Selecionamos para si os melhores imóveis, com localização privilegiada e todo o
@@ -225,12 +225,12 @@ export default async function HomePage() {
               </div>
               <Link
                 href="/imoveis"
-                className="group inline-flex items-center gap-2.5 text-sm font-semibold text-orange hover:text-orange-hover"
+                className="group inline-flex items-center gap-2.5 text-sm font-semibold text-accent hover:text-accent-hover"
               >
                 Ver todos os imóveis
                 <span
                   aria-hidden
-                  className="grid size-8 place-items-center rounded-full border border-orange text-orange transition-colors group-hover:bg-orange group-hover:text-white"
+                  className="grid size-8 place-items-center rounded-full border border-accent text-accent transition-colors group-hover:bg-accent group-hover:text-white"
                 >
                   <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h13M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
@@ -254,7 +254,7 @@ export default async function HomePage() {
 
         <AdBanners ads={content.ads} />
 
-        {/* Why Serrote */}
+        {/* Why Regis */}
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
           <div className="overflow-hidden rounded-card border border-line bg-canvas shadow-card">
             <div className="grid lg:grid-cols-2">
@@ -271,13 +271,13 @@ export default async function HomePage() {
                 />
               </div>
               <div className="p-8 sm:p-10 lg:p-12">
-                <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange">
-                  Por que escolher a Serrote?
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
+                  Por que escolher a Regis?
                 </p>
                 <h2 className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
                   O seu sonho,
                   <br />
-                  <span className="text-orange">o nosso compromisso.</span>
+                  <span className="text-accent">o nosso compromisso.</span>
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-ink-muted sm:text-base">
                   Conhecemos o mercado angolano e acompanhamos cada cliente desde a primeira pesquisa
@@ -289,7 +289,7 @@ export default async function HomePage() {
                     <li key={item} className="flex items-center gap-3 text-sm text-ink">
                       <span
                         aria-hidden
-                        className="grid size-5 shrink-0 place-items-center rounded-full bg-orange text-white"
+                        className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-white"
                       >
                         <svg viewBox="0 0 24 24" className="size-3" fill="none" stroke="currentColor" strokeWidth="3">
                           <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
@@ -302,7 +302,7 @@ export default async function HomePage() {
                 <div className="mt-8 flex flex-wrap gap-3">
                   <Link
                     href="/contacto"
-                    className="inline-flex h-11 items-center rounded-full bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                    className="inline-flex h-11 items-center rounded-full bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                   >
                     Pedir consultoria
                   </Link>
@@ -311,7 +311,7 @@ export default async function HomePage() {
                       href={wa}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex h-11 items-center rounded-full border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-orange hover:text-orange"
+                      className="inline-flex h-11 items-center rounded-full border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-accent hover:text-accent"
                     >
                       WhatsApp
                     </a>
@@ -330,20 +330,20 @@ export default async function HomePage() {
         <section aria-labelledby="servicos" className="border-y border-line bg-canvas-soft">
           <div className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] lg:px-8">
             <div>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-orange">
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">
                 Os nossos serviços
               </p>
               <h2 id="servicos" className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl">
                 Soluções completas em
                 <br />
-                <span className="text-orange">imóveis.</span>
+                <span className="text-accent">imóveis.</span>
               </h2>
               <p className="mt-4 text-sm leading-relaxed text-ink-muted sm:text-base">
                 Da compra à gestão, estamos ao seu lado em todas as etapas do processo.
               </p>
               <Link
                 href="/servicos"
-                className="mt-6 inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-orange hover:text-orange"
+                className="mt-6 inline-flex h-11 items-center gap-2 rounded-full border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-accent hover:text-accent"
               >
                 Conheça os nossos serviços →
               </Link>
@@ -354,26 +354,26 @@ export default async function HomePage() {
                 <Link
                   key={service.id}
                   href={`/servicos#${service.id}`}
-                  className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-canvas p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-orange/40 hover:shadow-elevated"
+                  className="group relative flex h-full flex-col overflow-hidden rounded-card border border-line bg-canvas p-6 shadow-card transition duration-300 hover:-translate-y-1 hover:border-accent/40 hover:shadow-elevated"
                 >
                   <span
                     aria-hidden
-                    className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-orange transition-transform duration-300 group-hover:scale-x-100"
+                    className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-300 group-hover:scale-x-100"
                   />
                   <span
                     aria-hidden
-                    className="pointer-events-none absolute right-3 -top-3 font-display text-6xl font-extrabold leading-none text-ink/5 transition-colors duration-300 group-hover:text-orange/10"
+                    className="pointer-events-none absolute right-3 -top-3 font-display text-6xl font-extrabold leading-none text-ink/5 transition-colors duration-300 group-hover:text-accent/10"
                   >
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="grid size-12 place-items-center rounded-control border border-orange/15 bg-orange-soft text-orange transition-colors duration-300 group-hover:border-orange group-hover:bg-orange group-hover:text-white">
+                  <span className="grid size-12 place-items-center rounded-control border border-accent/15 bg-accent-soft text-accent transition-colors duration-300 group-hover:border-accent group-hover:bg-accent group-hover:text-white">
                     {service.icon}
                   </span>
                   <h3 className="mt-5 font-display text-lg font-bold tracking-tight text-navy">
                     {service.title}
                   </h3>
                   <p className="mt-2 text-sm leading-relaxed text-ink-muted">{service.description}</p>
-                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-ink-muted transition-colors duration-300 group-hover:text-orange">
+                  <span className="mt-auto inline-flex items-center gap-1.5 pt-5 text-sm font-semibold text-ink-muted transition-colors duration-300 group-hover:text-accent">
                     Saber mais
                     <span
                       aria-hidden
@@ -402,7 +402,7 @@ export default async function HomePage() {
                   className="object-cover"
                 />
               </div>
-              <div className="bg-orange p-8 text-white sm:p-10 lg:p-12">
+              <div className="bg-accent p-8 text-white sm:p-10 lg:p-12">
                 <h2 className="font-display text-2xl font-extrabold tracking-tight sm:text-3xl">
                   Pronto para dar o próximo passo?
                 </h2>

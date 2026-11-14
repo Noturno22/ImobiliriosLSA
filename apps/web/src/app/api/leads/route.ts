@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { RequestType } from "@serrote/domain";
-import { leadCreateSchema, parsePreferredDateTime } from "@serrote/validation";
+import { RequestType } from "@regis/domain";
+import { leadCreateSchema, parsePreferredDateTime } from "@regis/validation";
 import { requestTypeLabels } from "@/lib/labels";
 import { buildLeadMessage } from "@/lib/site";
 import { sendWhatsAppNotification } from "@/lib/whatsapp-notify";
@@ -54,7 +54,7 @@ export async function POST(request: Request) {
   let property: { reference: string; title: string } | null = null;
   if (url?.trim() && data.propertyId) {
     try {
-      const { getPrisma } = await import("@serrote/database");
+      const { getPrisma } = await import("@regis/database");
       const prisma = await getPrisma();
       property = await prisma.property.findUnique({
         where: { id: data.propertyId },
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const lead = await prisma.lead.create({
       data: {

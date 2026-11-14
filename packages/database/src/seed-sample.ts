@@ -33,11 +33,11 @@ type Sample = {
 };
 
 const DESCRIPTION =
-  "[AMOSTRA] Registo de desenvolvimento para validar a interface. Não representa um imóvel real da Serrote Imobiliária.";
+  "[AMOSTRA] Registo de desenvolvimento para validar a interface. Não representa um imóvel real da Regis Properties.";
 
 const SAMPLES: Sample[] = [
   {
-    reference: "SRT-000001",
+    reference: "RGS-000001",
     slug: "moradia-t4-condominio-fechado-talatona",
     title: "Moradia T4 — Condomínio Fechado",
     description: `${DESCRIPTION} Moradia independente com piscina, jardim e acabamentos premium num condomínio com segurança 24 horas.`,
@@ -59,7 +59,7 @@ const SAMPLES: Sample[] = [
     images: ["/photos/prop-1.jpg", "/photos/interior.jpg", "/photos/city.jpg"],
   },
   {
-    reference: "SRT-000002",
+    reference: "RGS-000002",
     slug: "apartamento-t3-vista-branca-viana",
     title: "Apartamento T3 — Vista Branca",
     description: `${DESCRIPTION} Apartamento moderno com varanda ampla, cozinha equipada e vista desafogada.`,
@@ -81,7 +81,7 @@ const SAMPLES: Sample[] = [
     images: ["/photos/prop-2.jpg", "/photos/interior.jpg"],
   },
   {
-    reference: "SRT-000003",
+    reference: "RGS-000003",
     slug: "moradia-t3-mobilada-ingombota",
     title: "Moradia T3 — Mobiliada",
     description: `${DESCRIPTION} Moradia mobilada pronta a habitar, em zona central com bons acessos.`,
@@ -103,7 +103,7 @@ const SAMPLES: Sample[] = [
     images: ["/photos/prop-3.jpg", "/photos/city.jpg"],
   },
   {
-    reference: "SRT-000004",
+    reference: "RGS-000004",
     slug: "moradia-t4-vista-mar-cacuaco",
     title: "Moradia T4 — Vista Mar",
     description: `${DESCRIPTION} Moradia de dois pisos com ampla vista para o mar e área de lazer.`,
@@ -125,7 +125,7 @@ const SAMPLES: Sample[] = [
     images: ["/photos/prop-4.jpg", "/photos/interior.jpg"],
   },
   {
-    reference: "SRT-000005",
+    reference: "RGS-000005",
     slug: "moradia-t3-jardim-belas",
     title: "Moradia T3 — Jardim",
     description: `${DESCRIPTION} Moradia em condomínio com jardim privativo e acabamentos de qualidade.`,
@@ -147,7 +147,7 @@ const SAMPLES: Sample[] = [
     images: ["/photos/prop-5.jpg", "/photos/city.jpg"],
   },
   {
-    reference: "SRT-000006",
+    reference: "RGS-000006",
     slug: "apartamento-t2-arrendar-kilamba",
     title: "Apartamento T2 — Arrendar",
     description: `${DESCRIPTION} Apartamento funcional e bem localizado, ideal para primeira habitação.`,

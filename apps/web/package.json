@@ -1,5 +1,5 @@
 {
-  "name": "@serrote/web",
+  "name": "@regis/web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,11 +11,11 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@serrote/api-client": "workspace:*",
-    "@serrote/database": "workspace:*",
-    "@serrote/design-tokens": "workspace:*",
-    "@serrote/domain": "workspace:*",
-    "@serrote/validation": "workspace:*",
+    "@regis/api-client": "workspace:*",
+    "@regis/database": "workspace:*",
+    "@regis/design-tokens": "workspace:*",
+    "@regis/domain": "workspace:*",
+    "@regis/validation": "workspace:*",
     "bcryptjs": "^2.4.3",
     "next": "^16.0.0",
     "next-auth": "5.0.0-beta.32",

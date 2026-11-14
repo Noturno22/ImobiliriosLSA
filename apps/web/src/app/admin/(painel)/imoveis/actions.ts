@@ -10,9 +10,9 @@ import {
   TransactionType,
   fromMajor,
   hasPermission,
-} from "@serrote/domain";
-import { propertyCreateSchema } from "@serrote/validation";
-import type { PrismaClient } from "@serrote/database";
+} from "@regis/domain";
+import { propertyCreateSchema } from "@regis/validation";
+import type { PrismaClient } from "@regis/database";
 import { auth } from "@/auth";
 import { saveUploadedImages } from "@/lib/uploads";
 
@@ -51,9 +51,9 @@ async function nextReference(prisma: PrismaClient): Promise<string> {
     orderBy: { reference: "desc" },
     select: { reference: true },
   });
-  const digits = last ? /SRT-(\d+)/.exec(last.reference)?.[1] : undefined;
+  const digits = last ? /RGS-(\d+)/.exec(last.reference)?.[1] : undefined;
   const next = digits ? Number.parseInt(digits, 10) + 1 : 1;
-  return `SRT-${String(next).padStart(6, "0")}`;
+  return `RGS-${String(next).padStart(6, "0")}`;
 }
 
 async function uniqueSlug(prisma: PrismaClient, title: string, reference: string): Promise<string> {
@@ -133,7 +133,7 @@ export async function saveProperty(
   const propertyType = data.propertyType as PropertyType;
   const status = data.status as PropertyStatus;
 
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   try {
@@ -244,7 +244,7 @@ export async function setPropertyStatus(formData: FormData): Promise<void> {
   const status = str(formData.get("status"));
   if (!id || !(Object.values(PropertyStatus) as string[]).includes(status)) return;
 
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const existing = await prisma.property.findUnique({

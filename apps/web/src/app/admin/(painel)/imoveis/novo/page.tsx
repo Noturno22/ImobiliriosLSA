@@ -7,7 +7,7 @@ export default function NewPropertyPage() {
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/admin/imoveis" className="text-sm text-ink-muted hover:text-orange">
+        <Link href="/admin/imoveis" className="text-sm text-ink-muted hover:text-accent">
           ← Imóveis
         </Link>
         <h1 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-navy">

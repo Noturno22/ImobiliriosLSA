@@ -1,5 +1,5 @@
 import type { DefaultSession } from "next-auth";
-import type { Role } from "@serrote/domain";
+import type { Role } from "@regis/domain";
 
 declare module "next-auth" {
   interface User {

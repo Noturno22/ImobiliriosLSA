@@ -1,4 +1,4 @@
-import { LeadStatus } from "@serrote/domain";
+import { LeadStatus } from "@regis/domain";
 import { updateLeadStatus } from "@/app/admin/actions";
 import { leadSourceLabels, leadStatusLabels, requestTypeLabels } from "@/lib/labels";
 
@@ -15,7 +15,7 @@ function formatDateTime(date: Date): string {
 const STATUS_VALUES = Object.values(LeadStatus);
 
 export default async function AdminLeadsPage() {
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const leads = await prisma.lead.findMany({
@@ -45,13 +45,13 @@ export default async function AdminLeadsPage() {
                 <div className="min-w-0 space-y-1">
                   <p className="font-display text-base font-bold text-navy">{lead.name}</p>
                   <p className="text-sm text-ink-muted">
-                    <a href={`tel:${lead.phone}`} className="hover:text-orange">
+                    <a href={`tel:${lead.phone}`} className="hover:text-accent">
                       {lead.phone}
                     </a>
                     {lead.email ? (
                       <>
                         {" · "}
-                        <a href={`mailto:${lead.email}`} className="hover:text-orange">
+                        <a href={`mailto:${lead.email}`} className="hover:text-accent">
                           {lead.email}
                         </a>
                       </>
@@ -81,7 +81,7 @@ export default async function AdminLeadsPage() {
                       id={`status-${lead.id}`}
                       name="status"
                       defaultValue={lead.status}
-                      className="h-10 rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-orange"
+                      className="h-10 rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent"
                     >
                       {STATUS_VALUES.map((value) => (
                         <option key={value} value={value}>
@@ -91,7 +91,7 @@ export default async function AdminLeadsPage() {
                     </select>
                     <button
                       type="submit"
-                      className="h-10 rounded-control bg-orange px-4 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                      className="h-10 rounded-control bg-accent px-4 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                     >
                       Guardar
                     </button>

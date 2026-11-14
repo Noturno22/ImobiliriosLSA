@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { PropertySort, PropertyType, TransactionType } from "@serrote/domain";
+import { PropertySort, PropertyType, TransactionType } from "@regis/domain";
 
 const enumValues = <T extends Record<string, string>>(e: T) =>
   Object.values(e) as [string, ...string[]];

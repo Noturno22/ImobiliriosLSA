@@ -57,7 +57,7 @@ function AdCard({ ad }: { ad: AdBanner }) {
           <p className="mt-1.5 max-w-sm text-sm leading-relaxed text-white/80">{ad.description}</p>
         )}
         {ad.ctaLabel && (
-          <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-orange">
+          <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-accent">
             {ad.ctaLabel}
             <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
               <path d="M5 12h13M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />

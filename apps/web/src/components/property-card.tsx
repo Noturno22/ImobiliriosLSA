@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMoney, type PropertySummary } from "@serrote/domain";
+import { formatMoney, type PropertySummary } from "@regis/domain";
 import { formatArea, propertyTypeLabels, transactionLabels } from "@/lib/labels";
 
 function Stat({ icon, label }: { icon: React.ReactNode; label: string }) {
@@ -32,23 +32,23 @@ export function PropertyCard({ property }: { property: PropertySummary }) {
             loading="lazy"
           />
         ) : (
-          <div className="grid size-full place-items-center bg-gradient-to-br from-navy to-navy-deep text-mist">
+          <div className="grid size-full place-items-center bg-gradient-to-br from-navy to-navy-deep text-gold">
             <span className="px-4 text-center text-xs font-medium tracking-wide">
               Fotografia do imóvel indisponível
             </span>
           </div>
         )}
-        <span className="absolute left-3 top-3 rounded-pill bg-orange px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+        <span className="absolute left-3 top-3 rounded-pill bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
           {transactionLabels[property.transactionType]}
         </span>
       </Link>
 
       <div className="flex flex-1 flex-col p-4">
-        <p className="text-xs font-semibold uppercase tracking-wide text-orange">
+        <p className="text-xs font-semibold uppercase tracking-wide text-accent">
           {propertyTypeLabels[property.propertyType]} · {property.municipality}
         </p>
         <h3 className="mt-1.5 line-clamp-2 font-display text-base font-bold leading-snug text-navy dark:text-ink">
-          <Link href={`/imoveis/${property.slug}`} className="hover:text-orange">
+          <Link href={`/imoveis/${property.slug}`} className="hover:text-accent">
             {property.title}
           </Link>
         </h3>

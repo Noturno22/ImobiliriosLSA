@@ -12,7 +12,7 @@ const REQUEST_TYPE_LABELS: Record<string, string> = {
 };
 
 const fieldClass =
-  "h-11 w-full rounded-control border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors focus:border-orange";
+  "h-11 w-full rounded-control border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors focus:border-accent";
 const labelClass = "flex flex-col gap-1.5 text-xs font-semibold text-ink-muted";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -90,7 +90,7 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} noValidate className="rounded-card border border-line bg-canvas p-5 shadow-card sm:p-6">
       <div className="grid gap-4 sm:grid-cols-2">
         <label className={labelClass}>
-          Nome <span className="text-orange" aria-hidden>*</span>
+          Nome <span className="text-accent" aria-hidden>*</span>
           <input
             type="text"
             name="name"
@@ -103,7 +103,7 @@ export function ContactForm() {
         </label>
 
         <label className={labelClass}>
-          Telefone <span className="text-orange" aria-hidden>*</span>
+          Telefone <span className="text-accent" aria-hidden>*</span>
           <input
             type="tel"
             name="phone"
@@ -161,7 +161,7 @@ export function ContactForm() {
             rows={4}
             maxLength={2000}
             placeholder="Como podemos ajudar?"
-            className="w-full rounded-control border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none transition-colors focus:border-orange"
+            className="w-full rounded-control border border-line bg-canvas px-3 py-2.5 text-sm text-ink outline-none transition-colors focus:border-accent"
           />
         </label>
       </div>
@@ -183,11 +183,11 @@ export function ContactForm() {
           type="checkbox"
           name="consent"
           required
-          className="mt-0.5 size-4 shrink-0 accent-orange"
+          className="mt-0.5 size-4 shrink-0 accent-accent"
         />
         <span>
-          Autorizo o contacto da Serrote Imobiliária para resposta ao meu pedido, de acordo com a{" "}
-          <a href="/politica-de-privacidade" className="font-semibold text-orange hover:underline">
+          Autorizo o contacto da Regis Properties para resposta ao meu pedido, de acordo com a{" "}
+          <a href="/politica-de-privacidade" className="font-semibold text-accent hover:underline">
             Política de Privacidade
           </a>
           .
@@ -203,7 +203,7 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
+        className="mt-5 inline-flex h-11 w-full items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto"
       >
         {status === "loading" ? "A enviar…" : "Enviar pedido"}
       </button>

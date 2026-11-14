@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 /**
  * Cross-fades through a list of decorative images on an interval. Used for the
- * "Por que escolher a Serrote?" panel so the visual stays alive without
+ * "Por que escolher a Regis?" panel so the visual stays alive without
  * competing with the main content.
  */
 export function RotatingImage({

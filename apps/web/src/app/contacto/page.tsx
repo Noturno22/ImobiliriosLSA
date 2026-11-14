@@ -8,19 +8,19 @@ import { whatsappLink } from "@/lib/site";
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Fale com a Serrote Imobiliária. Peça uma consultoria, peça informação sobre um imóvel ou marque uma visita.",
+    "Fale com a Regis Properties. Peça uma consultoria, peça informação sobre um imóvel ou marque uma visita.",
 };
 
 export default function ContactoPage() {
-  const wa = whatsappLink("Olá! Gostaria de falar com a Serrote Imobiliária.");
+  const wa = whatsappLink("Olá! Gostaria de falar com a Regis Properties.");
 
   return (
     <>
       <SiteHeader />
       <main id="conteudo" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Contacto</p>
+        <p className="text-xs font-bold uppercase tracking-[0.26em] text-accent">Contacto</p>
         <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
-          Fale com a Serrote Imobiliária
+          Fale com a Regis Properties
         </h1>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
           Preencha o formulário ou fale connosco directamente. Respondemos aos pedidos assim que
@@ -46,7 +46,7 @@ export default function ContactoPage() {
                     href={wa}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                    className="mt-4 inline-flex h-11 w-full items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                   >
                     Abrir WhatsApp
                   </a>
@@ -85,7 +85,7 @@ export default function ContactoPage() {
 
             <p className="rounded-card border border-line bg-canvas-soft p-5 text-xs leading-relaxed text-ink-muted">
               Os seus dados são usados apenas para responder a este pedido. Consulte a nossa{" "}
-              <a href="/politica-de-privacidade" className="font-semibold text-orange hover:underline">
+              <a href="/politica-de-privacidade" className="font-semibold text-accent hover:underline">
                 Política de Privacidade
               </a>
               .

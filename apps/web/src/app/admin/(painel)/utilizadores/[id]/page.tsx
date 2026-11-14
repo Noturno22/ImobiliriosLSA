@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Role } from "@serrote/domain";
+import { Role } from "@regis/domain";
 import { UserForm, type UserFormValues } from "@/components/admin/user-form";
 import { roleLabels } from "@/lib/labels";
 
@@ -12,7 +12,7 @@ export default async function EditUserPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const user = await prisma.user.findUnique({ where: { id } });
@@ -30,7 +30,7 @@ export default async function EditUserPage({
   return (
     <div className="space-y-6">
       <div>
-        <Link href="/admin/utilizadores" className="text-sm text-ink-muted hover:text-orange">
+        <Link href="/admin/utilizadores" className="text-sm text-ink-muted hover:text-accent">
           ← Utilizadores
         </Link>
         <h1 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-navy">

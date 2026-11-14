@@ -1,7 +1,7 @@
 // Regenerates src/pglite-ddl.ts (the schema DDL embedded for the embedded
 // PGlite database) from prisma/schema.prisma.
 //
-//   pnpm --filter @serrote/database db:pglite:ddl
+//   pnpm --filter @regis/database db:pglite:ddl
 import { execSync } from "node:child_process";
 import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -16,7 +16,7 @@ const sql = execSync(
 
 const header =
   "// AUTO-GENERATED from prisma/schema.prisma via `prisma migrate diff`.\n" +
-  "// Regenerate: pnpm --filter @serrote/database db:pglite:ddl\n" +
+  "// Regenerate: pnpm --filter @regis/database db:pglite:ddl\n" +
   "// Applied automatically when a pglite:// database is created for local dev.\n\n";
 
 writeFileSync(

@@ -21,7 +21,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-4 px-4 py-4 sm:px-6">
           <div className="flex items-center gap-6">
             <Link href="/admin" className="font-display text-lg font-extrabold tracking-tight text-navy">
-              Serrote Admin
+              Regis Admin
             </Link>
             <nav className="flex gap-5 text-sm">
               {NAV.map((link) => (
@@ -37,7 +37,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
             <form action={doSignOut}>
               <button
                 type="submit"
-                className="rounded-control border border-line-strong px-4 py-2 text-sm font-semibold text-ink transition-colors hover:border-orange hover:text-orange"
+                className="rounded-control border border-line-strong px-4 py-2 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
               >
                 Sair
               </button>

@@ -1,4 +1,4 @@
-import { AMENITIES } from "@serrote/domain";
+import { AMENITIES } from "@regis/domain";
 import type {
   AppointmentStatus,
   LeadSource,
@@ -8,7 +8,7 @@ import type {
   RequestType,
   Role,
   TransactionType,
-} from "@serrote/domain";
+} from "@regis/domain";
 
 /** Portuguese (pt-PT) labels. Centralised so future i18n can replace them. */
 export const transactionLabels: Record<TransactionType, string> = {

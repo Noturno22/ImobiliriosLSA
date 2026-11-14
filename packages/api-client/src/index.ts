@@ -1,5 +1,5 @@
-﻿import type { PropertySummary, PropertyWithMedia } from "@serrote/domain";
-import type { PropertySearchInput, LeadCreateInput } from "@serrote/validation";
+﻿import type { PropertySummary, PropertyWithMedia } from "@regis/domain";
+import type { PropertySearchInput, LeadCreateInput } from "@regis/validation";
 import { createHttpClient, type HttpClient, type HttpClientContext } from "./http";
 
 export interface Paginated<T> {

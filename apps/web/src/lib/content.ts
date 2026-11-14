@@ -62,7 +62,7 @@ const ADS: AdBanner[] = [
     sponsor: "Publicidade",
     title: "Anuncie aqui",
     description: "Divulgue a sua marca num dos sites imobiliários de referência em Luanda.",
-    ctaLabel: "Falar com a Serrote",
+    ctaLabel: "Falar com a Regis",
     imageUrl: "/photos/city.jpg",
     href: "/contacto",
   },
@@ -122,7 +122,7 @@ const VIDEOS: VideoItem[] = [
 ];
 
 const YOUTUBE: YouTubeChannel = {
-  name: "Serrote Imobiliária",
+  name: "Regis Properties",
   url: process.env.NEXT_PUBLIC_YOUTUBE_CHANNEL_URL?.trim() || null,
   description:
     "Tours de imóveis, conselhos práticos e novidades do mercado imobiliário em Angola.",

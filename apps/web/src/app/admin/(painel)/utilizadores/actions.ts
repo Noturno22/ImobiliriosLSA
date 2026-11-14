@@ -3,9 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import bcrypt from "bcryptjs";
-import { Permission, hasPermission } from "@serrote/domain";
-import type { Role } from "@serrote/domain";
-import { userFormSchema } from "@serrote/validation";
+import { Permission, hasPermission } from "@regis/domain";
+import type { Role } from "@regis/domain";
+import { userFormSchema } from "@regis/validation";
 import { auth } from "@/auth";
 
 export interface UserFormState {
@@ -53,7 +53,7 @@ export async function saveUser(
     return { error: "A palavra-passe é obrigatória para criar uma conta." };
   }
 
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const taken = await prisma.user.findUnique({

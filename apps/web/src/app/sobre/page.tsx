@@ -6,7 +6,7 @@ import { SiteFooter } from "@/components/site-footer";
 export const metadata: Metadata = {
   title: "Sobre nós",
   description:
-    "Conheça a Serrote Imobiliária — a chave para a sua nova história. Serviço imobiliário com transparência em Angola.",
+    "Conheça a Regis Properties — A Chave do Seu Futuro. Serviço imobiliário com transparência em Angola.",
 };
 
 const PRINCIPLES = [
@@ -39,14 +39,14 @@ export default function SobrePage() {
       <main id="conteudo">
         <section className="border-b border-line bg-canvas-soft">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">
-              Sobre a Serrote
+            <p className="text-xs font-bold uppercase tracking-[0.26em] text-accent">
+              Sobre a Regis
             </p>
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
-              O seu sonho, <span className="text-orange">o nosso compromisso.</span>
+              O seu sonho, <span className="text-accent">o nosso compromisso.</span>
             </h1>
             <p className="mt-4 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
-              A Serrote Imobiliária existe para tornar a compra, venda e arrendamento de imóveis
+              A Regis Properties existe para tornar a compra, venda e arrendamento de imóveis
               em Angola um processo simples, transparente e acompanhado. A nossa marca é a chave
               para a sua nova história.
             </p>
@@ -72,7 +72,7 @@ export default function SobrePage() {
               <div className="mt-7 flex flex-wrap gap-3">
                 <Link
                   href="/imoveis"
-                  className="inline-flex h-11 items-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                  className="inline-flex h-11 items-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                 >
                   Explorar imóveis
                 </Link>
@@ -91,7 +91,7 @@ export default function SobrePage() {
                   key={principle.title}
                   className="rounded-card border border-line bg-canvas p-5 shadow-card"
                 >
-                  <span className="grid size-10 place-items-center rounded-control bg-orange-soft text-orange">
+                  <span className="grid size-10 place-items-center rounded-control bg-accent-soft text-accent">
                     <svg
                       viewBox="0 0 24 24"
                       className="size-5"
@@ -119,12 +119,12 @@ export default function SobrePage() {
             <div className="overflow-hidden rounded-card bg-navy px-6 py-12 text-white sm:px-12">
               <div className="mx-auto max-w-2xl text-center">
                 <p className="font-display text-xl font-bold text-white/90 sm:text-2xl">
-                  “A chave para a sua nova história.”
+                  “A Chave do Seu Futuro.”
                 </p>
                 <div className="mt-7">
                   <Link
                     href="/contacto"
-                    className="inline-flex h-11 items-center rounded-control bg-orange px-6 text-sm font-semibold text-white hover:bg-orange-hover"
+                    className="inline-flex h-11 items-center rounded-control bg-accent px-6 text-sm font-semibold text-white hover:bg-accent-hover"
                   >
                     Falar com a equipa
                   </Link>

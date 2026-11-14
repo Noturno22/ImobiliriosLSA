@@ -1,5 +1,5 @@
 ﻿import { z } from "zod";
-import { PropertyStatus, PropertyType, TransactionType } from "@serrote/domain";
+import { PropertyStatus, PropertyType, TransactionType } from "@regis/domain";
 import { priceInputSchema } from "./money";
 
 const enumValues = <T extends Record<string, string>>(e: T) =>

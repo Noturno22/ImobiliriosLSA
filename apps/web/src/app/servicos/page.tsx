@@ -62,7 +62,7 @@ const SERVICES = [
 ] as const;
 
 export default function ServicosPage() {
-  const wa = whatsappLink("Olá! Gostaria de saber mais sobre os serviços da Serrote Imobiliária.");
+  const wa = whatsappLink("Olá! Gostaria de saber mais sobre os serviços da Regis Properties.");
 
   return (
     <>
@@ -70,12 +70,12 @@ export default function ServicosPage() {
       <main id="conteudo">
         <section className="border-b border-line bg-canvas-soft">
           <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
-            <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">
+            <p className="text-xs font-bold uppercase tracking-[0.26em] text-accent">
               Os nossos serviços
             </p>
             <h1 className="mt-3 max-w-3xl font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
               Soluções completas{" "}
-              <span className="text-orange">em imóveis.</span>
+              <span className="text-accent">em imóveis.</span>
             </h1>
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink-muted sm:text-base">
               Da compra à gestão, estamos ao seu lado em todas as etapas do processo.
@@ -88,13 +88,13 @@ export default function ServicosPage() {
                   href={`#${service.id}`}
                   className="group flex flex-col rounded-card border border-line bg-canvas p-5 shadow-card transition-shadow hover:shadow-elevated"
                 >
-                  <span className="grid size-11 place-items-center rounded-control bg-orange-soft font-display text-lg font-extrabold text-orange">
+                  <span className="grid size-11 place-items-center rounded-control bg-accent-soft font-display text-lg font-extrabold text-accent">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h2 className="mt-4 font-display text-base font-bold text-navy dark:text-ink">
                     {service.title}
                   </h2>
-                  <span className="mt-2 text-sm font-semibold text-orange group-hover:underline">
+                  <span className="mt-2 text-sm font-semibold text-accent group-hover:underline">
                     Saber mais →
                   </span>
                 </a>
@@ -124,7 +124,7 @@ export default function ServicosPage() {
                 <div className="mt-6 flex flex-wrap gap-3">
                   <Link
                     href="/contacto"
-                    className="inline-flex h-11 items-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                    className="inline-flex h-11 items-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
                   >
                     Pedir orçamento
                   </Link>
@@ -142,7 +142,7 @@ export default function ServicosPage() {
                   <li key={point} className="flex items-start gap-3 text-sm text-ink">
                     <span
                       aria-hidden
-                      className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-orange text-white"
+                      className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-accent text-white"
                     >
                       <svg
                         viewBox="0 0 24 24"
@@ -174,7 +174,7 @@ export default function ServicosPage() {
               <div className="mt-7 flex flex-wrap justify-center gap-3">
                 <Link
                   href="/contacto"
-                  className="inline-flex h-11 items-center rounded-control bg-orange px-6 text-sm font-semibold text-white hover:bg-orange-hover"
+                  className="inline-flex h-11 items-center rounded-control bg-accent px-6 text-sm font-semibold text-white hover:bg-accent-hover"
                 >
                   Pedir consultoria
                 </Link>

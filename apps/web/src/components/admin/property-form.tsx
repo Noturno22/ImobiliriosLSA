@@ -9,7 +9,7 @@ import {
   PropertyStatus,
   PropertyType,
   TransactionType,
-} from "@serrote/domain";
+} from "@regis/domain";
 import { propertyTypeLabels, statusLabels, transactionLabels } from "@/lib/labels";
 import { saveProperty, type PropertyFormState } from "@/app/admin/(painel)/imoveis/actions";
 
@@ -57,7 +57,7 @@ const EMPTY: PropertyFormValues = {
 };
 
 const inputClass =
-  "mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-orange";
+  "mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
 const labelClass = "block text-sm font-medium text-ink";
 
 function FieldError({ messages }: { messages?: string[] | undefined }) {
@@ -104,7 +104,7 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
               name="description"
               rows={6}
               defaultValue={initial.description}
-              className="mt-1 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-orange"
+              className="mt-1 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink outline-none focus:border-accent"
             />
             <FieldError messages={errors.description} />
           </div>
@@ -301,7 +301,7 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
           rows={4}
           defaultValue={initial.mediaUrls}
           placeholder={"https://…/foto-1.jpg\nhttps://…/foto-2.jpg"}
-          className="mt-3 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 font-mono text-xs text-ink outline-none focus:border-orange"
+          className="mt-3 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 font-mono text-xs text-ink outline-none focus:border-accent"
         />
 
         <div className="mt-5 border-t border-line pt-4">
@@ -318,7 +318,7 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
             type="file"
             multiple
             accept="image/jpeg,image/png,image/webp,image/avif"
-            className="mt-3 block w-full cursor-pointer rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink file:mr-3 file:cursor-pointer file:rounded-control file:border-0 file:bg-orange file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
+            className="mt-3 block w-full cursor-pointer rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink file:mr-3 file:cursor-pointer file:rounded-control file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
           />
         </div>
       </section>
@@ -327,13 +327,13 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover disabled:opacity-60"
+          className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
         >
           {pending ? "A guardar…" : initial.id ? "Guardar alterações" : "Criar imóvel"}
         </button>
         <Link
           href="/admin/imoveis"
-          className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-orange hover:text-orange"
+          className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
         >
           Cancelar
         </Link>

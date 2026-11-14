@@ -20,19 +20,19 @@ importers:
 
   apps/web:
     dependencies:
-      '@serrote/api-client':
+      '@regis/api-client':
         specifier: workspace:*
         version: link:../../packages/api-client
-      '@serrote/database':
+      '@regis/database':
         specifier: workspace:*
         version: link:../../packages/database
-      '@serrote/design-tokens':
+      '@regis/design-tokens':
         specifier: workspace:*
         version: link:../../packages/design-tokens
-      '@serrote/domain':
+      '@regis/domain':
         specifier: workspace:*
         version: link:../../packages/domain
-      '@serrote/validation':
+      '@regis/validation':
         specifier: workspace:*
         version: link:../../packages/validation
       bcryptjs:
@@ -81,10 +81,10 @@ importers:
 
   packages/api-client:
     dependencies:
-      '@serrote/domain':
+      '@regis/domain':
         specifier: workspace:*
         version: link:../domain
-      '@serrote/validation':
+      '@regis/validation':
         specifier: workspace:*
         version: link:../validation
 
@@ -119,7 +119,7 @@ importers:
 
   packages/validation:
     dependencies:
-      '@serrote/domain':
+      '@regis/domain':
         specifier: workspace:*
         version: link:../domain
       zod:

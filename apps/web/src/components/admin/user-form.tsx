@@ -2,7 +2,7 @@
 
 import { useActionState } from "react";
 import Link from "next/link";
-import { Role } from "@serrote/domain";
+import { Role } from "@regis/domain";
 import { roleLabels } from "@/lib/labels";
 import { saveUser, type UserFormState } from "@/app/admin/(painel)/utilizadores/actions";
 
@@ -24,7 +24,7 @@ const EMPTY: UserFormValues = {
 };
 
 const inputClass =
-  "mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-orange";
+  "mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent";
 const labelClass = "block text-sm font-medium text-ink";
 
 function FieldError({ messages }: { messages?: string[] | undefined }) {
@@ -133,13 +133,13 @@ export function UserForm({ values }: { values?: UserFormValues }) {
         <button
           type="submit"
           disabled={pending}
-          className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover disabled:opacity-60"
+          className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
         >
           {pending ? "A guardar…" : editing ? "Guardar alterações" : "Criar conta"}
         </button>
         <Link
           href="/admin/utilizadores"
-          className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-orange hover:text-orange"
+          className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
         >
           Cancelar
         </Link>

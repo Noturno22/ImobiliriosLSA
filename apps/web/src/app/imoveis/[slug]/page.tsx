@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { formatMoney } from "@serrote/domain";
+import { formatMoney } from "@regis/domain";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PropertyCard } from "@/components/property-card";
@@ -211,7 +211,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
 
           <aside className="flex flex-col gap-6 self-start rounded-card border border-line bg-canvas p-6 shadow-card lg:sticky lg:top-24">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="rounded-pill bg-orange px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+              <span className="rounded-pill bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
                 {transactionLabels[property.transactionType]}
               </span>
               <span className="rounded-pill border border-line bg-canvas-soft px-3 py-1 text-xs font-semibold text-ink-muted">
@@ -224,7 +224,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                 {property.title}
               </h1>
               <p className="mt-2 flex items-center gap-1.5 text-sm text-ink-muted">
-                <span className="text-orange">
+                <span className="text-accent">
                   <PinIcon />
                 </span>
                 {location}
@@ -242,7 +242,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
               <ul className="grid grid-cols-2 gap-4">
                 {stats.map((stat) => (
                   <li key={stat.key} className="flex items-center gap-3">
-                    <span aria-hidden className="text-orange">{stat.icon}</span>
+                    <span aria-hidden className="text-accent">{stat.icon}</span>
                     <span className="flex flex-col">
                       <span className="font-display text-base font-bold text-navy dark:text-ink">
                         {stat.value}
@@ -253,7 +253,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                 ))}
                 {area && (
                   <li className="flex items-center gap-3">
-                    <span aria-hidden className="text-orange"><AreaIcon /></span>
+                    <span aria-hidden className="text-accent"><AreaIcon /></span>
                     <span className="flex flex-col">
                       <span className="font-display text-base font-bold text-navy dark:text-ink">{area}</span>
                       <span className="text-xs text-ink-muted">Área útil</span>
@@ -262,7 +262,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                 )}
                 {lotArea && (
                   <li className="flex items-center gap-3">
-                    <span aria-hidden className="text-orange"><AreaIcon /></span>
+                    <span aria-hidden className="text-accent"><AreaIcon /></span>
                     <span className="flex flex-col">
                       <span className="font-display text-base font-bold text-navy dark:text-ink">{lotArea}</span>
                       <span className="text-xs text-ink-muted">Área do terreno</span>
@@ -275,7 +275,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
             <div className="flex flex-col gap-3">
               <a
                 href="#pedido"
-                className="inline-flex h-11 items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                className="inline-flex h-11 items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
               >
                 Agendar visita
               </a>
@@ -284,14 +284,14 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                   href={wa}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-orange hover:text-orange"
+                  className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-accent hover:text-accent"
                 >
                   Falar no WhatsApp
                 </a>
               ) : (
                 <Link
                   href="/contacto"
-                  className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-orange hover:text-orange"
+                  className="inline-flex h-11 items-center justify-center rounded-control border border-line-strong px-6 text-sm font-semibold text-navy transition-colors hover:border-accent hover:text-accent"
                 >
                   Falar connosco
                 </Link>
@@ -321,7 +321,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                 <ul className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {property.amenities.map((amenity) => (
                     <li key={amenity} className="flex items-center gap-2 text-sm text-ink">
-                      <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-orange text-white">
+                      <span aria-hidden className="grid size-5 shrink-0 place-items-center rounded-full bg-accent text-white">
                         <CheckIcon />
                       </span>
                       {formatAmenityLabel(amenity)}
@@ -336,7 +336,7 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
                 Localização
               </h2>
               <p className="mt-3 flex items-center gap-1.5 text-sm text-ink-muted">
-                <span className="text-orange"><PinIcon /></span>
+                <span className="text-accent"><PinIcon /></span>
                 {location}
               </p>
               <p className="mt-2 text-xs text-ink-subtle">

@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { Role } from "@serrote/domain";
+import { Role } from "@regis/domain";
 
 const enumValues = <T extends Record<string, string>>(e: T) =>
   Object.values(e) as [string, ...string[]];

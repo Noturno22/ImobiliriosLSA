@@ -1,4 +1,4 @@
-// Serrote Imobiliária — relational data model (PostgreSQL).
+// Regis Properties — relational data model (PostgreSQL).
 // Money is stored as exact integer minor units (cêntimos); never floating point.
 
 generator client {

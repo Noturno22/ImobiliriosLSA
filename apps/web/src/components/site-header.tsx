@@ -64,23 +64,15 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
       </a>
 
       <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="flex items-center gap-3" aria-label="Serrote Imobiliária — início">
+        <Link href="/" className="flex items-center" aria-label="Regis Properties — início">
           <Image
-            src="/brand/logo-mark.png"
+            src="/brand/logo.png"
             alt=""
-            width={1391}
-            height={984}
+            width={1498}
+            height={935}
             priority
-            className="h-12 w-auto sm:h-16"
+            className="h-14 w-auto sm:h-20"
           />
-          <span className="flex flex-col leading-none">
-            <span className="font-display text-lg font-extrabold tracking-tight text-navy sm:text-2xl">
-              SERROTE IMOBILIÁRIA
-            </span>
-            <span className="mt-0.5 hidden text-[0.65rem] font-medium tracking-[0.16em] text-ink-muted sm:block">
-              A chave para a sua nova história
-            </span>
-          </span>
         </Link>
 
         <nav aria-label="Principal" className="hidden items-center gap-1 lg:flex">
@@ -92,12 +84,12 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={`relative rounded-control px-3 py-2 text-sm font-medium transition-colors ${
-                  active ? "text-orange" : "text-ink hover:text-orange"
+                  active ? "text-accent" : "text-ink hover:text-accent"
                 }`}
               >
                 {item.label}
                 {active && (
-                  <span aria-hidden className="absolute inset-x-3 bottom-1 h-[3px] rounded-full bg-orange" />
+                  <span aria-hidden className="absolute inset-x-3 bottom-1 h-[3px] rounded-full bg-accent" />
                 )}
               </Link>
             );
@@ -109,7 +101,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
           <Link
             href="/imoveis"
             aria-label="Pesquisar imóveis"
-            className="grid size-10 place-items-center rounded-full border border-line-strong bg-canvas/70 text-ink transition-colors hover:border-orange hover:text-orange"
+            className="grid size-10 place-items-center rounded-full border border-line-strong bg-canvas/70 text-ink transition-colors hover:border-accent hover:text-accent"
           >
             <SearchIcon />
           </Link>
@@ -119,7 +111,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             aria-expanded={open}
             aria-controls="site-nav-drawer"
             aria-label={open ? "Fechar menu" : "Abrir menu"}
-            className="grid size-10 place-items-center rounded-full border border-line-strong bg-canvas/70 text-ink transition-colors hover:border-orange hover:text-orange"
+            className="grid size-10 place-items-center rounded-full border border-line-strong bg-canvas/70 text-ink transition-colors hover:border-accent hover:text-accent"
           >
             <MenuIcon open={open} />
           </button>
@@ -142,7 +134,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
                     onClick={() => setOpen(false)}
                     aria-current={active ? "page" : undefined}
                     className={`block rounded-control px-3 py-3 text-base font-medium transition-colors ${
-                      active ? "bg-orange-soft text-orange" : "text-ink hover:bg-canvas-soft"
+                      active ? "bg-accent-soft text-accent" : "text-ink hover:bg-canvas-soft"
                     }`}
                   >
                     {item.label}
@@ -154,7 +146,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
           <Link
             href="/contacto"
             onClick={() => setOpen(false)}
-            className="mt-2 block rounded-control bg-orange px-4 py-3 text-center text-sm font-semibold text-white"
+            className="mt-2 block rounded-control bg-accent px-4 py-3 text-center text-sm font-semibold text-white"
           >
             Fale connosco
           </Link>

@@ -1,4 +1,4 @@
-Master Prompt — Serrote Imobiliária
+Master Prompt — Regis Properties
 
 O prompt abaixo foi concebido para ser colocado na raiz do projeto e utilizado como instrução principal do OpenCode. Está escrito em inglês técnico para tornar as instruções de arquitetura, coordenação entre agentes e critérios de aceitação mais precisas; a interface, os conteúdos e a experiência do utilizador devem ser em português de Portugal, adaptado ao mercado de Angola.
 1. O sistema de agentes que vai construir a plataforma
@@ -40,12 +40,12 @@ Cada especialista pode ter subagentes de implementação e revisão. O número d
 
 
 
-# SERROTE IMOBILIÁRIA — MASTER PROMPT
+# REGIS PROPERTIES — MASTER PROMPT
 ## Cinematic Real Estate Platform + Expo Mobile Ecosystem
 
 **Role:** Principal Software Architect, AI Engineering Orchestrator, Creative Technology Director and Senior Product Engineer.
 
-**Project:** Serrote Imobiliária  
+**Project:** Regis Properties  
 **Market:** Angola, initially Luanda  
 **Primary language:** Portuguese (Portugal), adapted to Angolan Portuguese  
 **Currency:** AOA / Kz  
@@ -55,9 +55,9 @@ Cada especialista pode ter subagentes de implementação e revisão. O número d
 
 # 1. MISSION AND PRODUCT VISION
 
-You are responsible for architecting, building, testing and preparing for production a complete digital real estate ecosystem for Serrote Imobiliária.
+You are responsible for architecting, building, testing and preparing for production a complete digital real estate ecosystem for Regis Properties.
 
-The provided reference image, `Serrote Imobiliária_ A Chave do Seu Futuro.png`, is the primary visual reference.
+The provided reference image, `Regis Properties_ A Chave do Seu Futuro.png`, is the primary visual reference.
 
 Do not merely reproduce a static screenshot. Transform its visual language into a complete, functional, maintainable and commercially effective real estate platform.
 
@@ -470,7 +470,7 @@ Use a monorepo only if it improves maintainability.
 A possible structure:
 
 ```text
-serrote-platform/
+regis-platform/
 ├── apps/
 │   ├── web/
 │   ├── mobile/
@@ -512,7 +512,7 @@ Treat the supplied screenshot as the primary visual specification.
 
 ## Brand identity
 
-Brand name: Serrote Imobiliária.
+Brand name: Regis Properties.
 
 Brand message: "A chave para sua nova história."
 
@@ -1666,7 +1666,7 @@ Media	Armazenamento de objetos e imagens otimizadas
 Testes	Testes unitários, integração e Playwright; testes mobile adequados ao projeto
 Deploy	Pipeline automatizado, ambientes separados e monitorização
 A escolha final depende do que já existe no repositório. Não recomendo introduzir tecnologias novas apenas porque estão na moda.
-5. O que vai distinguir a Serrote de um template imobiliário
+5. O que vai distinguir a Regis de um template imobiliário
 
 
 
@@ -1729,7 +1729,7 @@ Depois de colocares o Master Prompt no repositório, utiliza esta instrução in
 
 Read `MASTER_PROMPT.md` in full and treat it as the governing product and engineering specification.
 
-Inspect the entire existing repository before making changes. Inspect the supplied Serrote Imobiliária reference image if it is available in the project workspace.
+Inspect the entire existing repository before making changes. Inspect the supplied Regis Properties reference image if it is available in the project workspace.
 
 Verify the installed OpenCode version, current agent configuration, available models, delegation capabilities, project instructions and available development tools.
 
@@ -1751,4 +1751,4 @@ Do not stop at planning, mockups or a static landing page. Continue until the re
 
 Begin with repository inspection and return a concise assessment, identified risks, the proposed execution order and the first concrete implementation task.
 
-A minha recomendação final: começa por estabelecer o esqueleto funcional do website, backend, base de dados e app Expo; em paralelo, define o design system e prepara os ativos visuais. Depois acrescenta a experiência 3D nas zonas em que realmente aumenta o valor percebido. Assim, a Serrote não terá apenas uma apresentação cinematográfica: terá uma plataforma imobiliária que a equipa consegue operar e expandir.
+A minha recomendação final: começa por estabelecer o esqueleto funcional do website, backend, base de dados e app Expo; em paralelo, define o design system e prepara os ativos visuais. Depois acrescenta a experiência 3D nas zonas em que realmente aumenta o valor percebido. Assim, a Regis não terá apenas uma apresentação cinematográfica: terá uma plataforma imobiliária que a equipa consegue operar e expandir.

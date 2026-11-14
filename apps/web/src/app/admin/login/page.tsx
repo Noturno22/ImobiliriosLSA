@@ -18,11 +18,14 @@ export default async function AdminLoginPage() {
   return (
     <main className="grid min-h-dvh place-items-center bg-canvas-soft px-4 py-12">
       <div className="w-full max-w-sm">
-        <div className="mb-6 flex items-center justify-center gap-3">
-          <Image src="/brand/logo-mark.png" alt="" width={1391} height={984} className="h-10 w-auto" />
-          <span className="font-display text-xl font-extrabold tracking-tight text-navy">
-            Serrote Imobiliária
-          </span>
+        <div className="mb-6 flex items-center justify-center">
+          <Image
+            src="/brand/logo.png"
+            alt="Regis Properties"
+            width={1498}
+            height={935}
+            className="h-14 w-auto"
+          />
         </div>
 
         <div className="rounded-card border border-line bg-canvas p-6 shadow-card">
@@ -34,7 +37,7 @@ export default async function AdminLoginPage() {
         </div>
 
         <p className="mt-6 text-center text-xs text-ink-subtle">
-          Acesso restrito à equipa da Serrote Imobiliária.
+          Acesso restrito à equipa da Regis Properties.
         </p>
       </div>
     </main>

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Currency, PropertyStatus, PropertyType, TransactionType, toMajor } from "@serrote/domain";
+import { Currency, PropertyStatus, PropertyType, TransactionType, toMajor } from "@regis/domain";
 import { PropertyForm, type PropertyFormValues } from "@/components/admin/property-form";
 import { statusLabels } from "@/lib/labels";
 import { setPropertyStatus } from "../actions";
@@ -26,7 +26,7 @@ export default async function EditPropertyPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const { getPrisma } = await import("@serrote/database");
+  const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
 
   const property = await prisma.property.findUnique({
@@ -61,7 +61,7 @@ export default async function EditPropertyPage({
     <div className="space-y-6">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <Link href="/admin/imoveis" className="text-sm text-ink-muted hover:text-orange">
+          <Link href="/admin/imoveis" className="text-sm text-ink-muted hover:text-accent">
             ← Imóveis
           </Link>
           <h1 className="mt-1 font-display text-2xl font-extrabold tracking-tight text-navy">
@@ -80,7 +80,7 @@ export default async function EditPropertyPage({
               <input type="hidden" name="status" value={status} />
               <button
                 type="submit"
-                className="rounded-control border border-line-strong px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-orange hover:text-orange"
+                className="rounded-control border border-line-strong px-3 py-2 text-xs font-semibold text-ink-muted transition-colors hover:border-accent hover:text-accent"
               >
                 {statusLabels[status]}
               </button>

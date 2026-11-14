@@ -1,5 +1,5 @@
-import type { PropertySummary, PropertyWithMedia } from "@serrote/domain";
-import { PUBLIC_PROPERTY_STATUSES } from "@serrote/domain";
+import type { PropertySummary, PropertyWithMedia } from "@regis/domain";
+import { PUBLIC_PROPERTY_STATUSES } from "@regis/domain";
 
 type RawProperty = {
   id: string;
@@ -58,7 +58,7 @@ export async function getFeaturedProperties(limit = 6): Promise<PropertySummary[
   if (!databaseConfigured()) return [];
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const [featuredRows, remainingRows] = await Promise.all([
       prisma.property.findMany({
@@ -124,7 +124,7 @@ export async function searchProperties(
   }
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const where: Record<string, unknown> = { status: "PUBLISHED" };
 
@@ -267,7 +267,7 @@ export async function getPropertyBySlug(slug: string): Promise<PropertyWithMedia
   if (!databaseConfigured()) return null;
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const row = await prisma.property.findFirst({
       where: { slug, status: { in: PUBLIC_STATUS_FILTER } },
@@ -289,7 +289,7 @@ export async function getSimilarProperties(
   if (!databaseConfigured()) return [];
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const rows = await prisma.property.findMany({
       where: {
@@ -315,7 +315,7 @@ export async function getPublishedPropertySlugs(): Promise<
   if (!databaseConfigured()) return [];
 
   try {
-    const { getPrisma } = await import("@serrote/database");
+    const { getPrisma } = await import("@regis/database");
     const prisma = await getPrisma();
     const rows = await prisma.property.findMany({
       where: { status: { in: PUBLIC_STATUS_FILTER } },

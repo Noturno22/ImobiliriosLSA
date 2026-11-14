@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export type HeroSlide = {
   /** First heading line, rendered in the default heading colour. */
   lead: string;
-  /** Second heading line, rendered in the orange accent. */
+  /** Second heading line, rendered in the accent colour. */
   accent: string;
   /** Supporting copy — rendered as separate lines on wider screens. */
   lines: string[];
@@ -54,7 +54,7 @@ export function HeroHeadline({ slides }: { slides: HeroSlide[] }) {
       <h1 className="mt-5 font-display text-3xl font-extrabold leading-[1.08] tracking-tight text-navy sm:text-4xl lg:text-5xl">
         {slide.lead}
         <br />
-        <span className="text-orange">{slide.accent}</span>
+        <span className="text-accent">{slide.accent}</span>
       </h1>
       <p className="mt-4 max-w-md text-sm leading-relaxed text-ink sm:text-base">
         {slide.lines.map((line, i) => (

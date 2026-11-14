@@ -23,7 +23,7 @@ export async function ensurePgliteAdminUser(client: PGlite): Promise<void> {
   if (existing.rows.length > 0) return;
 
   const { default: bcrypt } = await import("bcryptjs");
-  const name = process.env.ADMIN_NAME?.trim() || "Administrador Serrote";
+  const name = process.env.ADMIN_NAME?.trim() || "Administrador Regis";
   const passwordHash = await bcrypt.hash(password, 10);
 
   await client.query(

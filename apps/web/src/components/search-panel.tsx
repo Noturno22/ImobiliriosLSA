@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PropertyType, PROVINCES } from "@serrote/domain";
+import { PropertyType, PROVINCES } from "@regis/domain";
 import { propertyTypeLabels } from "@/lib/labels";
 
 type PriceRange = { value: string; label: string; min?: number; max?: number };
@@ -77,7 +77,7 @@ export function SearchPanel({ variant = "hero" }: { variant?: "hero" | "inline" 
     >
       <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:gap-0">
         <label className="flex flex-1 items-center gap-3 px-3 py-2">
-          <span className="text-orange">
+          <span className="text-accent">
             <TypeIcon />
           </span>
           <span className="flex flex-1 flex-col">
@@ -97,7 +97,7 @@ export function SearchPanel({ variant = "hero" }: { variant?: "hero" | "inline" 
         <span aria-hidden className="mx-3 hidden h-10 w-px bg-line lg:block" />
 
         <label className="flex flex-1 items-center gap-3 px-3 py-2">
-          <span className="text-orange">
+          <span className="text-accent">
             <PinIcon />
           </span>
           <span className="flex flex-1 flex-col">
@@ -117,7 +117,7 @@ export function SearchPanel({ variant = "hero" }: { variant?: "hero" | "inline" 
         <span aria-hidden className="mx-3 hidden h-10 w-px bg-line lg:block" />
 
         <label className="flex flex-1 items-center gap-3 px-3 py-2">
-          <span className="text-orange">
+          <span className="text-accent">
             <PriceIcon />
           </span>
           <span className="flex flex-1 flex-col">
@@ -138,7 +138,7 @@ export function SearchPanel({ variant = "hero" }: { variant?: "hero" | "inline" 
 
         <button
           type="submit"
-          className="mt-1 inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-orange px-7 text-sm font-semibold text-white transition-colors hover:bg-orange-hover lg:mt-0 lg:ml-2"
+          className="mt-1 inline-flex h-12 items-center justify-center gap-2 rounded-pill bg-accent px-7 text-sm font-semibold text-white transition-colors hover:bg-accent-hover lg:mt-0 lg:ml-2"
         >
           <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
             <circle cx="11" cy="11" r="7" />

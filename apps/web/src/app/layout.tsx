@@ -19,17 +19,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Serrote Imobiliária — A chave para a sua nova história",
-    template: "%s | Serrote Imobiliária",
+    default: "Regis Properties — A Chave do Seu Futuro",
+    template: "%s | Regis Properties",
   },
   description:
     "Encontre o imóvel ideal para o seu futuro. Casas, apartamentos e terrenos em Luanda e em toda Angola.",
-  applicationName: "Serrote Imobiliária",
+  applicationName: "Regis Properties",
   openGraph: {
     type: "website",
     locale: "pt_AO",
-    siteName: "Serrote Imobiliária",
-    title: "Serrote Imobiliária — Mais que imóveis, entregamos confiança.",
+    siteName: "Regis Properties",
+    title: "Regis Properties — Mais que imóveis, entregamos confiança.",
     description:
       "Casas, apartamentos e terrenos num só lugar. Compra, venda, arrendamento e consultoria imobiliária em Angola.",
     url: siteUrl,
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#20334B" },
-    { media: "(prefers-color-scheme: dark)", color: "#0B0D0F" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#101010" },
   ],
   width: "device-width",
   initialScale: 1,

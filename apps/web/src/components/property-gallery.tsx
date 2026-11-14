@@ -50,7 +50,7 @@ export function PropertyGallery({ images, title }: { images: GalleryImage[]; tit
 
   if (count === 0) {
     return (
-      <div className="grid aspect-[16/10] place-items-center rounded-card border border-line bg-gradient-to-br from-navy to-navy-deep text-mist">
+      <div className="grid aspect-[16/10] place-items-center rounded-card border border-line bg-gradient-to-br from-navy to-navy-deep text-gold">
         <span className="px-6 text-center text-sm font-medium tracking-wide">
           Fotografia do imóvel indisponível
         </span>
@@ -111,7 +111,7 @@ export function PropertyGallery({ images, title }: { images: GalleryImage[]; tit
                 aria-label={`Ver imagem ${index + 1} de ${count}`}
                 aria-current={index === active ? "true" : undefined}
                 className={`block size-20 shrink-0 overflow-hidden rounded-control border-2 transition-colors ${
-                  index === active ? "border-orange" : "border-transparent opacity-70 hover:opacity-100"
+                  index === active ? "border-accent" : "border-transparent opacity-70 hover:opacity-100"
                 }`}
               >
                 {/* eslint-disable-next-line @next/next/no-img-element */}

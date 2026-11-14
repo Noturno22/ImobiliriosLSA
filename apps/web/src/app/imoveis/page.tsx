@@ -9,7 +9,7 @@ import {
   searchProperties,
   type PropertySearchInput,
 } from "@/lib/properties";
-import { PROVINCES, PropertyType, TransactionType } from "@serrote/domain";
+import { PROVINCES, PropertyType, TransactionType } from "@regis/domain";
 import { propertyTypeLabels, transactionLabels } from "@/lib/labels";
 
 export const metadata: Metadata = {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const selectClass =
-  "h-11 w-full rounded-control border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors focus:border-orange";
+  "h-11 w-full rounded-control border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors focus:border-accent";
 
 function buildQuery(input: PropertySearchInput, overrides: Partial<PropertySearchInput>) {
   const merged: Record<string, string | number | undefined> = {
@@ -57,8 +57,8 @@ function FilterChip({
       aria-current={active ? "true" : undefined}
       className={`inline-flex h-9 items-center rounded-pill border px-4 text-sm font-semibold transition-colors ${
         active
-          ? "border-orange bg-orange text-white"
-          : "border-line bg-canvas text-ink hover:border-orange hover:text-orange"
+          ? "border-accent bg-accent text-white"
+          : "border-line bg-canvas text-ink hover:border-accent hover:text-accent"
       }`}
     >
       {children}
@@ -116,7 +116,7 @@ export default async function ImoveisPage({
     <>
       <SiteHeader />
       <main id="conteudo" className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Imóveis</p>
+        <p className="text-xs font-bold uppercase tracking-[0.26em] text-accent">Imóveis</p>
         <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink sm:text-4xl">
           Encontre o seu próximo imóvel
         </h1>
@@ -215,7 +215,7 @@ export default async function ImoveisPage({
             <div className="mt-4 flex flex-wrap items-center gap-3">
               <button
                 type="submit"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
               >
                 <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="11" cy="11" r="7" />
@@ -294,13 +294,13 @@ export default async function ImoveisPage({
               Ainda não há imóveis publicados
             </p>
             <p className="mx-auto mt-2 max-w-md text-sm text-ink-muted">
-              Assim que a equipa Serrote publicar imóveis, eles aparecem aqui automaticamente,
+              Assim que a equipa Regis publicar imóveis, eles aparecem aqui automaticamente,
               respeitando os filtros que definiu.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link
                 href="/contacto"
-                className="inline-flex h-10 items-center rounded-control bg-orange px-5 text-sm font-semibold text-white hover:bg-orange-hover"
+                className="inline-flex h-10 items-center rounded-control bg-accent px-5 text-sm font-semibold text-white hover:bg-accent-hover"
               >
                 Falar connosco
               </Link>

@@ -18,7 +18,7 @@ export function LoginForm() {
           type="email"
           autoComplete="email"
           required
-          className="mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-orange"
+          className="mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent"
         />
       </div>
 
@@ -33,7 +33,7 @@ export function LoginForm() {
           autoComplete="current-password"
           required
           minLength={8}
-          className="mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-orange"
+          className="mt-1 h-11 w-full rounded-control border border-line-strong bg-canvas px-3 text-sm text-ink outline-none focus:border-accent"
         />
       </div>
 
@@ -46,7 +46,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="inline-flex h-11 w-full items-center justify-center rounded-control bg-orange px-6 text-sm font-semibold text-white transition-colors hover:bg-orange-hover disabled:opacity-60"
+        className="inline-flex h-11 w-full items-center justify-center rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover disabled:opacity-60"
       >
         {pending ? "A entrar…" : "Entrar"}
       </button>

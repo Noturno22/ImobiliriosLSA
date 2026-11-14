@@ -5,7 +5,7 @@ import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
-  description: "Política de privacidade da Serrote Imobiliária.",
+  description: "Política de privacidade da Regis Properties.",
   robots: { index: false, follow: true },
 };
 
@@ -14,7 +14,7 @@ export default function PrivacidadePage() {
     <>
       <SiteHeader />
       <main id="conteudo" className="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8">
-        <p className="text-xs font-bold uppercase tracking-[0.26em] text-orange">Legal</p>
+        <p className="text-xs font-bold uppercase tracking-[0.26em] text-accent">Legal</p>
         <h1 className="mt-3 font-display text-3xl font-extrabold tracking-tight text-navy dark:text-ink">
           Política de Privacidade
         </h1>

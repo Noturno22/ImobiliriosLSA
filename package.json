@@ -1,8 +1,8 @@
 {
-  "name": "serrote-platform",
+  "name": "regis-platform",
   "version": "0.1.0",
   "private": true,
-  "description": "Serrote Imobiliária — cinematic real estate platform (web + API + Expo).",
+  "description": "Regis Properties — cinematic real estate platform (web + API + Expo).",
   "packageManager": "pnpm@10.34.4",
   "engines": {
     "node": ">=20"
@@ -14,9 +14,9 @@
     "typecheck": "turbo run typecheck",
     "test": "turbo run test",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json,css}\"",
-    "db:generate": "pnpm --filter @serrote/database db:generate",
-    "db:migrate": "pnpm --filter @serrote/database db:migrate",
-    "db:seed": "pnpm --filter @serrote/database db:seed"
+    "db:generate": "pnpm --filter @regis/database db:generate",
+    "db:migrate": "pnpm --filter @regis/database db:migrate",
+    "db:seed": "pnpm --filter @regis/database db:seed"
   },
   "devDependencies": {
     "prettier": "^3.3.3",
