@@ -9,7 +9,7 @@ export default function Loading() {
     >
       <div className="flex flex-col items-center">
         <Image
-          src="/brand/logo.png"
+          src="/brand/logo-v.jpg"
           alt=""
           width={1498}
           height={935}

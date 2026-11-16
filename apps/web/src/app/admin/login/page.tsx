@@ -20,7 +20,7 @@ export default async function AdminLoginPage() {
       <div className="w-full max-w-sm">
         <div className="mb-6 flex items-center justify-center">
           <Image
-            src="/brand/logo.png"
+            src="/brand/logo-v.jpg"
             alt="Regis Properties"
             width={1498}
             height={935}

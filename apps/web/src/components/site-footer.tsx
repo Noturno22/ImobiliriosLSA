@@ -10,9 +10,9 @@ export function SiteFooter() {
     <footer className="mt-24 border-t border-line bg-canvas-soft">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <Image
-            src="/brand/logo.png"
-            alt="Regis Properties"
+      <Image
+        src="/brand/logo-v.jpg"
+        alt="Regis Properties"
             width={1498}
             height={935}
             className="h-16 w-auto sm:h-24"
