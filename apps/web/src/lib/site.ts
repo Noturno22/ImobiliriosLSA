@@ -57,6 +57,7 @@ export function buildLeadMessage(fields: {
 
 export const NAV_LINKS = [
   { href: "/imoveis", label: "Imóveis" },
+  { href: "/videos", label: "Vídeos" },
   { href: "/servicos", label: "Serviços" },
   { href: "/sobre", label: "Sobre" },
   { href: "/contacto", label: "Contacto" },

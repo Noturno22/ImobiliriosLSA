@@ -5,12 +5,18 @@ import Link from "next/link";
 import {
   AMENITIES,
   Currency,
+  ListingSource,
   PROVINCES,
   PropertyStatus,
   PropertyType,
   TransactionType,
 } from "@regis/domain";
-import { propertyTypeLabels, statusLabels, transactionLabels } from "@/lib/labels";
+import {
+  listingSourceLabels,
+  propertyTypeLabels,
+  statusLabels,
+  transactionLabels,
+} from "@/lib/labels";
 import { saveProperty, type PropertyFormState } from "@/app/admin/(painel)/imoveis/actions";
 
 export interface PropertyFormValues {
@@ -19,6 +25,7 @@ export interface PropertyFormValues {
   description: string;
   transactionType: TransactionType;
   propertyType: PropertyType;
+  listingSource: ListingSource;
   status: PropertyStatus;
   priceAmountMajor: string;
   priceCurrency: Currency;
@@ -33,6 +40,7 @@ export interface PropertyFormValues {
   amenities: string[];
   featured: boolean;
   mediaUrls: string;
+  videoUrls: string;
 }
 
 const EMPTY: PropertyFormValues = {
@@ -40,6 +48,7 @@ const EMPTY: PropertyFormValues = {
   description: "",
   transactionType: "SALE",
   propertyType: "HOUSE",
+  listingSource: "PROFESSIONAL",
   status: "DRAFT",
   priceAmountMajor: "",
   priceCurrency: "AOA",
@@ -54,6 +63,7 @@ const EMPTY: PropertyFormValues = {
   amenities: [],
   featured: false,
   mediaUrls: "",
+  videoUrls: "",
 };
 
 const inputClass =
@@ -151,6 +161,24 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
             </label>
             <select id="status" name="status" defaultValue={initial.status} className={inputClass}>
               {Object.entries(statusLabels).map(([value, label]) => (
+                <option key={value} value={value}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="listingSource" className={labelClass}>
+              Anunciante
+            </label>
+            <select
+              id="listingSource"
+              name="listingSource"
+              defaultValue={initial.listingSource}
+              className={inputClass}
+            >
+              {Object.entries(listingSourceLabels).map(([value, label]) => (
                 <option key={value} value={value}>
                   {label}
                 </option>
@@ -321,6 +349,21 @@ export function PropertyForm({ values }: { values?: PropertyFormValues }) {
             className="mt-3 block w-full cursor-pointer rounded-control border border-line-strong bg-canvas px-3 py-2 text-sm text-ink file:mr-3 file:cursor-pointer file:rounded-control file:border-0 file:bg-accent file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white"
           />
         </div>
+      </section>
+
+      <section className="rounded-card border border-line bg-canvas p-5">
+        <h2 className="font-display text-base font-bold text-navy">Vídeos</h2>
+        <p className="mt-1 text-xs text-ink-muted">
+          Um URL por linha. Aceita YouTube, YouTube Shorts, TikTok ou vídeo direto MP4/WebM. Os
+          vídeos aparecem na área de vídeos e na galeria do imóvel.
+        </p>
+        <textarea
+          name="videoUrls"
+          rows={3}
+          defaultValue={initial.videoUrls}
+          placeholder={"https://youtube.com/watch?v=…\nhttps://www.tiktok.com/@…/video/…\nhttps://…/tour.mp4"}
+          className="mt-3 w-full rounded-control border border-line-strong bg-canvas px-3 py-2 font-mono text-xs text-ink outline-none focus:border-accent"
+        />
       </section>
 
       <div className="flex items-center gap-3">

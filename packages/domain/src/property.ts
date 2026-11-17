@@ -1,5 +1,6 @@
 ﻿import type { Money } from "./money";
 import type {
+  ListingSource,
   MediaType,
   PropertyStatus,
   PropertyType,
@@ -27,6 +28,7 @@ export interface Property {
   description: string;
   transactionType: TransactionType;
   propertyType: PropertyType;
+  listingSource: ListingSource;
   status: PropertyStatus;
   price: Money;
   province: string;
@@ -62,6 +64,7 @@ export interface PropertySummary
     | "title"
     | "transactionType"
     | "propertyType"
+    | "listingSource"
     | "status"
     | "price"
     | "province"

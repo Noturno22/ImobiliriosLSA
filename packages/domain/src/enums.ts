@@ -33,6 +33,12 @@ export const PUBLIC_PROPERTY_STATUSES: readonly PropertyStatus[] = [
   PropertyStatus.RESERVED,
 ];
 
+export const ListingSource = {
+  PROFESSIONAL: "PROFESSIONAL",
+  PRIVATE: "PRIVATE",
+} as const;
+export type ListingSource = (typeof ListingSource)[keyof typeof ListingSource];
+
 export const MediaType = {
   IMAGE: "IMAGE",
   VIDEO: "VIDEO",

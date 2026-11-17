@@ -4,9 +4,10 @@ import { useState } from "react";
 import type { VideoItem } from "@/lib/content";
 
 /**
- * Video gallery. Thumbnails are rendered as a lightweight facade and the
- * (privacy-friendly) YouTube player is only mounted once the visitor presses
- * play, keeping the page fast until then.
+ * Video gallery. On mobile the cards form a horizontal snap-scroll strip
+ * (Reels-style browse); on desktop they show as a 4-column grid.
+ * Thumbnails are a lightweight facade — the privacy-friendly YouTube player
+ * mounts only after the visitor presses play.
  */
 export function VideoGallery({
   videos,
@@ -20,17 +21,25 @@ export function VideoGallery({
   return (
     <section aria-labelledby="videos" className="border-y border-line bg-canvas-soft">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <header className="max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Vídeos</p>
-          <h2
-            id="videos"
-            className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl"
+        <header className="flex flex-wrap items-end justify-between gap-4 max-w-3xl">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-accent">Vídeos</p>
+            <h2
+              id="videos"
+              className="mt-3 font-display text-2xl font-extrabold tracking-tight text-navy sm:text-3xl"
+            >
+              Veja os imóveis <span className="text-accent">em vídeo</span>
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink-muted sm:text-base">
+              Tours, dicas e apresentações em vídeo para conhecer cada detalhe antes da visita.
+            </p>
+          </div>
+          <a
+            href="/videos"
+            className="inline-flex h-10 shrink-0 items-center rounded-control border border-line-strong px-4 text-sm font-semibold text-ink transition-colors hover:border-accent hover:text-accent"
           >
-            Veja os imóveis <span className="text-accent">em vídeo</span>
-          </h2>
-          <p className="mt-3 text-sm leading-relaxed text-ink-muted sm:text-base">
-            Tours, dicas e apresentações em vídeo para conhecer cada detalhe antes da visita.
-          </p>
+            Ver tudo →
+          </a>
         </header>
 
         {videos.length === 0 ? (
@@ -52,16 +61,36 @@ export function VideoGallery({
             )}
           </div>
         ) : (
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
-            {videos.map((video) => (
-              <VideoCard
-                key={video.id}
-                video={video}
-                playing={playingId === video.id}
-                onPlay={() => setPlayingId(video.id)}
-              />
-            ))}
-          </div>
+          <>
+            {/* Mobile: horizontal snap strip (Reels browse) */}
+            <div
+              className="mt-8 -mx-4 flex snap-x snap-mandatory gap-4 overflow-x-auto px-4 pb-2 sm:mx-0 sm:px-0 lg:hidden"
+              role="list"
+              aria-label="Vídeos (deslize horizontalmente)"
+            >
+              {videos.map((video) => (
+                <div key={video.id} role="listitem" className="w-[70vw] max-w-[280px] shrink-0 snap-start sm:w-[45vw]">
+                  <VideoCard
+                    video={video}
+                    playing={playingId === video.id}
+                    onPlay={() => setPlayingId(video.id)}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {/* Desktop: grid */}
+            <div className="mt-8 hidden gap-4 sm:gap-5 lg:grid lg:grid-cols-4">
+              {videos.map((video) => (
+                <VideoCard
+                  key={video.id}
+                  video={video}
+                  playing={playingId === video.id}
+                  onPlay={() => setPlayingId(video.id)}
+                />
+              ))}
+            </div>
+          </>
         )}
       </div>
     </section>
@@ -80,7 +109,7 @@ function VideoCard({
   const vertical = video.orientation === "vertical";
 
   return (
-    <article className="overflow-hidden rounded-card border border-line bg-canvas shadow-card">
+    <article className="h-full overflow-hidden rounded-card border border-line bg-canvas shadow-card">
       <div className={`relative bg-navy-deep ${vertical ? "aspect-[9/16]" : "aspect-video"}`}>
         {playing ? (
           <iframe

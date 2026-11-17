@@ -15,6 +15,9 @@ CREATE TYPE "PropertyType" AS ENUM ('HOUSE', 'VILLA', 'APARTMENT', 'LAND', 'COMM
 CREATE TYPE "PropertyStatus" AS ENUM ('DRAFT', 'PUBLISHED', 'RESERVED', 'SOLD', 'RENTED', 'ARCHIVED');
 
 -- CreateEnum
+CREATE TYPE "ListingSource" AS ENUM ('PROFESSIONAL', 'PRIVATE');
+
+-- CreateEnum
 CREATE TYPE "MediaType" AS ENUM ('IMAGE', 'VIDEO', 'PANORAMA', 'FLOORPLAN', 'MODEL_3D');
 
 -- CreateEnum
@@ -44,6 +47,7 @@ CREATE TABLE "Property" (
     "description" TEXT NOT NULL,
     "transactionType" "TransactionType" NOT NULL,
     "propertyType" "PropertyType" NOT NULL,
+    "listingSource" "ListingSource" NOT NULL DEFAULT 'PROFESSIONAL',
     "status" "PropertyStatus" NOT NULL DEFAULT 'DRAFT',
     "priceAmountMinor" BIGINT NOT NULL,
     "priceCurrency" "Currency" NOT NULL DEFAULT 'AOA',
@@ -181,6 +185,29 @@ CREATE TABLE "Favorite" (
 );
 
 -- CreateTable
+CREATE TABLE "VideoLike" (
+    "id" TEXT NOT NULL,
+    "videoId" TEXT NOT NULL,
+    "anonId" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "VideoLike_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "VideoComment" (
+    "id" TEXT NOT NULL,
+    "videoId" TEXT NOT NULL,
+    "author" TEXT NOT NULL,
+    "content" TEXT NOT NULL,
+    "anonId" TEXT,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "VideoComment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "AuditLog" (
     "id" TEXT NOT NULL,
     "userId" TEXT,
@@ -205,6 +232,9 @@ CREATE INDEX "Property_status_publishedAt_idx" ON "Property"("status", "publishe
 
 -- CreateIndex
 CREATE INDEX "Property_transactionType_propertyType_idx" ON "Property"("transactionType", "propertyType");
+
+-- CreateIndex
+CREATE INDEX "Property_listingSource_idx" ON "Property"("listingSource");
 
 -- CreateIndex
 CREATE INDEX "Property_province_municipality_idx" ON "Property"("province", "municipality");
@@ -256,6 +286,15 @@ CREATE INDEX "Favorite_userId_idx" ON "Favorite"("userId");
 
 -- CreateIndex
 CREATE INDEX "Favorite_anonId_idx" ON "Favorite"("anonId");
+
+-- CreateIndex
+CREATE INDEX "VideoLike_videoId_idx" ON "VideoLike"("videoId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "VideoLike_videoId_anonId_key" ON "VideoLike"("videoId", "anonId");
+
+-- CreateIndex
+CREATE INDEX "VideoComment_videoId_createdAt_idx" ON "VideoComment"("videoId", "createdAt");
 
 -- CreateIndex
 CREATE INDEX "AuditLog_entity_entityId_idx" ON "AuditLog"("entity", "entityId");

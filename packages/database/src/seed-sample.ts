@@ -16,6 +16,7 @@ type Sample = {
   description: string;
   transactionType: "SALE" | "RENT";
   propertyType: "HOUSE" | "VILLA" | "APARTMENT" | "LAND" | "COMMERCIAL" | "OFFICE" | "WAREHOUSE";
+  listingSource: "PROFESSIONAL" | "PRIVATE";
   priceMajor: number;
   province: string;
   municipality: string;
@@ -43,6 +44,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Moradia independente com piscina, jardim e acabamentos premium num condomínio com segurança 24 horas.`,
     transactionType: "SALE",
     propertyType: "VILLA",
+    listingSource: "PROFESSIONAL",
     priceMajor: 250_000_000,
     province: "Luanda",
     municipality: "Talatona",
@@ -65,6 +67,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Apartamento moderno com varanda ampla, cozinha equipada e vista desafogada.`,
     transactionType: "SALE",
     propertyType: "APARTMENT",
+    listingSource: "PROFESSIONAL",
     priceMajor: 120_000_000,
     province: "Luanda",
     municipality: "Viana",
@@ -87,6 +90,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Moradia mobilada pronta a habitar, em zona central com bons acessos.`,
     transactionType: "RENT",
     propertyType: "HOUSE",
+    listingSource: "PRIVATE",
     priceMajor: 2_500_000,
     province: "Luanda",
     municipality: "Ingombota",
@@ -109,6 +113,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Moradia de dois pisos com ampla vista para o mar e área de lazer.`,
     transactionType: "SALE",
     propertyType: "HOUSE",
+    listingSource: "PROFESSIONAL",
     priceMajor: 320_000_000,
     province: "Luanda",
     municipality: "Cacuaco",
@@ -131,6 +136,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Moradia em condomínio com jardim privativo e acabamentos de qualidade.`,
     transactionType: "SALE",
     propertyType: "HOUSE",
+    listingSource: "PRIVATE",
     priceMajor: 180_000_000,
     province: "Luanda",
     municipality: "Belas",
@@ -153,6 +159,7 @@ const SAMPLES: Sample[] = [
     description: `${DESCRIPTION} Apartamento funcional e bem localizado, ideal para primeira habitação.`,
     transactionType: "RENT",
     propertyType: "APARTMENT",
+    listingSource: "PROFESSIONAL",
     priceMajor: 450_000,
     province: "Luanda",
     municipality: "Kilamba Kiaxi",
@@ -187,15 +194,15 @@ export async function seedPgliteSampleData(client: PGlite): Promise<void> {
     await client.query(
       `INSERT INTO "Property" (
          "id", "reference", "slug", "title", "description",
-         "transactionType", "propertyType", "status",
+         "transactionType", "propertyType", "listingSource", "status",
          "priceAmountMinor", "priceCurrency",
          "province", "municipality", "neighborhood",
          "latitude", "longitude", "bedrooms", "bathrooms", "parkingSpaces",
          "areaM2", "lotAreaM2", "amenities", "featured",
          "publishedAt", "createdAt", "updatedAt"
        ) VALUES (
-         $1,$2,$3,$4,$5,$6,$7,'PUBLISHED',$8,'AOA',
-         $9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$21,$21
+         $1,$2,$3,$4,$5,$6,$7,$8,'PUBLISHED',$9,'AOA',
+         $10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$22,$22
        )`,
       [
         propertyId,
@@ -205,6 +212,7 @@ export async function seedPgliteSampleData(client: PGlite): Promise<void> {
         s.description,
         s.transactionType,
         s.propertyType,
+        s.listingSource,
         toMinor(s.priceMajor),
         s.province,
         s.municipality,

@@ -1,4 +1,4 @@
-import type { PropertySummary, PropertyWithMedia } from "@regis/domain";
+import type { PropertySummary, PropertyWithMedia, ListingSource, PropertySort } from "@regis/domain";
 import { PUBLIC_PROPERTY_STATUSES } from "@regis/domain";
 
 type RawProperty = {
@@ -8,6 +8,7 @@ type RawProperty = {
   title: string;
   transactionType: PropertySummary["transactionType"];
   propertyType: PropertySummary["propertyType"];
+  listingSource: PropertySummary["listingSource"];
   status: PropertySummary["status"];
   priceAmountMinor: bigint;
   priceCurrency: PropertySummary["price"]["currency"];
@@ -30,6 +31,7 @@ function toSummary(p: RawProperty): PropertySummary {
     title: p.title,
     transactionType: p.transactionType,
     propertyType: p.propertyType,
+    listingSource: p.listingSource,
     status: p.status,
     price: { amountMinor: Number(p.priceAmountMinor), currency: p.priceCurrency },
     province: p.province,
@@ -94,11 +96,19 @@ export async function getFeaturedProperties(limit = 6): Promise<PropertySummary[
 export interface PropertySearchInput {
   transactionType?: string;
   propertyType?: string;
+  listingSource?: ListingSource[];
   province?: string;
+  municipality?: string;
+  neighborhood?: string;
   minPrice?: number;
   maxPrice?: number;
   bedrooms?: number;
   bathrooms?: number;
+  minArea?: number;
+  maxArea?: number;
+  amenities?: string[];
+  q?: string;
+  sort?: PropertySort;
   page?: number;
   pageSize?: number;
 }
@@ -112,6 +122,14 @@ export interface PropertySearchResult {
 
 const DEFAULT_PAGE_SIZE = 12;
 const MAX_PAGE_SIZE = 48;
+
+const SORT_ORDER: Record<string, Record<string, "asc" | "desc">[]> = {
+  RECENT: [{ publishedAt: "desc" }],
+  PRICE_ASC: [{ priceAmountMinor: "asc" }],
+  PRICE_DESC: [{ priceAmountMinor: "desc" }],
+  AREA_DESC: [{ areaM2: "desc" }],
+  FEATURED: [{ featured: "desc" }, { publishedAt: "desc" }],
+};
 
 export async function searchProperties(
   input: PropertySearchInput,
@@ -131,19 +149,55 @@ export async function searchProperties(
     if (input.transactionType) where.transactionType = input.transactionType;
     if (input.propertyType) where.propertyType = input.propertyType;
     if (input.province) where.province = input.province;
+    if (input.municipality) where.municipality = input.municipality;
+    if (input.neighborhood) where.neighborhood = input.neighborhood;
+
+    // Listing source: empty array = no filter (show all).
+    if (input.listingSource && input.listingSource.length === 1) {
+      where.listingSource = input.listingSource[0];
+    } else if (input.listingSource && input.listingSource.length > 1) {
+      where.listingSource = { in: input.listingSource };
+    }
 
     const price: Record<string, bigint> = {};
     if (input.minPrice != null) price.gte = BigInt(Math.round(input.minPrice * 100));
     if (input.maxPrice != null) price.lte = BigInt(Math.round(input.maxPrice * 100));
     if (Object.keys(price).length > 0) where.priceAmountMinor = price;
 
-    if (input.bedrooms != null) where.bedrooms = { gte: input.bedrooms };
+    // Tipologia: 0 = studios only (exact); 1+ = minimum bedrooms.
+    if (input.bedrooms != null) {
+      where.bedrooms = input.bedrooms === 0 ? 0 : { gte: input.bedrooms };
+    }
     if (input.bathrooms != null) where.bathrooms = { gte: input.bathrooms };
+
+    const area: Record<string, number> = {};
+    if (input.minArea != null) area.gte = input.minArea;
+    if (input.maxArea != null) area.lte = input.maxArea;
+    if (Object.keys(area).length > 0) where.areaM2 = area;
+
+    if (input.amenities && input.amenities.length > 0) {
+      where.amenities = { hasEvery: input.amenities };
+    }
+
+    // Text search across title, description, reference, location and amenities.
+    if (input.q) {
+      const q = input.q;
+      where.OR = [
+        { title: { contains: q, mode: "insensitive" } },
+        { description: { contains: q, mode: "insensitive" } },
+        { reference: { contains: q, mode: "insensitive" } },
+        { municipality: { contains: q, mode: "insensitive" } },
+        { neighborhood: { contains: q, mode: "insensitive" } },
+        { amenities: { has: q } },
+      ];
+    }
+
+    const orderBy = SORT_ORDER[input.sort ?? "RECENT"] ?? SORT_ORDER.RECENT;
 
     const total = await prisma.property.count({ where });
     const rows = await prisma.property.findMany({
       where,
-      orderBy: [{ publishedAt: "desc" }],
+      orderBy,
       skip: (page - 1) * pageSize,
       take: pageSize,
       include: { media: MEDIA_INCLUDE },
@@ -161,6 +215,10 @@ export async function searchProperties(
   }
 }
 
+/**
+ * Parses the raw URL query into a typed search input.
+ * `listingSource` accepts repeated params or a comma-separated value.
+ */
 export function parseSearchParams(
   params: Record<string, string | string[] | undefined>,
 ): PropertySearchInput {
@@ -176,16 +234,126 @@ export function parseSearchParams(
     return Number.isFinite(n) && n >= 0 ? n : undefined;
   };
 
+  // listingSource: repeated keys or comma-separated
+  const rawSource = params.listingSource;
+  const sourceParts = (Array.isArray(rawSource) ? rawSource : rawSource ? [rawSource] : [])
+    .flatMap((v) => v.split(","))
+    .map((s) => s.trim().toUpperCase())
+    .filter((s): s is ListingSource => s === "PROFESSIONAL" || s === "PRIVATE");
+
+  const amenitiesRaw = one("amenities");
+  const amenities = amenitiesRaw
+    ? amenitiesRaw.split(",").map((s) => s.trim()).filter(Boolean)
+    : undefined;
+
   return {
     transactionType: one("transactionType"),
     propertyType: one("propertyType"),
+    listingSource: sourceParts.length > 0 ? [...new Set(sourceParts)] : undefined,
     province: one("province"),
+    municipality: one("municipality"),
+    neighborhood: one("neighborhood"),
     minPrice: num("minPrice"),
     maxPrice: num("maxPrice"),
     bedrooms: num("bedrooms"),
     bathrooms: num("bathrooms"),
+    minArea: num("minArea"),
+    maxArea: num("maxArea"),
+    amenities: amenities && amenities.length > 0 ? amenities : undefined,
+    q: one("q"),
+    sort: one("sort") as PropertySort | undefined,
     page: num("page") ?? 1,
   };
+}
+
+/** Serialises a search input back to a query string (omitting empty values). */
+export function buildQueryString(
+  input: PropertySearchInput,
+  overrides: Partial<PropertySearchInput> = {},
+): string {
+  const merged = { ...input, ...overrides };
+  const search = new URLSearchParams();
+
+  const set = (key: string, value: string | number | undefined | null) => {
+    if (value == null || value === "") search.delete(key);
+    else search.set(key, String(value));
+  };
+
+  set("transactionType", merged.transactionType);
+  set("propertyType", merged.propertyType);
+  set("province", merged.province);
+  set("municipality", merged.municipality);
+  set("neighborhood", merged.neighborhood);
+  set("minPrice", merged.minPrice);
+  set("maxPrice", merged.maxPrice);
+  set("bedrooms", merged.bedrooms);
+  set("bathrooms", merged.bathrooms);
+  set("minArea", merged.minArea);
+  set("maxArea", merged.maxArea);
+  set("q", merged.q);
+  set("sort", merged.sort);
+  set("page", merged.page && merged.page > 1 ? merged.page : undefined);
+
+  if (merged.listingSource && merged.listingSource.length > 0) {
+    search.set("listingSource", merged.listingSource.join(","));
+  } else {
+    search.delete("listingSource");
+  }
+
+  if (merged.amenities && merged.amenities.length > 0) {
+    search.set("amenities", merged.amenities.join(","));
+  } else {
+    search.delete("amenities");
+  }
+
+  const qs = search.toString();
+  return qs ? `?${qs}` : "";
+}
+
+// --- Filter options ----------------------------------------------------------
+
+/** Distinct municipality names for a province (falls back to free values). */
+export async function getMunicipalities(province?: string): Promise<string[]> {
+  if (!province || !databaseConfigured()) return [];
+  try {
+    const { getPrisma } = await import("@regis/database");
+    const prisma = await getPrisma();
+    const rows = await prisma.property.findMany({
+      where: { status: { in: [...PUBLIC_PROPERTY_STATUSES] }, province },
+      distinct: ["municipality"],
+      select: { municipality: true },
+      orderBy: { municipality: "asc" },
+    });
+    return rows.map((r) => r.municipality);
+  } catch {
+    return [];
+  }
+}
+
+/** Distinct neighborhood names for a province/municipality. */
+export async function getNeighborhoods(
+  province?: string,
+  municipality?: string,
+): Promise<string[]> {
+  if (!province || !municipality || !databaseConfigured()) return [];
+  try {
+    const { getPrisma } = await import("@regis/database");
+    const prisma = await getPrisma();
+    const rows = await prisma.property.findMany({
+      where: {
+        status: { in: [...PUBLIC_PROPERTY_STATUSES] },
+        province,
+        municipality,
+        neighborhood: { not: null },
+      },
+      distinct: ["neighborhood"],
+      select: { neighborhood: true },
+      orderBy: { neighborhood: "asc" },
+    });
+    return rows.map((r) => r.neighborhood).filter((n): n is string => !!n);
+  } catch {
+    return [];
+  }
 }
 
 // --- Property detail ---------------------------------------------------------
@@ -229,6 +397,9 @@ function toDetail(p: RawPropertyDetail): PropertyWithMedia {
     caption: m.caption,
   }));
 
+  const images = media.filter((m) => m.type === "IMAGE");
+  const videos = media.filter((m) => m.type === "VIDEO");
+
   return {
     id: p.id,
     reference: p.reference,
@@ -237,6 +408,7 @@ function toDetail(p: RawPropertyDetail): PropertyWithMedia {
     description: p.description,
     transactionType: p.transactionType,
     propertyType: p.propertyType,
+    listingSource: p.listingSource,
     status: p.status,
     price: { amountMinor: Number(p.priceAmountMinor), currency: p.priceCurrency },
     province: p.province,
@@ -255,7 +427,7 @@ function toDetail(p: RawPropertyDetail): PropertyWithMedia {
     createdAt: p.createdAt.toISOString(),
     updatedAt: p.updatedAt.toISOString(),
     media,
-    mainImageUrl: media[0]?.url ?? null,
+    mainImageUrl: images[0]?.url ?? videos[0]?.url ?? null,
   };
 }
 

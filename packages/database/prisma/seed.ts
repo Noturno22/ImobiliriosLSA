@@ -8,7 +8,7 @@
  *
  * Never run this against production with SEED_SAMPLE_DATA=true.
  */
-import { PropertyStatus, TransactionType, PropertyType, Currency, Role } from "@prisma/client";
+import { PropertyStatus, TransactionType, PropertyType, ListingSource, Currency, Role } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { getPrisma } from "../src/index";
 
@@ -55,10 +55,10 @@ async function main() {
 
   if (process.env.SEED_SAMPLE_DATA === "true") {
     const samples = [
-      { ref: "RGS-000001", title: "Moradia T4 com piscina — Talatona (AMOSTRA)", type: PropertyType.VILLA, tx: TransactionType.SALE, price: 185_000_000, beds: 4, baths: 4, area: 420, muni: "Talatona", hood: "Bairro Jardim" },
-      { ref: "RGS-000002", title: "Apartamento T3 mobilado — Miramar (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.SALE, price: 95_000_000, beds: 3, baths: 2, area: 165, muni: "Luanda", hood: "Miramar" },
-      { ref: "RGS-000003", title: "Apartamento T2 para arrendar — Kilamba (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.RENT, price: 450_000, beds: 2, baths: 1, area: 92, muni: "Kilamba Kiaxi", hood: "Kilamba" },
-      { ref: "RGS-000004", title: "Terreno 1.200 m² — Viana (AMOSTRA)", type: PropertyType.LAND, tx: TransactionType.SALE, price: 28_000_000, beds: null, baths: null, area: null, muni: "Viana", hood: "Zango" },
+      { ref: "RGS-000001", title: "Moradia T4 com piscina — Talatona (AMOSTRA)", type: PropertyType.VILLA, tx: TransactionType.SALE, src: ListingSource.PROFESSIONAL, price: 185_000_000, beds: 4, baths: 4, area: 420, muni: "Talatona", hood: "Bairro Jardim" },
+      { ref: "RGS-000002", title: "Apartamento T3 mobilado — Miramar (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.SALE, src: ListingSource.PROFESSIONAL, price: 95_000_000, beds: 3, baths: 2, area: 165, muni: "Luanda", hood: "Miramar" },
+      { ref: "RGS-000003", title: "Apartamento T2 para arrendar — Kilamba (AMOSTRA)", type: PropertyType.APARTMENT, tx: TransactionType.RENT, src: ListingSource.PRIVATE, price: 450_000, beds: 2, baths: 1, area: 92, muni: "Kilamba Kiaxi", hood: "Kilamba" },
+      { ref: "RGS-000004", title: "Terreno 1.200 m² — Viana (AMOSTRA)", type: PropertyType.LAND, tx: TransactionType.SALE, src: ListingSource.PROFESSIONAL, price: 28_000_000, beds: null, baths: null, area: null, muni: "Viana", hood: "Zango" },
     ] as const;
 
     for (const s of samples) {
@@ -73,6 +73,7 @@ async function main() {
             "[AMOSTRA] Registo de desenvolvimento para validar a interface. Não representa um imóvel real da Regis Properties.",
           transactionType: s.tx,
           propertyType: s.type,
+          listingSource: s.src,
           status: PropertyStatus.PUBLISHED,
           priceAmountMinor: toMinor(s.price),
           priceCurrency: Currency.AOA,

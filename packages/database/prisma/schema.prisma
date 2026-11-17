@@ -34,6 +34,11 @@ enum PropertyStatus {
   ARCHIVED
 }
 
+enum ListingSource {
+  PROFESSIONAL
+  PRIVATE
+}
+
 enum MediaType {
   IMAGE
   VIDEO
@@ -98,6 +103,7 @@ model Property {
   description     String
   transactionType TransactionType
   propertyType    PropertyType
+  listingSource   ListingSource   @default(PROFESSIONAL)
   status          PropertyStatus  @default(DRAFT)
   priceAmountMinor BigInt
   priceCurrency   Currency        @default(AOA)
@@ -124,6 +130,7 @@ model Property {
 
   @@index([status, publishedAt])
   @@index([transactionType, propertyType])
+  @@index([listingSource])
   @@index([province, municipality])
   @@index([priceAmountMinor])
   @@index([featured, publishedAt])
@@ -254,6 +261,28 @@ model Favorite {
   @@index([propertyId])
   @@index([userId])
   @@index([anonId])
+}
+
+model VideoLike {
+  id        String   @id @default(cuid())
+  videoId   String
+  anonId    String
+  createdAt DateTime @default(now())
+
+  @@unique([videoId, anonId])
+  @@index([videoId])
+}
+
+model VideoComment {
+  id        String   @id @default(cuid())
+  videoId   String
+  author    String
+  content   String   @db.Text
+  anonId    String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([videoId, createdAt])
 }
 
 model AuditLog {

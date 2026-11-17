@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { PropertySort, PropertyType, TransactionType } from "@regis/domain";
+import {
+  ListingSource,
+  PropertySort,
+  PropertyType,
+  TransactionType,
+} from "@regis/domain";
 
 const enumValues = <T extends Record<string, string>>(e: T) =>
   Object.values(e) as [string, ...string[]];
@@ -14,11 +19,43 @@ const amenityList = z
 
 const optionalNumber = z.coerce.number().nonnegative().optional();
 
+/**
+ * Tipologia filter (T0–T5). Encoded as the minimum bedroom count:
+ * T0 → 0 (studio), T1 → 1+, … T5 → 5+. Accepts "T2" or "2".
+ */
+export const tipologiaSchema = z
+  .union([z.string(), z.number()])
+  .optional()
+  .transform((v): number | undefined => {
+    if (v === undefined || v === "") return undefined;
+    const s = String(v).trim().toUpperCase().replace(/^T/, "");
+    const n = Number(s);
+    if (!Number.isInteger(n) || n < 0 || n > 10) return undefined;
+    return n;
+  });
+
+/**
+ * Listing source filter. Accepts "PROFESSIONAL", "PRIVATE", comma-separated
+ * lists, or arrays (from repeated query params). Empty/absent = no filter.
+ */
+const listingSourceList = z
+  .union([z.string(), z.array(z.string())])
+  .optional()
+  .transform((v): ListingSource[] => {
+    if (v === undefined) return [];
+    const parts = (Array.isArray(v) ? v : v.split(","))
+      .map((s) => s.trim().toUpperCase())
+      .filter(Boolean);
+    const valid = new Set(Object.values(ListingSource));
+    return parts.filter((p): p is ListingSource => valid.has(p as ListingSource));
+  });
+
 /** Query parameters for property search. Accepts string (URL) or number input. */
 export const propertySearchSchema = z
   .object({
     transactionType: z.enum(enumValues(TransactionType)).optional(),
     propertyType: z.enum(enumValues(PropertyType)).optional(),
+    listingSource: listingSourceList,
     province: z.string().trim().min(1).optional(),
     municipality: z.string().trim().min(1).optional(),
     neighborhood: z.string().trim().min(1).optional(),
@@ -26,9 +63,11 @@ export const propertySearchSchema = z
     maxPrice: optionalNumber,
     bedrooms: z.coerce.number().int().min(0).max(50).optional(),
     bathrooms: z.coerce.number().int().min(0).max(50).optional(),
+    tipologia: tipologiaSchema,
     minArea: optionalNumber,
     maxArea: optionalNumber,
     amenities: amenityList,
+    q: z.string().trim().max(200).optional(),
     featured: z
       .union([z.literal("true"), z.literal("false"), z.boolean()])
       .optional()

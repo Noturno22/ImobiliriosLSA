@@ -4,43 +4,31 @@ import Link from "next/link";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { PropertyCard } from "@/components/property-card";
+import { PropertyFilter, type PropertyFilterValues } from "@/components/property-filter";
 import {
+  buildQueryString,
+  getMunicipalities,
+  getNeighborhoods,
   parseSearchParams,
   searchProperties,
-  type PropertySearchInput,
 } from "@/lib/properties";
-import { PROVINCES, PropertyType, TransactionType } from "@regis/domain";
-import { propertyTypeLabels, transactionLabels } from "@/lib/labels";
+import {
+  ListingSource,
+  PropertyType,
+  TransactionType,
+} from "@regis/domain";
+import {
+  TIPOLOGIA_OPTIONS,
+  listingSourceLabels,
+  propertyTypeLabels,
+  transactionLabels,
+} from "@/lib/labels";
 
 export const metadata: Metadata = {
   title: "Imóveis",
   description:
     "Pesquise casas, apartamentos, terrenos e imóveis comerciais para compra ou arrendamento em Angola.",
 };
-
-const selectClass =
-  "h-11 w-full rounded-control border border-line bg-canvas px-3 text-sm text-ink outline-none transition-colors focus:border-accent";
-
-function buildQuery(input: PropertySearchInput, overrides: Partial<PropertySearchInput>) {
-  const merged: Record<string, string | number | undefined> = {
-    transactionType: input.transactionType,
-    propertyType: input.propertyType,
-    province: input.province,
-    minPrice: input.minPrice,
-    maxPrice: input.maxPrice,
-    bedrooms: input.bedrooms,
-    bathrooms: input.bathrooms,
-    ...overrides,
-  };
-
-  const search = new URLSearchParams();
-  for (const [key, value] of Object.entries(merged)) {
-    if (value == null || value === "") continue;
-    search.set(key, String(value));
-  }
-  const qs = search.toString();
-  return qs ? `?${qs}` : "/imoveis";
-}
 
 function FilterChip({
   href,
@@ -68,46 +56,105 @@ function FilterChip({
 
 type Param = string | string[] | undefined;
 
+function tipologiaLabel(bedrooms: number | undefined): string | null {
+  if (bedrooms == null) return null;
+  const opt = TIPOLOGIA_OPTIONS.find((o) => o.minBedrooms === bedrooms);
+  return opt ? opt.label : `${bedrooms}+`;
+}
+
 export default async function ImoveisPage({
   searchParams,
 }: {
   searchParams: Promise<Record<string, Param>>;
 }) {
-  const input = parseSearchParams(await searchParams);
-  const { items, total, page, pageCount } = await searchProperties(input);
+  const raw = await searchParams;
+  const input = parseSearchParams(raw);
+  const [{ items, total, page, pageCount }, municipalities, neighborhoods] =
+    await Promise.all([
+      searchProperties(input),
+      getMunicipalities(input.province),
+      input.municipality
+        ? getNeighborhoods(input.province, input.municipality)
+        : Promise.resolve([]),
+    ]);
 
-  const active: { key: keyof PropertySearchInput; label: string; href: string }[] = [];
+  const filterValues: PropertyFilterValues = {
+    listingSource: input.listingSource ?? [],
+    transactionType: input.transactionType ?? "",
+    propertyType: input.propertyType ?? "",
+    tipologia: input.bedrooms != null ? String(input.bedrooms) : "",
+    province: input.province ?? "",
+    municipality: input.municipality ?? "",
+    neighborhood: input.neighborhood ?? "",
+    minPrice: input.minPrice != null ? String(input.minPrice) : "",
+    maxPrice: input.maxPrice != null ? String(input.maxPrice) : "",
+    q: input.q ?? "",
+  };
+
+  const active: { key: string; label: string; href: string }[] = [];
+  if (input.listingSource && input.listingSource.length > 0) {
+    const labels = input.listingSource
+      .map((s) => listingSourceLabels[s as ListingSource] ?? s)
+      .join(", ");
+    active.push({
+      key: "listingSource",
+      label: labels,
+      href: buildQueryString(input, { listingSource: [] }),
+    });
+  }
   if (input.transactionType)
     active.push({
       key: "transactionType",
       label: transactionLabels[input.transactionType as TransactionType] ?? input.transactionType,
-      href: buildQuery(input, { transactionType: undefined }),
+      href: buildQueryString(input, { transactionType: undefined }),
     });
   if (input.propertyType)
     active.push({
       key: "propertyType",
       label: propertyTypeLabels[input.propertyType as PropertyType] ?? input.propertyType,
-      href: buildQuery(input, { propertyType: undefined }),
+      href: buildQueryString(input, { propertyType: undefined }),
+    });
+  if (input.bedrooms != null)
+    active.push({
+      key: "bedrooms",
+      label: tipologiaLabel(input.bedrooms) ?? `${input.bedrooms}+ quartos`,
+      href: buildQueryString(input, { bedrooms: undefined }),
     });
   if (input.province)
-    active.push({ key: "province", label: input.province, href: buildQuery(input, { province: undefined }) });
+    active.push({
+      key: "province",
+      label: input.province,
+      href: buildQueryString(input, { province: undefined, municipality: undefined, neighborhood: undefined }),
+    });
+  if (input.municipality)
+    active.push({
+      key: "municipality",
+      label: input.municipality,
+      href: buildQueryString(input, { municipality: undefined, neighborhood: undefined }),
+    });
+  if (input.neighborhood)
+    active.push({
+      key: "neighborhood",
+      label: input.neighborhood,
+      href: buildQueryString(input, { neighborhood: undefined }),
+    });
   if (input.minPrice != null)
     active.push({
       key: "minPrice",
       label: `Mín. ${input.minPrice.toLocaleString("pt-AO")} Kz`,
-      href: buildQuery(input, { minPrice: undefined }),
+      href: buildQueryString(input, { minPrice: undefined }),
     });
   if (input.maxPrice != null)
     active.push({
       key: "maxPrice",
       label: `Máx. ${input.maxPrice.toLocaleString("pt-AO")} Kz`,
-      href: buildQuery(input, { maxPrice: undefined }),
+      href: buildQueryString(input, { maxPrice: undefined }),
     });
-  if (input.bedrooms != null)
+  if (input.q)
     active.push({
-      key: "bedrooms",
-      label: `${input.bedrooms}+ quartos`,
-      href: buildQuery(input, { bedrooms: undefined }),
+      key: "q",
+      label: `“${input.q}”`,
+      href: buildQueryString(input, { q: undefined }),
     });
 
   const hasFilters = active.length > 0;
@@ -121,15 +168,27 @@ export default async function ImoveisPage({
           Encontre o seu próximo imóvel
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-ink-muted">
-          Filtre por operação, tipo, localização e faixa de preço. Os filtros ficam no URL, pelo
-          que pode partilhar ou guardar a pesquisa.
+          Filtre por anunciante, operação, tipo, tipologia, localização e faixa de preço. Os
+          filtros ficam no URL, pelo que pode partilhar ou guardar a pesquisa.
         </p>
 
-        <div className="mt-7 rounded-card border border-line bg-canvas p-4 shadow-card sm:p-5">
+        <div className="mt-7">
+          <PropertyFilter
+            values={filterValues}
+            municipalities={municipalities}
+            neighborhoods={neighborhoods}
+            totalResults={total}
+          />
+        </div>
+
+        {/* Quick chips: operação + tipologia */}
+        <div className="mt-5 flex flex-wrap items-center gap-4">
           <div className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">Operação</span>
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">
+              Operação
+            </span>
             <FilterChip
-              href={buildQuery(input, { transactionType: undefined, page: undefined })}
+              href={buildQueryString(input, { transactionType: undefined, page: undefined })}
               active={!input.transactionType}
             >
               Todos
@@ -137,7 +196,7 @@ export default async function ImoveisPage({
             {(Object.keys(transactionLabels) as TransactionType[]).map((t) => (
               <FilterChip
                 key={t}
-                href={buildQuery(input, { transactionType: t, page: undefined })}
+                href={buildQueryString(input, { transactionType: t, page: undefined })}
                 active={input.transactionType === t}
               >
                 {transactionLabels[t]}
@@ -145,98 +204,33 @@ export default async function ImoveisPage({
             ))}
           </div>
 
-          <div className="mt-4 flex flex-wrap items-center gap-2">
-            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">Quartos</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 text-xs font-semibold uppercase tracking-wide text-ink-subtle">
+              Tipologia
+            </span>
             <FilterChip
-              href={buildQuery(input, { bedrooms: undefined, page: undefined })}
+              href={buildQueryString(input, { bedrooms: undefined, page: undefined })}
               active={input.bedrooms == null}
             >
               Qualquer
             </FilterChip>
-            {[1, 2, 3, 4, 5].map((n) => (
+            {TIPOLOGIA_OPTIONS.map((opt) => (
               <FilterChip
-                key={n}
-                href={buildQuery(input, { bedrooms: n, page: undefined })}
-                active={input.bedrooms === n}
+                key={opt.value}
+                href={buildQueryString(input, { bedrooms: opt.minBedrooms, page: undefined })}
+                active={input.bedrooms === opt.minBedrooms}
               >
-                {n}+
+                {opt.label}
               </FilterChip>
             ))}
           </div>
-
-          <form
-            action="/imoveis"
-            method="get"
-            role="search"
-            aria-label="Filtrar imóveis"
-            className="mt-5 border-t border-line pt-5"
-          >
-            <input type="hidden" name="transactionType" value={input.transactionType ?? ""} />
-            <input type="hidden" name="bedrooms" value={input.bedrooms ?? ""} />
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              <label className="flex flex-col gap-1.5">
-                <span className="text-xs font-semibold text-ink-muted">Tipo de imóvel</span>
-                <select name="propertyType" defaultValue={input.propertyType ?? ""} className={selectClass}>
-                  <option value="">Qualquer tipo</option>
-                  {(Object.keys(propertyTypeLabels) as PropertyType[]).map((t) => (
-                    <option key={t} value={t}>{propertyTypeLabels[t]}</option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="flex flex-col gap-1.5">
-                <span className="text-xs font-semibold text-ink-muted">Província</span>
-                <select name="province" defaultValue={input.province ?? ""} className={selectClass}>
-                  <option value="">Todas as províncias</option>
-                  {PROVINCES.map((p) => (
-                    <option key={p.slug} value={p.name}>{p.name}</option>
-                  ))}
-                </select>
-              </label>
-
-              <label className="flex flex-col gap-1.5">
-                <span className="text-xs font-semibold text-ink-muted">Preço mínimo (Kz)</span>
-                <input
-                  type="number" name="minPrice" min={0} step={100000} inputMode="numeric"
-                  defaultValue={input.minPrice ?? ""} placeholder="0" className={selectClass}
-                />
-              </label>
-
-              <label className="flex flex-col gap-1.5">
-                <span className="text-xs font-semibold text-ink-muted">Preço máximo (Kz)</span>
-                <input
-                  type="number" name="maxPrice" min={0} step={100000} inputMode="numeric"
-                  defaultValue={input.maxPrice ?? ""} placeholder="Sem limite" className={selectClass}
-                />
-              </label>
-            </div>
-
-            <div className="mt-4 flex flex-wrap items-center gap-3">
-              <button
-                type="submit"
-                className="inline-flex h-11 items-center justify-center gap-2 rounded-control bg-accent px-6 text-sm font-semibold text-white transition-colors hover:bg-accent-hover"
-              >
-                <svg viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="7" />
-                  <path d="M20 20l-3.2-3.2" strokeLinecap="round" />
-                </svg>
-                Pesquisar imóveis
-              </button>
-              {hasFilters && (
-                <Link href="/imoveis" className="text-sm font-semibold text-ink-muted hover:text-ink">
-                  Limpar filtros
-                </Link>
-              )}
-            </div>
-          </form>
         </div>
 
         <div className="mt-7 flex flex-wrap items-center justify-between gap-4">
           <p aria-live="polite" className="text-sm text-ink-muted">
             {total === 0
               ? "Nenhum imóvel corresponde aos filtros."
-              : `${total} ${total === 1 ? "imóvel encontrado" : "imóveis encontrados"}`}
+              : `${total.toLocaleString("pt-AO")} ${total === 1 ? "imóvel encontrado" : "imóveis encontrados"}`}
           </p>
           {active.length > 0 && (
             <ul className="flex flex-wrap gap-2">
@@ -268,7 +262,7 @@ export default async function ImoveisPage({
               <nav aria-label="Paginação" className="mt-10 flex items-center justify-center gap-2">
                 {page > 1 && (
                   <Link
-                    href={buildQuery(input, { page: page - 1 })}
+                    href={buildQueryString(input, { page: page - 1 })}
                     className="rounded-control border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-line-strong"
                   >
                     Anterior
@@ -279,7 +273,7 @@ export default async function ImoveisPage({
                 </span>
                 {page < pageCount && (
                   <Link
-                    href={buildQuery(input, { page: page + 1 })}
+                    href={buildQueryString(input, { page: page + 1 })}
                     className="rounded-control border border-line px-4 py-2 text-sm font-semibold text-ink hover:border-line-strong"
                   >
                     Seguinte
@@ -291,11 +285,10 @@ export default async function ImoveisPage({
         ) : (
           <div className="mt-6 rounded-card border border-dashed border-line-strong bg-canvas-soft p-10 text-center">
             <p className="font-display text-lg font-bold text-navy dark:text-ink">
-              Ainda não há imóveis publicados
+              Nenhum imóvel corresponde aos filtros
             </p>
             <p className="mx-auto mt-2 max-w-md text-sm text-ink-muted">
-              Assim que a equipa Regis publicar imóveis, eles aparecem aqui automaticamente,
-              respeitando os filtros que definiu.
+              Tente alargar a pesquisa ou limpar alguns filtros para ver mais resultados.
             </p>
             <div className="mt-5 flex flex-wrap justify-center gap-3">
               <Link

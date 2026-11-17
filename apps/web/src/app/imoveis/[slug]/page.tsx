@@ -19,8 +19,45 @@ import {
   transactionLabels,
 } from "@/lib/labels";
 import { site, whatsappLink } from "@/lib/site";
+import { parseVideoUrl } from "@/lib/videos";
 
 type Params = { slug: string };
+
+/** Renders an embedded video (YouTube/direct) for the property detail page. */
+function PropertyVideo({ url, title }: { url: string; title: string }) {
+  const parsed = parseVideoUrl(url);
+  if (!parsed) return null;
+
+  return (
+    <section aria-labelledby="video-titulo" className="overflow-hidden rounded-card border border-line bg-navy-deep">
+      <h2 id="video-titulo" className="sr-only">
+        Vídeo do imóvel
+      </h2>
+      {parsed.kind === "youtube" ? (
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${parsed.id}?rel=0`}
+          title={`Vídeo — ${title}`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+          className="aspect-video w-full"
+        />
+      ) : parsed.kind === "direct" ? (
+        <video src={parsed.url} controls playsInline className="aspect-video w-full object-cover" />
+      ) : (
+        <div className="grid aspect-video place-items-center p-6 text-center">
+          <a
+            href={parsed.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex h-10 items-center rounded-control bg-accent px-4 text-sm font-semibold text-white"
+          >
+            Ver vídeo no TikTok
+          </a>
+        </div>
+      )}
+    </section>
+  );
+}
 
 export async function generateMetadata({
   params,
@@ -117,12 +154,18 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
 
   const similar = await getSimilarProperties(property, 3);
 
-  const galleryImages = property.media.map((m) => ({
+  const images = property.media.filter((m) => m.type === "IMAGE");
+  const videos = property.media.filter((m) => m.type === "VIDEO");
+
+  const galleryImages = images.map((m) => ({
     id: m.id,
     url: m.url,
     alt: m.alt || property.title,
     caption: m.caption,
   }));
+
+  // First playable video (YouTube preferred for embedding)
+  const firstVideo = videos[0];
 
   const location = [property.neighborhood, property.municipality, property.province]
     .filter(Boolean)
@@ -207,7 +250,10 @@ export default async function ImovelPage({ params }: { params: Promise<Params> }
         )}
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[minmax(0,1.7fr)_minmax(0,1fr)]">
-          <PropertyGallery images={galleryImages} title={property.title} />
+          <div className="flex flex-col gap-4">
+            <PropertyGallery images={galleryImages} title={property.title} />
+            {firstVideo && <PropertyVideo url={firstVideo.url} title={property.title} />}
+          </div>
 
           <aside className="flex flex-col gap-6 self-start rounded-card border border-line bg-canvas p-6 shadow-card lg:sticky lg:top-24">
             <div className="flex flex-wrap items-center gap-2">

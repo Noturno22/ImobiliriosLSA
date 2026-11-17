@@ -1,6 +1,13 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Currency, PropertyStatus, PropertyType, TransactionType, toMajor } from "@regis/domain";
+import {
+  Currency,
+  ListingSource,
+  PropertyStatus,
+  PropertyType,
+  TransactionType,
+  toMajor,
+} from "@regis/domain";
 import { PropertyForm, type PropertyFormValues } from "@/components/admin/property-form";
 import { statusLabels } from "@/lib/labels";
 import { setPropertyStatus } from "../actions";
@@ -35,12 +42,16 @@ export default async function EditPropertyPage({
   });
   if (!property) notFound();
 
+  const images = property.media.filter((m) => m.type === "IMAGE");
+  const videos = property.media.filter((m) => m.type === "VIDEO");
+
   const values: PropertyFormValues = {
     id: property.id,
     title: property.title,
     description: property.description,
     transactionType: property.transactionType as TransactionType,
     propertyType: property.propertyType as PropertyType,
+    listingSource: (property.listingSource as ListingSource) ?? "PROFESSIONAL",
     status: property.status as PropertyStatus,
     priceAmountMajor: String(toMajor({ amountMinor: Number(property.priceAmountMinor), currency: property.priceCurrency as Currency })),
     priceCurrency: property.priceCurrency as Currency,
@@ -54,7 +65,8 @@ export default async function EditPropertyPage({
     lotAreaM2: toField(property.lotAreaM2),
     amenities: property.amenities,
     featured: property.featured,
-    mediaUrls: property.media.map((m) => m.url).join("\n"),
+    mediaUrls: images.map((m) => m.url).join("\n"),
+    videoUrls: videos.map((m) => m.url).join("\n"),
   };
 
   return (

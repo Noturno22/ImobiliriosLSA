@@ -1,5 +1,5 @@
 ﻿import { z } from "zod";
-import { PropertyStatus, PropertyType, TransactionType } from "@regis/domain";
+import { ListingSource, PropertyStatus, PropertyType, TransactionType } from "@regis/domain";
 import { priceInputSchema } from "./money";
 
 const enumValues = <T extends Record<string, string>>(e: T) =>
@@ -10,6 +10,9 @@ export const propertyBaseSchema = z.object({
   description: z.string().trim().min(20, "A descriÃ§Ã£o Ã© demasiado curta.").max(8000),
   transactionType: z.enum(enumValues(TransactionType)),
   propertyType: z.enum(enumValues(PropertyType)),
+  listingSource: z
+    .enum(enumValues(ListingSource))
+    .default(ListingSource.PROFESSIONAL),
   status: z.enum(enumValues(PropertyStatus)).default(PropertyStatus.DRAFT),
   price: priceInputSchema,
   province: z.string().trim().min(1, "Selecione a provÃ­ncia."),

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import {
   Currency,
+  ListingSource,
   Permission,
   PropertyStatus,
   PropertyType,
@@ -91,18 +92,23 @@ export async function saveProperty(
     .split(/\r?\n/)
     .map((line) => line.trim())
     .filter(Boolean);
+  const videoUrls = str(formData.get("videoUrls"))
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
 
   const files = formData
     .getAll("files")
     .filter((entry): entry is File => entry instanceof File && entry.size > 0);
   const { urls: uploadedUrls } = await saveUploadedImages(files);
-  const mediaUrls = [...uploadedUrls, ...textUrls];
+  const imageUrls = [...uploadedUrls, ...textUrls];
 
   const parsed = propertyCreateSchema.safeParse({
     title: str(formData.get("title")),
     description: str(formData.get("description")),
     transactionType: str(formData.get("transactionType")),
     propertyType: str(formData.get("propertyType")),
+    listingSource: str(formData.get("listingSource")) || undefined,
     status: str(formData.get("status")) || undefined,
     price: {
       amountMajor: num(formData.get("priceAmountMajor")) ?? -1,
@@ -131,7 +137,13 @@ export async function saveProperty(
   const price = fromMajor(data.price.amountMajor, data.price.currency as Currency);
   const transactionType = data.transactionType as TransactionType;
   const propertyType = data.propertyType as PropertyType;
+  const listingSource = data.listingSource as ListingSource;
   const status = data.status as PropertyStatus;
+
+  const mediaEntries = [
+    ...imageUrls.map((url) => ({ url, type: "IMAGE" as const })),
+    ...videoUrls.map((url) => ({ url, type: "VIDEO" as const })),
+  ];
 
   const { getPrisma } = await import("@regis/database");
   const prisma = await getPrisma();
@@ -152,6 +164,7 @@ export async function saveProperty(
             description: data.description,
             transactionType,
             propertyType,
+            listingSource,
             status,
             priceAmountMinor: BigInt(price.amountMinor),
             priceCurrency: price.currency,
@@ -169,11 +182,12 @@ export async function saveProperty(
           },
         });
         await tx.propertyMedia.deleteMany({ where: { propertyId: id } });
-        if (mediaUrls.length > 0) {
+        if (mediaEntries.length > 0) {
           await tx.propertyMedia.createMany({
-            data: mediaUrls.map((url, index) => ({
+            data: mediaEntries.map((entry, index) => ({
               propertyId: id,
-              url,
+              url: entry.url,
+              type: entry.type,
               alt: data.title,
               displayOrder: index,
             })),
@@ -193,6 +207,7 @@ export async function saveProperty(
             description: data.description,
             transactionType,
             propertyType,
+            listingSource,
             status,
             priceAmountMinor: BigInt(price.amountMinor),
             priceCurrency: price.currency,
@@ -209,11 +224,12 @@ export async function saveProperty(
             publishedAt: resolvePublishedAt(status, null),
           },
         });
-        if (mediaUrls.length > 0) {
+        if (mediaEntries.length > 0) {
           await tx.propertyMedia.createMany({
-            data: mediaUrls.map((url, index) => ({
+            data: mediaEntries.map((entry, index) => ({
               propertyId: created.id,
-              url,
+              url: entry.url,
+              type: entry.type,
               alt: data.title,
               displayOrder: index,
             })),

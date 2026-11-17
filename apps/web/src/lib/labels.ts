@@ -3,6 +3,7 @@ import type {
   AppointmentStatus,
   LeadSource,
   LeadStatus,
+  ListingSource,
   PropertyStatus,
   PropertyType,
   RequestType,
@@ -14,6 +15,11 @@ import type {
 export const transactionLabels: Record<TransactionType, string> = {
   SALE: "Venda",
   RENT: "Arrendamento",
+};
+
+export const listingSourceLabels: Record<ListingSource, string> = {
+  PROFESSIONAL: "Profissional",
+  PRIVATE: "Particular",
 };
 
 export const requestTypeLabels: Record<RequestType, string> = {
@@ -51,6 +57,16 @@ export const propertyTypeLabels: Record<PropertyType, string> = {
   OFFICE: "Escritório",
   WAREHOUSE: "Armazém",
 };
+
+/** Tipologia options: value is the minimum bedroom count (T0 = studio). */
+export const TIPOLOGIA_OPTIONS = [
+  { value: "T0", label: "T0", minBedrooms: 0 },
+  { value: "T1", label: "T1", minBedrooms: 1 },
+  { value: "T2", label: "T2", minBedrooms: 2 },
+  { value: "T3", label: "T3", minBedrooms: 3 },
+  { value: "T4", label: "T4", minBedrooms: 4 },
+  { value: "T5", label: "T5+", minBedrooms: 5 },
+] as const;
 
 export function formatArea(areaM2: number | null | undefined): string | null {
   if (!areaM2) return null;
