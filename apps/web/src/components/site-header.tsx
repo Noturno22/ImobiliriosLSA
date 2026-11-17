@@ -68,8 +68,8 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
             <Image
               src="/brand/logo-v.jpg"
               alt=""
-            width={1498}
-            height={935}
+              width={1000}
+              height={222}
             priority
             className="h-14 w-auto sm:h-20"
           />

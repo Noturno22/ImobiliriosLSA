@@ -13,8 +13,8 @@ export function SiteFooter() {
       <Image
         src="/brand/logo-v.jpg"
         alt="Regis Properties"
-            width={1498}
-            height={935}
+            width={1000}
+            height={222}
             className="h-16 w-auto sm:h-24"
           />
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">
