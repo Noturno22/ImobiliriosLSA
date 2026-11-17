@@ -11,10 +11,10 @@ export function SiteFooter() {
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
       <Image
-        src="/brand/logo-v.jpg"
+        src="/brand/logo.png"
         alt="Regis Properties"
-            width={1000}
-            height={222}
+            width={1498}
+            height={935}
             className="h-16 w-auto sm:h-24"
           />
           <p className="mt-2 max-w-sm text-sm leading-relaxed text-ink-muted">

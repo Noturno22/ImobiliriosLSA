@@ -9,10 +9,10 @@ export default function Loading() {
     >
       <div className="flex flex-col items-center">
         <Image
-          src="/brand/logo-v.jpg"
+          src="/brand/logo-v.png"
           alt=""
-          width={1000}
-          height={222}
+          width={2172}
+          height={724}
           priority
           className="sr-load-logo h-20 w-auto sm:h-24"
         />
