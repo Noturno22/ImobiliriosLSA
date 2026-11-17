@@ -11,8 +11,8 @@ export default function Loading() {
         <Image
           src="/brand/logo-v.png"
           alt=""
-          width={2172}
-          height={724}
+          width={2143}
+          height={464}
           priority
           className="sr-load-logo h-20 w-auto sm:h-24"
         />

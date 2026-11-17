@@ -22,8 +22,8 @@ export default async function AdminLoginPage() {
           <Image
             src="/brand/logo-v.png"
             alt="Regis Properties"
-            width={2172}
-            height={724}
+            width={2143}
+            height={464}
             className="h-14 w-auto"
           />
         </div>

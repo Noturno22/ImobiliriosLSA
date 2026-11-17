@@ -63,15 +63,15 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
         Saltar para o conteúdo
       </a>
 
-      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-24 max-w-7xl items-center justify-between gap-4 px-4 sm:h-28 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center" aria-label="Regis Properties — início">
             <Image
               src="/brand/logo-v.png"
               alt=""
-              width={2172}
-              height={724}
+              width={2143}
+              height={464}
             priority
-            className="h-12 w-auto sm:h-16"
+            className="h-16 w-auto sm:h-20"
           />
         </Link>
 
