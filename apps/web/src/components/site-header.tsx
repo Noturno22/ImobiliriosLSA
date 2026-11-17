@@ -71,7 +71,7 @@ export function SiteHeader({ overlay = false }: { overlay?: boolean }) {
               width={2172}
               height={724}
             priority
-            className="h-8 w-auto sm:h-10"
+            className="h-12 w-auto sm:h-16"
           />
         </Link>
 
